@@ -23,7 +23,7 @@ export function Navbar() {
       <div className="mx-auto max-w-[1320px] px-3 sm:px-4 laptop:px-6">
         <div className="relative">
           <Image
-            src="/background/navbar-bg.png"
+            src="/background/navbar-bg.svg"
             alt=""
             width={1320}
             height={90}
@@ -36,11 +36,11 @@ export function Navbar() {
             {/* Logo */}
             <Link href="/" aria-label="ChildbookAI Home">
               <Image
-                src="/images/logo.png"
+                src="/images/logo.svg"
                 alt="ChildbookAI"
                 width={96}
                 height={38}
-                className="w-[36px] sm:w-[64px] md:w-[90px] laptop:w-[110px] desktop:w-[120px]"
+                className="w-[36px] sm:w-[64px] md:w-[96px] laptop:w-[110px] desktop:w-[120px]"
                 priority
               />
             </Link>
