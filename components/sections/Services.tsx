@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { DecorativeText } from "@/components/typography/DecorativeText";
 
 interface ServiceCard {
   id: number;
@@ -6,10 +7,6 @@ interface ServiceCard {
   title: string;
   description: string;
 }
-
-const Blue2 = () => (
-  <Image src="/illustrations/blue-2.svg" alt="" width={56} height={56} aria-hidden />
-);
 
 const services: ServiceCard[] = [
   {
@@ -44,9 +41,8 @@ const services: ServiceCard[] = [
 
 export function Services() {
   return (
-    <section className="relative w-full py-20 min-h-[500px]">
-      {/* Services Background */}
-      <div className="absolute inset-0 z-0">
+    <section className="relative w-full py-20 min-h-[500px] mt-4">
+      <div className="absolute inset-0 z-0 scale-105">
         <Image
           src="/background/services-bg.svg"
           alt=""
@@ -58,19 +54,22 @@ export function Services() {
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
-          <h1 className="text-display">
-            <span className="inline-flex items-baseline text-foreground">
-              We&nbsp;
-              <span className="inline-flex items-center">
-                <Blue2 />
-              </span>
-              <span className="text-primary">ffer</span>
+        <div className="text-center">
+          <h1 className="text-heading-xl">
+            <span className="inline-flex items-baseline">
+              <span className="text-foreground">We&nbsp;</span>
+              <DecorativeText
+                text="offer"
+                replace={[
+                  { pattern: "o", variant: "blue2", occurrence: 1, size: { width: 50, height: 50 } }
+                ]}
+                className="text-primary"
+              />
             </span>
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 py-12">
           {services.map((service) => (
             <div
               key={service.id}
@@ -85,7 +84,7 @@ export function Services() {
                 />
               </div>
 
-              <h3 className="text-heading-sm font-bold text-foreground">
+              <h3 className="text-heading-md font-bold text-foreground mb-4 max-w-[275px] mx-auto">
                 {service.title}
               </h3>
 

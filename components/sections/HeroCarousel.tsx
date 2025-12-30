@@ -3,17 +3,9 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AppButton } from "@/components/shared/AppButton";
-
-const Sparkle = () => (
-  <Image src="/illustrations/sparkle.png" alt="" width={24} height={24} aria-hidden />
-);
-
-const Blue1 = () => (
-  <Image src="/illustrations/blue-1.svg" alt="" width={40} height={40} aria-hidden />
-);
-const Blue2 = () => (
-  <Image src="/illustrations/blue-2.svg" alt="" width={40} height={40} aria-hidden />
-);
+import { Sparkle } from "@/components/shared/Sparkle";
+import { DecorativeText } from "@/components/typography/DecorativeText";
+import styles from "./HeroCarousel.module.css";
 
 const slides = [
   {
@@ -54,8 +46,8 @@ export function HeroCarousel() {
   }, []);
 
   return (
-    <div className="relative w-full h-[640px]">
-      <div className="masked-carousel relative w-full h-full">
+    <div className="relative w-full">
+      <div className={`${styles.maskedCarousel} relative w-full`}>
         {/* Background Image */}
         <Image
           src={slides[active].src}
@@ -63,27 +55,28 @@ export function HeroCarousel() {
           fill
           className="object-cover"
           priority
+          sizes="100vw"
         />
 
         {/* Content Overlay */}
         <div className="absolute inset-0 z-10">
-          <div className=" absolute top-1/2 left-[140px] -translate-y-[56%] max-w-[620px]">
-            <h1 className="text-display text-primary mb-10 leading-tight">
+          <div className="absolute top-1/2 left-4 sm:left-8 md:left-[140px] -translate-y-[56%] max-w-[620px] px-4 sm:px-0 w-[calc(100%-2rem)] sm:w-auto">
+            <h1 className="text-display text-primary mb-6 sm:mb-10 leading-tight text-4xl sm:text-5xl md:text-display">
               <span className="block">
-                <span className="inline-flex items-baseline gap-[2px]">
-                  Bec
-                  <span className="inline-flex">
-                    <Blue1 />
-                  </span>
-                  me the
-                </span>
+                <DecorativeText
+                  text="Become the"
+                  replace={[{ pattern: "o", variant: "blue1", occurrence: 1 }]}
+                  className="inline-flex items-baseline gap-[2px]"
+                />
               </span>
               <span className="block">
                 <span className="inline-flex items-baseline gap-2">
-                  her
-                  <span className="inline-flex">
-                    <Blue2 />
-                  </span>
+                  <DecorativeText
+                    text="hero"
+                    replace={[
+                      { pattern: "o", variant: "blue2", occurrence: 1 },
+                    ]}
+                  />
                   <span className="text-white">of your own</span>
                 </span>
               </span>
@@ -103,7 +96,7 @@ export function HeroCarousel() {
         </div>
 
         {/* Navigation Dots */}
-        <div className="absolute left-[140px] top-1/2 translate-y-[200px] z-10 flex items-center gap-3">
+        <div className="absolute left-4 sm:left-8 md:left-[140px] top-1/2 translate-y-[200px] z-10 flex items-center gap-3">
           {slides.map((_, index) => (
             <button
               key={index}

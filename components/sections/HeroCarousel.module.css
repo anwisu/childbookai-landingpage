@@ -1,0 +1,32 @@
+.maskedCarousel {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  height: 50vh;
+  max-height: 640px;
+
+  -webkit-mask-image: url("/illustrations/carousel-mask_1.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-position: center;
+
+  mask-image: url("/illustrations/carousel-mask_1.svg");
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+  mask-position: center;
+
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .maskedCarousel {
+    height: 60vh;
+    min-height: 500px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .maskedCarousel {
+    height: 640px;
+  }
+}

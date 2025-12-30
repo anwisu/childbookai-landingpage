@@ -13,6 +13,7 @@ type AppButtonProps = Omit<
   iconOnly?: boolean;
   leading?: React.ReactNode;
   trailing?: React.ReactNode;
+  shadow?: boolean;
 };
 
 const variantStyles = {
@@ -40,19 +41,42 @@ const sizeStyles = {
 
 const heroSize = "w-[295px] h-[65px] flex items-center justify-center";
 
+// Shadow styles for different variants
+const getShadowStyles = (variant: "primary" | "secondary" | "ghost" | "hero", shadow: boolean, disabled: boolean) => {
+  if (!shadow) {
+    return "shadow-none hover:shadow-none active:shadow-none focus-visible:shadow-none disabled:hover:shadow-none disabled:active:shadow-none disabled:focus-visible:shadow-none hover:translate-y-0 active:translate-y-0 focus-visible:translate-y-0 disabled:hover:translate-y-0 disabled:active:translate-y-0 disabled:focus-visible:translate-y-0";
+  }
+
+  if (disabled) {
+    return "shadow-[0_5px_0_var(--grey-disabled-shadow)] disabled:hover:shadow-[0_5px_0_var(--grey-disabled-shadow)] disabled:active:shadow-[0_5px_0_var(--grey-disabled-shadow)] disabled:focus-visible:shadow-[0_5px_0_var(--grey-disabled-shadow)]";
+  }
+
+  if (variant === "hero") {
+    return "";
+  }
+
+  if (variant === "secondary") {
+    return "shadow-[0_5px_0_#99AAAB] hover:translate-y-[1px] hover:shadow-[0_4px_0_#99AAAB] focus-visible:translate-y-[1px] focus-visible:shadow-[0_4px_0_#99AAAB] active:translate-y-[3px] active:shadow-[0_3px_0_#99AAAB]";
+  }
+
+  return "shadow-[0_5px_0_var(--button-shadow)] hover:translate-y-[1px] hover:shadow-[0_4px_0_var(--button-shadow)] focus-visible:translate-y-[1px] focus-visible:shadow-[0_4px_0_var(--button-shadow)] active:translate-y-[3px] active:shadow-[0_3px_0_var(--button-shadow)]";
+};
 
 export function AppButton({
   variant = "primary",
   size = "md",
   loading = false,
-  iconOnly = false,
+  // iconOnly = false,
   leading,
   trailing,
   disabled,
+  shadow,
   className,
   children,
   ...props
 }: AppButtonProps) {
+  const hasShadow = shadow !== undefined ? shadow : variant === "hero";
+  
   return (
     <Button
       disabled={disabled || loading}
@@ -60,6 +84,7 @@ export function AppButton({
         "transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         variant === "hero" ? heroSize : sizeStyles[size],
         variantStyles[variant],
+        getShadowStyles(variant, hasShadow, disabled || loading),
         className
       )}
       {...props}
