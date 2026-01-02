@@ -60,7 +60,7 @@ export function HeroCarousel() {
 
         {/* Content Overlay */}
         <div className="absolute inset-0 z-10">
-          <div className="absolute top-1/2 left-4 sm:left-8 md:left-[140px] -translate-y-[56%] max-w-[620px] px-4 sm:px-0 w-[calc(100%-2rem)] sm:w-auto overflow-hidden">
+          <div className="absolute top-1/2 left-4 sm:left-8 md:left-[140px] -translate-y-[56%] max-w-[620px] px-4 sm:px-0 w-[calc(100%-2rem)] py-2 sm:w-auto overflow-hidden">
             <h1 className="text-display text-primary mb-6 sm:mb-10 leading-tight text-4xl sm:text-5xl md:text-display">
               <span className="block">
                 <DecorativeText
