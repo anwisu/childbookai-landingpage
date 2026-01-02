@@ -34,7 +34,10 @@ export function Pricing() {
       </div>
 
       {/* Decorative Elements - Behind Cards */}
-      <div className="absolute inset-0 pointer-events-none overflow-visible" style={{ zIndex: 5 }}>
+      <div
+        className="absolute inset-0 pointer-events-none overflow-visible"
+        style={{ zIndex: 5 }}
+      >
         {activeTab === "individual" ? (
           <>
             {/* Money Bag - Upper Right */}
@@ -49,12 +52,12 @@ export function Pricing() {
             </div>
 
             {/* Coins - Bottom Left */}
-            <div className="absolute bottom-8 left-8">
+            <div className="absolute bottom-16 left-12">
               <Image
                 src="/illustrations/coins.svg"
                 alt=""
-                width={270}
-                height={270}
+                width={220}
+                height={220}
                 className="object-contain"
               />
             </div>
@@ -93,9 +96,7 @@ export function Pricing() {
             <span className="inline-flex items-baseline">
               <DecorativeText
                 text="Customers"
-                replace={[
-                  { pattern: "o", variant: "blue1", occurrence: 1 }
-                ]}
+                replace={[{ pattern: "o", variant: "blue1", occurrence: 1 }]}
                 className="text-primary"
               />
               <span className="text-foreground ml-2">Pricing</span>
@@ -104,7 +105,10 @@ export function Pricing() {
 
           {/* Tab Buttons and Yearly Toggle */}
           <div className="flex items-center justify-center gap-4">
-            <ButtonGroup orientation="horizontal" className="rounded-md border-2 border-blue-800">
+            <ButtonGroup
+              orientation="horizontal"
+              className="rounded-md border-2 border-blue-800"
+            >
               <Button
                 onClick={() => setActiveTab("individual")}
                 className={cn(

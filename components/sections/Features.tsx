@@ -5,7 +5,7 @@ import Image from "next/image";
 export function Features() {
   return (
     <section
-      className="relative w-full overflow-hidden py-32"
+      className="relative w-full overflow-hidden py-32 -top-[150px]"
       style={{ aspectRatio: "1440/1061" }}
     >
       <svg

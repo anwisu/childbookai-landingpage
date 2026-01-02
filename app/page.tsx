@@ -5,6 +5,7 @@ import { CreateABook } from "@/components/sections/CreateABook";
 import { Steps } from "@/components/sections/Steps";
 import { Pricing } from "@/components/sections/Pricing";
 import { Features } from "@/components/sections/Features";
+import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
   return (
@@ -21,7 +22,15 @@ export default function Home() {
       <div className="relative w-full min-h-screen bg-blue-800 -top-4">
         <Steps />
         <Pricing />
+      </div>
+      <div
+        className="relative w-full bg-cover bg-center bg-fixed mt-24"
+        style={{
+          backgroundImage: "url('/background/footer-bg.svg')",
+        }}
+      >
         <Features />
+        <Footer />
       </div>
     </main>
   );
