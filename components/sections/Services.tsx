@@ -21,7 +21,12 @@ export function Services() {
               <DecorativeText
                 text="offer"
                 replace={[
-                  { pattern: "o", variant: "blue2", occurrence: 1, size: { width: 40, height: 40 } }
+                  {
+                    pattern: "o",
+                    variant: "blue2",
+                    occurrence: 1,
+                    size: { width: 40, height: 40 },
+                  },
                 ]}
                 className="text-primary"
               />
@@ -29,13 +34,13 @@ export function Services() {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 py-8 sm:py-10 md:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 pb-8 sm:pb-10 md:pb-12">
           {services.map((service) => (
             <div
               key={service.id}
               className="flex flex-col items-center text-center"
             >
-              <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 mb-6 sm:mb-8">
+              <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 mb-4 sm:mb-6">
                 <Image
                   src={service.image}
                   alt={service.title}
@@ -43,6 +48,63 @@ export function Services() {
                   className="object-contain"
                   sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, 256px"
                 />
+
+                {/* Ellipse decorations based on column */}
+                {service.id === 1 && (
+                  <div className="absolute -bottom-8 -right-2 -rotate-24 flex items-center justify-center pointer-events-none">
+                    <Image
+                      src="/illustrations/Ellipse 4.svg"
+                      alt=""
+                      width={56}
+                      height={100}
+                      className="object-contain"
+                    />
+                  </div>
+                )}
+                {service.id === 2 && (
+                  <>
+                    <div className="absolute -bottom-4 -left-2 rotate-18 flex items-center justify-center pointer-events-none">
+                      <Image
+                        src="/illustrations/Ellipse 5.svg"
+                        alt=""
+                        width={30}
+                        height={66}
+                        className="object-contain"
+                      />
+                    </div>
+                    <div className="absolute -bottom-16 -right-6 rotate-18 flex items-center justify-center pointer-events-none">
+                      <Image
+                        src="/illustrations/Ellipse 6.svg"
+                        alt=""
+                        width={110}
+                        height={86}
+                        className="object-contain"
+                      />
+                    </div>
+                  </>
+                )}
+                {service.id === 3 && (
+                  <div className="absolute -bottom-10 flex items-center justify-center pointer-events-none">
+                    <Image
+                      src="/illustrations/Ellipse 7.svg"
+                      alt=""
+                      width={150}
+                      height={54}
+                      className="object-contain"
+                    />
+                  </div>
+                )}
+                {service.id === 4 && (
+                  <div className="absolute -bottom-14 -right-4 -rotate-10 flex items-center justify-center pointer-events-none">
+                    <Image
+                      src="/illustrations/Ellipse 8.svg"
+                      alt=""
+                      width={140}
+                      height={56}
+                      className="object-contain"
+                    />
+                  </div>
+                )}
               </div>
 
               <h3 className="text-heading-md font-bold text-foreground mb-3 sm:mb-4 max-w-[300x]">
