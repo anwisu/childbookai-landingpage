@@ -3,12 +3,19 @@ import styles from "./Sections.module.css";
 import { steps } from "@/lib/data/steps";
 import { IMAGE_DIMENSIONS, SPACING } from "@/lib/constants";
 import { DecorativeGlyph } from "@/components/typography/DecorativeGlyph";
+import { HeadingText } from "../typography/heading-text";
 
 export function Steps() {
   return (
     <section className="relative w-full py-12 sm:py-16 md:py-20 lg:py-24 mt-12 sm:mt-20 md:mt-28 lg:mt-36 min-h-[400px] sm:min-h-[500px]">
       {/* Dashed lines background - full screen width */}
-      <div className="absolute left-0 right-0 hidden lg:flex items-center justify-center pointer-events-none z-0" style={{ top: '52%', transform: `translateY(-${SPACING.STEP_COLUMN_OFFSET})` }}>
+      <div
+        className="absolute left-0 right-0 hidden lg:flex items-center justify-center pointer-events-none z-0"
+        style={{
+          top: "52%",
+          transform: `translateY(-${SPACING.STEP_COLUMN_OFFSET})`,
+        }}
+      >
         <Image
           src="/background/combined-stroke.svg"
           alt=""
@@ -21,34 +28,32 @@ export function Steps() {
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8 sm:mb-10 md:mb-12">
-          {/* Semantic headline */}
-          <h1 className="sr-only">Creating Your Magical Story in a Easy as 1-2-3</h1>
-
-          {/* Visual headline */}
-          <h1 aria-hidden="true" className="text-heading-xl max-w-5xl mx-auto">
-            <span className="inline-flex items-baseline flex-wrap justify-center gap-1">
-              <span className="text-white">
-                Creating Y
-                <DecorativeGlyph
-                  variant="white1"
-                  sizeClassName="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8"
-                />
-                ur&nbsp;
-                <span className="text-primary inline-flex items-baseline">
-                  Magical St
-                  <DecorativeGlyph
-                    variant="blue2"
-                    sizeClassName="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8"
-                  />
-                  ry&nbsp;
-                </span>
-                <br className="hidden sm:block" />
-                <span className="sm:hidden">&nbsp;</span>
-                in a Easy as 1-2-3
-              </span>
-            </span>
-          </h1>
+        <div className="text-center mb-8 sm:mb-10 md:mb-12 max-w-[800px] mx-auto">
+          <HeadingText
+            variant="h1"
+            title="Creating Your Magical Story in a Easy as 1-2-3"
+            className="font-bold "
+            glyphs={[
+              {
+                word: "Your",
+                position: 1,
+                variant: "white1",
+              },
+              {
+                word: "Story",
+                position: 2,
+                variant: "blue2",
+              },
+            ]}
+            coloredPhrases={[
+              {
+                text: "Magical Story",
+                color: "text-primary",
+              },
+            ]}
+            defaultTextColor="text-white"
+            glyphSizeClassName="w-[0.6em] h-[0.6em] sm:w-[0.5em] sm:h-[0.5m] md:w-[0.6em] md:h-[0.6em]"
+          />
         </div>
 
         <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 md:gap-12 py-8 sm:py-10 md:py-12">
@@ -59,11 +64,13 @@ export function Steps() {
                 step.id === 2 ? styles.stepColumnOffset : ""
               }`}
             >
-              <div className={`relative mb-4 sm:mb-6 ${
-                step.id === 2 
-                  ? "w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80" 
-                  : "w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64"
-              }`}>
+              <div
+                className={`relative mb-4 sm:mb-6 ${
+                  step.id === 2
+                    ? "w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80"
+                    : "w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64"
+                }`}
+              >
                 <Image
                   src={step.image}
                   alt={step.title}

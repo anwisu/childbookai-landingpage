@@ -80,7 +80,7 @@ export function Features() {
             ))}
           </div>
 
-          <div className="flex items-center justify-center order-2 lg:order-none my-6 lg:my-0">
+          <div className="flex items-center justify-center order-2 lg:order-0 my-6 lg:my-0">
             <Image
               src="/images/book-illustration.svg"
               alt="Book Illustration"
@@ -91,7 +91,7 @@ export function Features() {
             />
           </div>
 
-          <div className="space-y-6 sm:space-y-8 order-3 lg:order-none">
+          <div className="space-y-6 sm:space-y-8 order-3 lg:order-0">
             {features.slice(3).map((feature) => (
               <div key={feature.id} className="text-left">
                 <Image

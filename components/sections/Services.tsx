@@ -2,10 +2,11 @@ import Image from "next/image";
 import { DecorativeGlyph } from "@/components/typography/DecorativeGlyph";
 import { services } from "@/lib/data/services";
 import { BackgroundShape } from "@/components/shared/BackgroundShape";
+import { HeadingText } from "../typography/heading-text";
 
 export function Services() {
   return (
-    <section className="relative w-full py-12 sm:py-16 md:py-20 lg:py-24 min-h-[400px] sm:min-h-[500px]">
+    <section className="relative w-full overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24">
       <BackgroundShape
         viewBox="0 0 1440 734"
         path="M0 80.0009C0 34.8076 37.4087 -1.41418 82.5785 0.0424697L1362.58 41.3203C1405.74 42.712 1440 78.0997 1440 121.279V600.643C1440 643.531 1406.18 678.789 1363.33 680.574L83.3304 733.907C37.8803 735.801 0 699.466 0 653.977V80.0009Z"
@@ -15,22 +16,26 @@ export function Services() {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 sm:mb-8 md:mb-10">
-          {/* Semantic headline */}
-          <h1 className="sr-only">We offer</h1>
-
-          {/* Visual headline */}
-          <h1 aria-hidden="true" className="text-heading-xl">
-            <span className="inline-flex items-baseline flex-wrap justify-center gap-1">
-              <span className="text-foreground">We&nbsp;</span>
-              <span className="inline-flex items-baseline text-primary">
-                <DecorativeGlyph
-                  variant="blue2"
-                  sizeClassName="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
-                />
-                <span>ffer</span>
-              </span>
-            </span>
-          </h1>
+          <HeadingText
+            variant="h1"
+            title="We offer"
+            className="font-bold "
+            glyphs={[
+              {
+                word: "Offer",
+                position: 0,
+                variant: "blue2",
+              },
+            ]}
+            coloredPhrases={[
+              {
+                text: "Offer",
+                color: "text-primary",
+              },
+            ]}
+            defaultTextColor="text-foreground"
+            glyphSizeClassName="w-[0.9em] h-[0.9em] sm:w-[0.8em] sm:h-[0.8m] md:w-[0.9em] md:h-[0.9em]"
+          />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 pb-8 sm:pb-10 md:pb-12">

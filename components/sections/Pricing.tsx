@@ -11,6 +11,7 @@ import { IndividualPricing } from "./IndividualPricing";
 import { BusinessPricing } from "./BusinessPricing";
 import { IMAGE_DIMENSIONS, Z_INDEX } from "@/lib/constants";
 import { BackgroundShape } from "@/components/shared/BackgroundShape";
+import { HeadingText } from "../typography/heading-text";
 
 export function Pricing() {
   const [activeTab, setActiveTab] = useState<"individual" | "business">(
@@ -21,11 +22,11 @@ export function Pricing() {
   return (
     <section className="relative w-full py-24 min-h-[500px] overflow-visible">
       <BackgroundShape
-          viewBox="0 0 1440 1200"
+        viewBox="0 0 1440 1200"
         path="M1440 80.0008C1440 34.8075 1402.59 -1.41424 1357.42 0.0424087L77.4214 41.3202C34.2648 42.7119 0 78.0997 0 121.279V948.643C0 991.531 33.8195 1026.79 76.6696 1028.57L1356.67 1081.91C1402.12 1083.8 1440 1047.47 1440 1001.98V80.0008Z"
-            fill="white"
+        fill="white"
         className="overflow-visible"
-          />
+      />
 
       {/* Decorative Elements - Behind Cards */}
       <div
@@ -90,23 +91,26 @@ export function Pricing() {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
         <div className="text-center mb-8 sm:mb-10 md:mb-12">
-          {/* Semantic headline */}
-          <h1 className="sr-only">Customers Pricing</h1>
-
-          {/* Visual headline */}
-          <h1 aria-hidden="true" className="text-heading-xl max-w-5xl mx-auto mb-6 sm:mb-8">
-            <span className="inline-flex items-baseline flex-wrap justify-center gap-1 sm:gap-2">
-              <span className="text-primary inline-flex items-baseline">
-                Cust
-                <DecorativeGlyph
-                  variant="blue1"
-                  sizeClassName="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8"
-                />
-                mers
-              </span>
-              <span className="text-foreground">Pricing</span>
-            </span>
-          </h1>
+          <HeadingText
+            variant="h1"
+            title="Customers Pricing"
+            className="font-bold "
+            glyphs={[
+              {
+                word: "Customers",
+                position: 4,
+                variant: "blue1",
+              },
+            ]}
+            coloredPhrases={[
+              {
+                text: "Customers",
+                color: "text-primary",
+              },
+            ]}
+            defaultTextColor="text-foreground"
+            glyphSizeClassName="w-[0.6em] h-[0.6em] sm:w-[0.5em] sm:h-[0.5m] md:w-[0.6em] md:h-[0.6em] mb-8 sm:mb-10 md:mb-12"
+          />
 
           {/* Tab Buttons and Yearly Toggle */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">

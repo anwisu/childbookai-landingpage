@@ -117,7 +117,7 @@ export function IndividualPricing({ isYearly }: IndividualPricingProps) {
                         return (
                           <li
                             key={index}
-                            className={`flex items-start text-body text-foreground ${
+                            className={`flex items-start text-body-sm text-foreground ${
                               isLast ? "pt-2 pb-4" : "py-2"
                             }`}
                           >
