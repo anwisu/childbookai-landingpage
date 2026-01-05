@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DecorativeText } from "@/components/typography/DecorativeText";
+import { DecorativeGlyph } from "@/components/typography/DecorativeGlyph";
 import { cn } from "@/lib/utils";
 import { IndividualPricing } from "./IndividualPricing";
 import { BusinessPricing } from "./BusinessPricing";
@@ -90,13 +90,20 @@ export function Pricing() {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
         <div className="text-center mb-8 sm:mb-10 md:mb-12">
-          <h1 className="text-heading-xl max-w-5xl mx-auto mb-6 sm:mb-8">
+          {/* Semantic headline */}
+          <h1 className="sr-only">Customers Pricing</h1>
+
+          {/* Visual headline */}
+          <h1 aria-hidden="true" className="text-heading-xl max-w-5xl mx-auto mb-6 sm:mb-8">
             <span className="inline-flex items-baseline flex-wrap justify-center gap-1 sm:gap-2">
-              <DecorativeText
-                text="Customers"
-                replace={[{ pattern: "o", variant: "blue1", occurrence: 1 }]}
-                className="text-primary"
-              />
+              <span className="text-primary inline-flex items-baseline">
+                Cust
+                <DecorativeGlyph
+                  variant="blue1"
+                  sizeClassName="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8"
+                />
+                mers
+              </span>
               <span className="text-foreground">Pricing</span>
             </span>
           </h1>

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { features } from "@/lib/data/features";
+import { DecorativeGlyph } from "@/components/typography/DecorativeGlyph";
 
 export function Features() {
   return (
@@ -25,10 +26,31 @@ export function Features() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
         <div className="text-center mb-8 sm:mb-10 md:mb-12">
-          <h1 className="text-heading-xl max-w-5xl mx-auto mt-4 sm:mt-6 md:mt-8">
+          {/* Semantic headline */}
+          <h1 className="sr-only">
+            Create Your Own Ai Generated Children&apos;s Book!
+          </h1>
+
+          {/* Visual headline */}
+          <h1
+            aria-hidden="true"
+            className="text-heading-xl max-w-5xl mx-auto mt-4 sm:mt-6 md:mt-8"
+          >
             <span className="inline-flex items-baseline flex-wrap justify-center gap-1 sm:gap-2">
               <span className="text-foreground">Create</span>
-              <span className="text-primary">Your Own Ai</span>
+              <span className="text-primary inline-flex items-baseline">
+                Y
+                <DecorativeGlyph
+                  variant="blue1"
+                  sizeClassName="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8"
+                />
+                ur&nbsp;
+                <DecorativeGlyph
+                  variant="blue2"
+                  sizeClassName="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
+                />
+                wn Ai
+              </span>
             </span>
           </h1>
           <h1 className="text-heading-xl max-w-5xl mx-auto mb-4 sm:mb-6 md:mb-8">
@@ -53,9 +75,7 @@ export function Features() {
                 <h3 className="text-heading-sm font-semibold mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-body-sm">
-                  {feature.description}
-                </p>
+                <p className="text-body-sm">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -85,9 +105,7 @@ export function Features() {
                 <h3 className="text-heading-sm font-semibold mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-body-sm">
-                  {feature.description}
-                </p>
+                <p className="text-body-sm">{feature.description}</p>
               </div>
             ))}
           </div>

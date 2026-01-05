@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "./Sections.module.css";
 import { steps } from "@/lib/data/steps";
 import { IMAGE_DIMENSIONS, SPACING } from "@/lib/constants";
+import { DecorativeGlyph } from "@/components/typography/DecorativeGlyph";
 
 export function Steps() {
   return (
@@ -21,11 +22,27 @@ export function Steps() {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 sm:mb-10 md:mb-12">
-          <h1 className="text-heading-xl max-w-5xl mx-auto">
+          {/* Semantic headline */}
+          <h1 className="sr-only">Creating Your Magical Story in a Easy as 1-2-3</h1>
+
+          {/* Visual headline */}
+          <h1 aria-hidden="true" className="text-heading-xl max-w-5xl mx-auto">
             <span className="inline-flex items-baseline flex-wrap justify-center gap-1">
               <span className="text-white">
-                Creating Your&nbsp;
-                <span className="text-primary">Magical Story&nbsp;</span>
+                Creating Y
+                <DecorativeGlyph
+                  variant="white1"
+                  sizeClassName="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8"
+                />
+                ur&nbsp;
+                <span className="text-primary inline-flex items-baseline">
+                  Magical St
+                  <DecorativeGlyph
+                    variant="blue2"
+                    sizeClassName="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8"
+                  />
+                  ry&nbsp;
+                </span>
                 <br className="hidden sm:block" />
                 <span className="sm:hidden">&nbsp;</span>
                 in a Easy as 1-2-3

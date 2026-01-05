@@ -4,6 +4,7 @@ import { settings } from "@/lib/data/settings";
 import { kids } from "@/lib/data/kids";
 import { IMAGE_DIMENSIONS, ASPECT_RATIOS, SCALE } from "@/lib/constants";
 import { BackgroundShape } from "@/components/shared/BackgroundShape";
+import { DecorativeGlyph } from "@/components/typography/DecorativeGlyph";
 
 export function CreateABook() {
   return (
@@ -17,10 +18,25 @@ export function CreateABook() {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto pt-2 sm:pt-10 md:pt-12 lg:pt-16o">
         <div className="text-center mb-4 sm:mb-8">
-          <h1 className="text-heading-xl mb-4 sm:mb-5">
+          {/* Semantic headline */}
+          <h1 className="sr-only">Let&apos;s Create a Book</h1>
+
+          {/* Visual headline */}
+          <h1 aria-hidden="true" className="text-heading-xl mb-4 sm:mb-5">
             <span className="inline-flex items-baseline flex-wrap justify-center gap-1">
               <span className="text-primary">Let&apos;s Create&nbsp;</span>
-              <span className="text-foreground">a Book</span>
+              <span className="text-foreground inline-flex items-baseline">
+                a B
+                <DecorativeGlyph
+                  variant="black1"
+                  sizeClassName="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8"
+                />
+                <DecorativeGlyph
+                  variant="black1"
+                  sizeClassName="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8"
+                />
+                k
+              </span>
             </span>
           </h1>
           <p className="text-heading-sm text-foreground">

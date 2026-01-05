@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { DecorativeText } from "@/components/typography/DecorativeText";
+import { DecorativeGlyph } from "@/components/typography/DecorativeGlyph";
 import { services } from "@/lib/data/services";
 import { BackgroundShape } from "@/components/shared/BackgroundShape";
 
@@ -15,21 +15,20 @@ export function Services() {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4 sm:mb-8 md:mb-10">
-          <h1 className="text-heading-xl">
+          {/* Semantic headline */}
+          <h1 className="sr-only">We offer</h1>
+
+          {/* Visual headline */}
+          <h1 aria-hidden="true" className="text-heading-xl">
             <span className="inline-flex items-baseline flex-wrap justify-center gap-1">
               <span className="text-foreground">We&nbsp;</span>
-              <DecorativeText
-                text="offer"
-                replace={[
-                  {
-                    pattern: "o",
-                    variant: "blue2",
-                    occurrence: 1,
-                    size: { width: 40, height: 40 },
-                  },
-                ]}
-                className="text-primary"
-              />
+              <span className="inline-flex items-baseline text-primary">
+                <DecorativeGlyph
+                  variant="blue2"
+                  sizeClassName="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
+                />
+                <span>ffer</span>
+              </span>
             </span>
           </h1>
         </div>

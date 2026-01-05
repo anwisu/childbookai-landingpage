@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AppButton } from "@/components/shared/AppButton";
 import { Sparkle } from "@/components/shared/Sparkle";
-import { DecorativeText } from "@/components/typography/DecorativeText";
 import styles from "./Sections.module.css";
+import { DecorativeGlyph } from "@/components/typography/DecorativeGlyph";
 
 const slides = [
   {
@@ -58,38 +58,43 @@ export function HeroCarousel() {
           sizes="100vw"
         />
 
-        {/* Content Overlay */}
         <div className="absolute inset-0 z-10">
           <div className="absolute top-1/2 left-4 sm:left-6 md:left-8 lg:left-12 xl:left-[140px] -translate-y-[56%] max-w-[620px] px-4 sm:px-0 w-[calc(100%-2rem)] sm:w-auto py-2 overflow-hidden">
-            <h1 className="text-display text-primary mb-4 sm:mb-6 md:mb-8 lg:mb-10 leading-tight">
-              <span className="block">
-                <DecorativeText
-                  text="Become the"
-                  replace={[{ pattern: "o", variant: "blue1", occurrence: 1 }]}
-                  className="inline-flex items-baseline gap-[2px]"
+            {/* Semantic headline */}
+            <h1 className="sr-only">Become the hero of your own story</h1>
+
+            {/* Visual headline */}
+            <h1 aria-hidden="true" className="text-display leading-tight">
+              <span className="block text-primary">
+                Bec
+                <DecorativeGlyph
+                  variant="blue1"
+                  sizeClassName="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10"
                 />
+                me the
               </span>
+
               <span className="block">
-                <span className="inline-flex items-baseline gap-2">
-                  <DecorativeText
-                    text="hero"
-                    replace={[
-                      { pattern: "o", variant: "blue2", occurrence: 1 },
-                    ]}
+                <span className="inline-flex items-baseline text-primary">
+                  her
+                  <DecorativeGlyph
+                    variant="blue2"
+                    sizeClassName="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10"
                   />
-                  <span className="text-white">of your own</span>
                 </span>
+                <span className="text-white ml-4">of your own</span>
               </span>
 
               <span className="block text-white">story</span>
             </h1>
 
+            {/* CTA */}
             <AppButton
               variant="hero"
               size="lg"
               leading={<Sparkle />}
               trailing={<Sparkle />}
-              className="min-h-[44px] w-full sm:w-auto sm:min-w-[295px]"
+              className="min-h-[44px] w-full sm:w-auto sm:min-w-[295px] my-6 sm:my-8 md:my-10"
             >
               Create a Book
             </AppButton>
@@ -105,7 +110,11 @@ export function HeroCarousel() {
               aria-label={`Go to slide ${index + 1}`}
               className={`
                 transition-all duration-300 rounded-full touch-manipulation flex items-center justify-center
-                ${index === active ? "w-6 h-3 bg-primary" : "w-3 h-3 bg-primary/50"}
+                ${
+                  index === active
+                    ? "w-6 h-3 bg-primary"
+                    : "w-3 h-3 bg-primary/50"
+                }
               `}
             />
           ))}
