@@ -29,10 +29,7 @@ const variantStyles = {
 
 // Core size tokens based on Figma specs with responsive text sizing
 // Note: Shadows are applied conditionally via className - only on buttons that should have them
-const sizeStyles: Record<
-  NonNullable<AppButtonProps["size"]>,
-  string
-> = {
+const sizeStyles: Record<NonNullable<AppButtonProps["size"]>, string> = {
   sm: "h-[36px] px-3 text-xs rounded-[14px] sm:h-[40px] sm:px-6 sm:text-sm md:text-base",
   md: "h-[40px] px-4 text-xs rounded-[14px] sm:h-[45px] sm:px-8 sm:text-sm md:text-base lg:text-lg",
   lg: "h-[44px] px-6 text-sm rounded-2xl sm:h-[56px] sm:px-10 sm:text-base md:text-lg",
@@ -53,7 +50,19 @@ const sizeStyles: Record<
     "lg:h-[64px] lg:px-10 lg:rounded-2xl lg:text-2xl",
 } as const;
 
-// Shadow styles for different variants with responsive shadow sizes
+// Shadow styles - pre-defined static classes for Tailwind compatibility
+// Tailwind needs to see full class names at build time, so we use lookup objects
+const shadowStyles = {
+  // Regular buttons (sm, md, lg, xl)
+  primary: "shadow-[0_5px_0_#30A0A6] hover:translate-y-[1px] hover:shadow-[0_4px_0_#30A0A6] active:translate-y-[3px] active:shadow-[0_3px_0_#30A0A6] focus-visible:translate-y-[1px] focus-visible:shadow-[0_4px_0_#30A0A6]",
+  secondary: "shadow-[0_5px_0_#99AAAB] hover:translate-y-[1px] hover:shadow-[0_4px_0_#99AAAB] active:translate-y-[3px] active:shadow-[0_3px_0_#99AAAB] focus-visible:translate-y-[1px] focus-visible:shadow-[0_4px_0_#99AAAB]",
+  disabled: "shadow-[0_5px_0_#A6A6A6]",
+  // Large buttons (2xl, hero)
+  primaryLarge: "shadow-[0_6px_0_#30A0A6] hover:translate-y-[1px] hover:shadow-[0_4px_0_#30A0A6] active:translate-y-[3px] active:shadow-[0_3px_0_#30A0A6] focus-visible:translate-y-[1px] focus-visible:shadow-[0_4px_0_#30A0A6]",
+  secondaryLarge: "shadow-[0_6px_0_#99AAAB] hover:translate-y-[1px] hover:shadow-[0_4px_0_#99AAAB] active:translate-y-[3px] active:shadow-[0_3px_0_#99AAAB] focus-visible:translate-y-[1px] focus-visible:shadow-[0_4px_0_#99AAAB]",
+  disabledLarge: "shadow-[0_6px_0_#A6A6A6]",
+} as const;
+
 const getShadowStyles = (
   variant: "primary" | "secondary" | "ghost",
   shadow: boolean,
@@ -61,24 +70,21 @@ const getShadowStyles = (
   size: NonNullable<AppButtonProps["size"]>
 ) => {
   if (!shadow) {
-    return "shadow-none hover:shadow-none active:shadow-none focus-visible:shadow-none disabled:hover:shadow-none disabled:active:shadow-none disabled:focus-visible:shadow-none hover:translate-y-0 active:translate-y-0 focus-visible:translate-y-0 disabled:hover:translate-y-0 disabled:active:translate-y-0 disabled:focus-visible:translate-y-0";
+    return "";
   }
 
   if (disabled) {
-    return "shadow-[0_5px_0_var(--grey-disabled-shadow)] disabled:hover:shadow-[0_5px_0_var(--grey-disabled-shadow)] disabled:active:shadow-[0_5px_0_var(--grey-disabled-shadow)] disabled:focus-visible:shadow-[0_5px_0_var(--grey-disabled-shadow)]";
+    const isLarge = size === "2xl" || size === "hero";
+    return isLarge ? shadowStyles.disabledLarge : shadowStyles.disabled;
   }
 
-  // Larger shadow for 2xl size (hero-style buttons)
-  const isLargeButton = size === "2xl";
-  const shadowBase = isLargeButton ? "6px" : "5px";
-  const shadowHover = isLargeButton ? "7px" : "4px";
-  const shadowActive = isLargeButton ? "5px" : "3px";
-
+  const isLarge = size === "2xl" || size === "hero";
+  
   if (variant === "secondary") {
-    return `shadow-[0_${shadowBase}_0_#99AAAB] hover:translate-y-[1px] hover:shadow-[0_${shadowHover}_0_#99AAAB] focus-visible:translate-y-[1px] focus-visible:shadow-[0_${shadowHover}_0_#99AAAB] active:translate-y-[3px] active:shadow-[0_${shadowActive}_0_#99AAAB]`;
+    return isLarge ? shadowStyles.secondaryLarge : shadowStyles.secondary;
   }
 
-  return `shadow-[0_${shadowBase}_0_var(--button-shadow)] hover:translate-y-[1px] hover:shadow-[0_${shadowHover}_0_var(--button-shadow)] focus-visible:translate-y-[1px] focus-visible:shadow-[0_${shadowHover}_0_var(--button-shadow)] active:translate-y-[3px] active:shadow-[0_${shadowActive}_0_var(--button-shadow)]`;
+  return isLarge ? shadowStyles.primaryLarge : shadowStyles.primary;
 };
 
 export function AppButton({

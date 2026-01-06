@@ -63,8 +63,8 @@ export function HeroCarousel() {
             className="object-cover"
             sizes="100vw"
           />
-          <div className="absolute inset-0 z-10 flex items-center pt-4 sm:pt-0">
-            <div className=" w-full max-w-[620px] p-2 sm:p-4 md:p-6 lg:p-6 ml-6 sm:ml-8 md:ml-10 lg:ml-16 xl:ml-[100px]">
+          <div className="absolute inset-0 z-10 flex items-center pt-4 sm:pt-0 overflow-visible">
+            <div className=" w-full max-w-[620px] p-2 sm:p-4 md:p-6 lg:p-6 ml-6 sm:ml-8 md:ml-10 lg:ml-16 xl:ml-[100px] overflow-visible">
               <HeadingText
                 title="Become the hero of your own story"
                 variant="display"
@@ -91,20 +91,22 @@ export function HeroCarousel() {
                 glyphSizeClassName="w-[0.5em] h-[0.5em] sm:w-[0.5em] sm:h-[0.5em] md:w-[0.6em] md:h-[0.6em]"
                 endl={["hero of your own", "story"]}
               />
-              <AppButton
-                variant="primary"
-                size="hero"
-                shadow
-                withSparkles
-                className="mt-2 sm:mt-4"
-              >
-                Create a Book
-              </AppButton>
+              <div className="overflow-visible pb-2 sm:pb-3">
+                <AppButton
+                  variant="primary"
+                  size="hero"
+                  shadow
+                  withSparkles
+                  className="mt-2 sm:mt-4"
+                >
+                  Create a Book
+                </AppButton>
+              </div>
             </div>
           </div>
 
           {/* Navigation Dots */}
-          <div className="absolute left-8 sm:left-12 md:left-16 lg:left-22 xl:left-[120px] top-1/2 translate-y-[50px] sm:translate-y-[110px] md:translate-y-[140px] lg:translate-y-[180px] xl:translate-y-[210px] z-10 flex items-center gap-2 sm:gap-3 max-w-full overflow-hidden">
+          <div className="absolute left-8 sm:left-12 md:left-16 lg:left-22 xl:left-[120px] top-1/2 translate-y-[66px] sm:translate-y-[110px] md:translate-y-[140px] lg:translate-y-[180px] xl:translate-y-[210px] z-10 flex items-center gap-2 sm:gap-3 max-w-full overflow-hidden">
             {slides.map((_, index) => (
               <button
                 key={index}

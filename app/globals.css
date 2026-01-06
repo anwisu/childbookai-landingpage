@@ -269,7 +269,7 @@
   @media (min-width: 768px) {
     .text-display-responsive {
       font-size: 52px;
-      line-height: 46px;
+      line-height: 52px;
     }
   }
 
@@ -328,4 +328,12 @@
     letter-spacing: var(--text-body-sm-letter-spacing);
     font-weight: var(--text-body-sm-weight);
   }
+
+  .text-cta {
+    font-size: var(--text-cta-size);
+    line-height: var(--text-cta-line-height);
+    letter-spacing: var(--text-cta-letter-spacing);
+    font-weight: var(--text-cta-weight);
+  }
 }
+
