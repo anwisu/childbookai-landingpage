@@ -4,8 +4,7 @@ import { settings } from "@/lib/data/settings";
 import { kids } from "@/lib/data/kids";
 import { IMAGE_DIMENSIONS, ASPECT_RATIOS, SCALE } from "@/lib/constants";
 import { BackgroundShape } from "@/components/shared/BackgroundShape";
-import { DecorativeGlyph } from "@/components/typography/DecorativeGlyph";
-import HeadingText from "../typography/heading-text";
+import HeadingText from "../typography/HeadingText";
 
 export function CreateABook() {
   return (

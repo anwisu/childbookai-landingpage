@@ -2,8 +2,7 @@ import Image from "next/image";
 import styles from "./Sections.module.css";
 import { steps } from "@/lib/data/steps";
 import { IMAGE_DIMENSIONS, SPACING } from "@/lib/constants";
-import { DecorativeGlyph } from "@/components/typography/DecorativeGlyph";
-import { HeadingText } from "../typography/heading-text";
+import { HeadingText } from "../typography/HeadingText";
 
 export function Steps() {
   return (

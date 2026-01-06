@@ -5,13 +5,12 @@ import Image from "next/image";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DecorativeGlyph } from "@/components/typography/DecorativeGlyph";
 import { cn } from "@/lib/utils";
 import { IndividualPricing } from "./IndividualPricing";
 import { BusinessPricing } from "./BusinessPricing";
 import { IMAGE_DIMENSIONS, Z_INDEX } from "@/lib/constants";
 import { BackgroundShape } from "@/components/shared/BackgroundShape";
-import { HeadingText } from "../typography/heading-text";
+import { HeadingText } from "../typography/HeadingText";
 
 export function Pricing() {
   const [activeTab, setActiveTab] = useState<"individual" | "business">(

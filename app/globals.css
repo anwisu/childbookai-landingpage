@@ -252,6 +252,41 @@
     font-weight: var(--text-display-weight);
   }
 
+  .text-display-responsive {
+    font-size: 24px;
+    line-height: 20px;
+    letter-spacing: var(--text-display-letter-spacing);
+    font-weight: var(--text-display-weight);
+  }
+
+  @media (min-width: 640px) {
+    .text-display-responsive {
+      font-size: 40px;
+      line-height: 36px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .text-display-responsive {
+      font-size: 52px;
+      line-height: 46px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .text-display-responsive {
+      font-size: 70px;
+      line-height: 61px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .text-display-responsive {
+      font-size: var(--text-display-size);
+      line-height: var(--text-display-line-height);
+    }
+  }
+
   .text-heading-xl {
     font-size: var(--text-heading-xl-size);
     line-height: var(--text-heading-xl-line-height);
@@ -294,11 +329,6 @@
     font-weight: var(--text-body-sm-weight);
   }
 
-  .text-cta {
-    font-size: var(--text-cta-size);
-    line-height: var(--text-cta-line-height);
-    letter-spacing: var(--text-cta-letter-spacing);
-    font-weight: var(--text-cta-weight);
   }
 }
 

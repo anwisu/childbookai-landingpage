@@ -1,8 +1,7 @@
 import Image from "next/image";
-import { DecorativeGlyph } from "@/components/typography/DecorativeGlyph";
 import { services } from "@/lib/data/services";
 import { BackgroundShape } from "@/components/shared/BackgroundShape";
-import { HeadingText } from "../typography/heading-text";
+import { HeadingText } from "../typography/HeadingText";
 
 export function Services() {
   return (

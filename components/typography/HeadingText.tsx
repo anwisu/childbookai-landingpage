@@ -38,7 +38,7 @@ export type HeadingTextProps = {
   /** Size classes for glyphs. Supports responsive classes (e.g., "w-[0.5em] h-[0.5em] sm:w-[0.6em] sm:h-[0.6em]") */
   glyphSizeClassName?: string;
   /** Typography variant with responsive sizing. Overrides className for font size if provided */
-  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'blockquote' | 'text';
+  variant?: 'display' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'blockquote' | 'text';
   /** Additional className for the heading element. Supports responsive classes */
   className?: string;
   /** HTML element to render as */
@@ -62,6 +62,7 @@ type TextSegment = {
  * Base sizes optimized for small screens, scaling up on larger breakpoints
  */
 const variantClasses: Record<NonNullable<HeadingTextProps['variant']>, string> = {
+  display: 'text-display-responsive',
   h1: 'text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl',
   h2: 'text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl',
   h3: 'text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl',

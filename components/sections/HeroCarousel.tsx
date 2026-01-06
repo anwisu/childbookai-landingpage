@@ -3,9 +3,8 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AppButton } from "@/components/shared/AppButton";
-import { Sparkle } from "@/components/shared/Sparkle";
-import styles from "./Sections.module.css";
-import { DecorativeGlyph } from "@/components/typography/DecorativeGlyph";
+import { CarouselMask } from "@/components/shared/CarouselMask";
+import HeadingText from "../typography/HeadingText";
 
 const slides = [
   {
@@ -47,77 +46,81 @@ export function HeroCarousel() {
 
   return (
     <div className="relative w-full">
-      <div className={`${styles.maskedCarousel} relative w-full`}>
-        {/* Background Image */}
-        <Image
-          src={slides[active].src}
-          alt={slides[active].alt}
-          fill
-          className="object-cover"
-          priority
-          sizes="100vw"
-        />
+      {/* Ratio-controlled hero frame */}
+      <div className="relative w-full aspect-1264/629 max-h-[640px] mx-auto">
+        <CarouselMask />
 
-        <div className="absolute inset-0 z-10">
-          <div className="absolute top-1/2 left-4 sm:left-6 md:left-8 lg:left-12 xl:left-[140px] -translate-y-[56%] max-w-[620px] px-4 sm:px-0 w-[calc(100%-2rem)] sm:w-auto py-2 overflow-hidden">
-            {/* Semantic headline */}
-            <h1 className="sr-only">Become the hero of your own story</h1>
-
-            {/* Visual headline */}
-            <h1 aria-hidden="true" className="text-display leading-tight">
-              <span className="block text-primary">
-                Bec
-                <DecorativeGlyph
-                  variant="blue1"
-                  sizeClassName="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10"
-                />
-                me the
-              </span>
-
-              <span className="block">
-                <span className="inline-flex items-baseline text-primary">
-                  her
-                  <DecorativeGlyph
-                    variant="blue2"
-                    sizeClassName="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10"
-                  />
-                </span>
-                <span className="text-white ml-4">of your own</span>
-              </span>
-
-              <span className="block text-white">story</span>
-            </h1>
-
-            {/* CTA */}
-            <AppButton
-              variant="hero"
-              size="lg"
-              leading={<Sparkle />}
-              trailing={<Sparkle />}
-              className="min-h-[44px] w-full sm:w-auto sm:min-w-[295px] my-6 sm:my-8 md:my-10"
-            >
-              Create a Book
-            </AppButton>
+        {/* Masked image layer */}
+        <div
+          className="absolute inset-0 overflow-hidden"
+          style={{ clipPath: "url(#carouselMask)" }}
+        >
+          <Image
+            src={slides[active].src}
+            alt={slides[active].alt}
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 z-10 flex items-center pt-4 sm:pt-0">
+            <div className=" w-full max-w-[620px] p-2 sm:p-4 md:p-6 lg:p-6 ml-6 sm:ml-8 md:ml-10 lg:ml-16 xl:ml-[100px]">
+              <HeadingText
+                title="Become the hero of your own story"
+                variant="display"
+                className="font-bold"
+                glyphs={[
+                  {
+                    word: "Become",
+                    position: 3,
+                  },
+                  {
+                    word: "hero",
+                    position: 3,
+                    variant: "blue2",
+                  },
+                ]}
+                coloredPhrases={[
+                  {
+                    text: "Become the hero",
+                    color: "text-primary",
+                  },
+                ]}
+                defaultTextColor="text-white"
+                defaultGlyphVariant="blue1"
+                glyphSizeClassName="w-[0.5em] h-[0.5em] sm:w-[0.5em] sm:h-[0.5em] md:w-[0.6em] md:h-[0.6em]"
+                endl={["hero of your own", "story"]}
+              />
+              <AppButton
+                variant="primary"
+                size="hero"
+                shadow
+                withSparkles
+                className="mt-2 sm:mt-4"
+              >
+                Create a Book
+              </AppButton>
+            </div>
           </div>
-        </div>
 
-        {/* Navigation Dots */}
-        <div className="absolute left-4 sm:left-6 md:left-8 lg:left-12 xl:left-[140px] top-1/2 translate-y-[180px] sm:translate-y-[200px] z-10 flex items-center gap-2 sm:gap-3 max-w-full overflow-hidden">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setActive(index)}
-              aria-label={`Go to slide ${index + 1}`}
-              className={`
+          {/* Navigation Dots */}
+          <div className="absolute left-8 sm:left-12 md:left-16 lg:left-22 xl:left-[120px] top-1/2 translate-y-[50px] sm:translate-y-[110px] md:translate-y-[140px] lg:translate-y-[180px] xl:translate-y-[210px] z-10 flex items-center gap-2 sm:gap-3 max-w-full overflow-hidden">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActive(index)}
+                aria-label={`Go to slide ${index + 1}`}
+                className={`
                 transition-all duration-300 rounded-full touch-manipulation flex items-center justify-center
                 ${
                   index === active
-                    ? "w-6 h-3 bg-primary"
-                    : "w-3 h-3 bg-primary/50"
+                    ? "w-4 h-1 sm:w-5 sm:h-2 md:w-6 md:h-3 lg:w-6 lg:h-3 bg-primary"
+                    : "w-1 h-1 sm:w-2 sm:h-2 md:w-3 md:h-3 lg:w-3 lg:h-3 bg-primary/50"
                 }
               `}
-            />
-          ))}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
