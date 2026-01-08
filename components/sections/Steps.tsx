@@ -65,6 +65,54 @@ export function Steps() {
                 step.id === 3 ? "md:col-span-2 md:justify-self-center lg:col-span-1" : ""
               }`}
             >
+              {step.id === 1 && (
+                <div className="absolute lg:-left-8 xl:-left-28 lg:top-[32%] xl:top-[30%] z-10 pointer-events-none hidden lg:block">
+                  <Image
+                    src="/illustrations/blue-2.svg"
+                    alt=""
+                    width={40}
+                    height={40}
+                    className=" lg:w-12 lg:h-12 xl:w-14 xl:h-14"
+                    style={{ objectFit: "contain" }}
+                  />
+                </div>
+              )}
+              {step.id === 1 && (
+                <div className="absolute lg:-right-18 xl:-right-16 lg:top-[40%] xl:top-[38%] z-10 pointer-events-none hidden lg:block">
+                  <Image
+                    src="/illustrations/blue-2.svg"
+                    alt=""
+                    width={40}
+                    height={40}
+                    className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
+                    style={{ objectFit: "contain" }}
+                  />
+                </div>
+              )}
+              {step.id === 3 && (
+                <div className="absolute lg:-left-20 xl:-left-32 lg:top-[22%] xl:top-[20%] z-10 pointer-events-none hidden lg:block">
+                  <Image
+                    src="/illustrations/white-1.svg"
+                    alt=""
+                    width={35}
+                    height={35}
+                    className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
+                    style={{ objectFit: "contain" }}
+                  />
+                </div>
+              )}
+              {step.id === 3 && (
+                <div className="absolute lg:-right-4 xl:-right-22 lg:top-[32%] xl:top-[30%] z-10 pointer-events-none hidden lg:block">
+                  <Image
+                    src="/illustrations/white-2.svg"
+                    alt=""
+                    width={60}
+                    height={60}
+                    className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
+                    style={{ objectFit: "contain" }}
+                  />
+                </div>
+              )}
               <div
                 className={`relative mb-4 sm:mb-6 ${
                   step.id === 2
