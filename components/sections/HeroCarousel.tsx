@@ -4,7 +4,9 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AppButton } from "@/components/shared/AppButton";
 import { CarouselMask } from "@/components/shared/CarouselMask";
+import { DecorativeElements } from "@/components/shared/DecorativeElement";
 import HeadingText from "../typography/HeadingText";
+import { heroCarouselDecorations } from "@/lib/data/heroCarousel";
 
 const slides = [
   {
@@ -104,6 +106,9 @@ export function HeroCarousel() {
               </div>
             </div>
           </div>
+
+          {/* Decorative Elements */}
+          <DecorativeElements decorations={heroCarouselDecorations} />
 
           {/* Navigation Dots */}
           <div className="absolute hidden sm:inline-flex left-8 sm:left-12 md:left-16 lg:left-22 xl:left-[120px] top-1/2 translate-y-[66px] sm:translate-y-[110px] md:translate-y-[140px] lg:translate-y-[180px] xl:translate-y-[210px] z-10 items-center gap-2 sm:gap-3 max-w-full overflow-hidden">
