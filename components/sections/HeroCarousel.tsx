@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, memo } from "react";
 import type { KeyboardEvent } from "react";
 import { AppButton } from "@/components/shared/AppButton";
 import { CarouselMask } from "@/components/shared/CarouselMask";
@@ -9,6 +9,7 @@ import { DecorativeElements } from "@/components/shared/DecorativeElement";
 import HeadingText from "../typography/HeadingText";
 import { heroCarouselDecorations } from "@/lib/data/heroCarousel";
 
+// Move slides outside component to prevent recreation on each render
 const slides = [
   {
     id: 1,
@@ -34,42 +35,53 @@ const slides = [
     alt: "Child reading a book",
     title: "Become the hero of your own story",
   },
-];
+] as const;
 
-export function HeroCarousel() {
+function HeroCarousel() {
   const [active, setActive] = useState(0);
 
-  useEffect(() => {
-    const id = setInterval(
-      () => setActive((i) => (i + 1) % slides.length),
-      6000
-    );
-    return () => clearInterval(id);
+  // Memoize slide change handlers to prevent unnecessary re-renders
+  const goToSlide = useCallback((index: number) => {
+    setActive(index);
   }, []);
 
+  const nextSlide = useCallback(() => {
+    setActive((prev) => (prev + 1) % slides.length);
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setActive((prev) => (prev - 1 + slides.length) % slides.length);
+  }, []);
+
+  // Auto-play carousel
+  useEffect(() => {
+    const id = setInterval(nextSlide, 6000);
+    return () => clearInterval(id);
+  }, [nextSlide]);
+
   // Handle keyboard navigation for carousel
-  const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>, index: number) => {
+  const handleKeyDown = useCallback((e: KeyboardEvent<HTMLButtonElement>, index: number) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      setActive(index);
+      goToSlide(index);
     }
-  };
+  }, [goToSlide]);
 
   // Handle arrow key navigation
   useEffect(() => {
     const handleArrowKeys = (e: globalThis.KeyboardEvent) => {
       if (e.key === "ArrowLeft") {
         e.preventDefault();
-        setActive((prev) => (prev - 1 + slides.length) % slides.length);
+        prevSlide();
       } else if (e.key === "ArrowRight") {
         e.preventDefault();
-        setActive((prev) => (prev + 1) % slides.length);
+        nextSlide();
       }
     };
 
     window.addEventListener("keydown", handleArrowKeys);
     return () => window.removeEventListener("keydown", handleArrowKeys);
-  }, []);
+  }, [nextSlide, prevSlide]);
 
   return (
     <section 
@@ -95,6 +107,8 @@ export function HeroCarousel() {
             priority
             className="object-cover"
             sizes="100vw"
+            quality={85}
+            fetchPriority="high"
           />
           <div className="absolute inset-0 z-10 flex items-center pt-4 sm:pt-0 overflow-visible">
             <div className=" w-full max-w-[620px] p-2 sm:p-4 md:p-6 lg:p-6 ml-6 sm:ml-8 md:ml-10 lg:ml-16 xl:ml-[100px] overflow-visible">
@@ -150,7 +164,7 @@ export function HeroCarousel() {
             {slides.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setActive(index)}
+                onClick={() => goToSlide(index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 aria-label={`Go to slide ${index + 1} of ${slides.length}`}
                 aria-selected={index === active}
@@ -173,3 +187,10 @@ export function HeroCarousel() {
     </section>
   );
 }
+
+// Memoize component to prevent unnecessary re-renders
+const MemoizedHeroCarousel = memo(HeroCarousel);
+
+// Export both default and named for compatibility
+export { MemoizedHeroCarousel as HeroCarousel };
+export default MemoizedHeroCarousel;

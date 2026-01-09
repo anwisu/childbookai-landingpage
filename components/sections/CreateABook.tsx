@@ -133,6 +133,7 @@ export function CreateABook() {
                 className="object-contain absolute inset-0 w-full h-full"
                 style={{ transform: `scale(${SCALE.BOOK_MOCKUP})` }}
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 80vw, 50vw"
+                loading="eager"
               />
               {/* Inner icon at bottom left */}
               <div className="absolute -bottom-6 sm:-bottom-8 md:-bottom-12 left-0 z-10" aria-hidden="true">

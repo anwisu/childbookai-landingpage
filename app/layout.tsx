@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Baloo_2 } from "next/font/google";
 import "./globals.css";
-
 const baloo = Baloo_2({
   subsets: ["latin"],
   weight: ["500", "600", "700"],
   variable: "--font-baloo",
+  display: "swap", // Optimize font loading - show fallback until font loads
+  preload: true, // Preload critical font
 });
 
 export const metadata: Metadata = {

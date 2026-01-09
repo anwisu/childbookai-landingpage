@@ -37,6 +37,7 @@ export function Navbar() {
                 height={IMAGE_DIMENSIONS.LOGO.height}
                 className="w-[40px] sm:w-[54px] md:w-[64px] lg:w-[80px] xl:w-[96px] h-auto ml-2 md:ml-4"
                 priority
+                fetchPriority="high"
               />
             </Link>
 
