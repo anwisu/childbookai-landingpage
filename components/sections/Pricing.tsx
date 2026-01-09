@@ -41,7 +41,7 @@ export function Pricing() {
         {activeTab === "individual" ? (
           <>
             {/* Money Bag - Upper Right */}
-            <div className="absolute top-16 right-4 md:top-18 md:right-8 lg:top-8 lg:right-8">
+            <div className="absolute top-16 right-4 md:top-18 md:right-8 lg:top-8 lg:right-8" aria-hidden="true">
               <Image
                 src="/illustrations/money-bag.svg"
                 alt=""
@@ -49,11 +49,12 @@ export function Pricing() {
                 height={IMAGE_DIMENSIONS.MONEY_BAG.height}
                 className="object-contain w-32 h-32 sm:w-40 sm:h-40 lg:w-auto lg:h-auto"
                 sizes="(max-width: 768px) 128px, (max-width: 1024px) 160px, 280px"
+                aria-hidden="true"
               />
             </div>
 
             {/* Coins - Bottom Left */}
-            <div className="absolute bottom-12 left-6 md:bottom-2 md:-left-6 lg:bottom-16 lg:left-12">
+            <div className="absolute bottom-12 left-6 md:bottom-2 md:-left-6 lg:bottom-16 lg:left-12" aria-hidden="true">
               <Image
                 src="/illustrations/coins.svg"
                 alt=""
@@ -61,13 +62,14 @@ export function Pricing() {
                 height={IMAGE_DIMENSIONS.COINS.height}
                 className="object-contain w-24 h-24 sm:w-40 sm:h-40 lg:w-auto lg:h-auto"
                 sizes="(max-width: 768px) 96px, (max-width: 1024px) 128px, 220px"
+                aria-hidden="true"
               />
             </div>
           </>
         ) : (
           <>
             {/* Money Bag - Different position for business */}
-            <div className="absolute top-8 right-8 md:top-18 lg:top-16 md:right-12 lg:right-[100px] xl:right-[150px]">
+            <div className="absolute top-8 right-8 md:top-18 lg:top-16 md:right-12 lg:right-[100px] xl:right-[150px]" aria-hidden="true">
               <Image
                 src="/illustrations/money-bag.svg"
                 alt=""
@@ -75,11 +77,12 @@ export function Pricing() {
                 height={IMAGE_DIMENSIONS.MONEY_BAG_BUSINESS.height}
                 className="object-contain w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-auto lg:h-auto"
                 sizes="(max-width: 768px) 128px, (max-width: 1024px) 160px, 250px"
+                aria-hidden="true"
               />
             </div>
 
             {/* Coins - Different position for business */}
-            <div className="absolute bottom-4 left-0 lg:bottom-6 lg:left-[100px] xl:bottom-6 xl:left-[200px]">
+            <div className="absolute bottom-4 left-0 lg:bottom-6 lg:left-[100px] xl:bottom-6 xl:left-[200px]" aria-hidden="true">
               <Image
                 src="/illustrations/coins.svg"
                 alt=""
@@ -87,6 +90,7 @@ export function Pricing() {
                 height={IMAGE_DIMENSIONS.COINS_BUSINESS.height}
                 className="object-contain w-24 h-24 sm:w-48 sm:h-48 md:w-72 md:h-72 lg:w-auto lg:h-auto"
                 sizes="(max-width: 768px) 96px, (max-width: 1024px) 128px, 250px"
+                aria-hidden="true"
               />
             </div>
           </>
@@ -125,8 +129,12 @@ export function Pricing() {
             >
               <Button
                 onClick={() => setActiveTab("individual")}
+                role="tab"
+                aria-selected={activeTab === "individual"}
+                aria-controls="pricing-content"
+                id="tab-individual"
                 className={cn(
-                  "px-3 sm:px-4 md:px-5 py-2 sm:py-3 font-semibold text-sm sm:text-body transition-all rounded-l-sm rounded-r-none border-0 min-h-[40px] sm:min-h-[44px] touch-manipulation",
+                  "px-3 sm:px-4 md:px-5 py-2 sm:py-3 font-semibold text-sm sm:text-body transition-all rounded-l-sm rounded-r-none border-0 min-h-[40px] sm:min-h-[44px] touch-manipulation focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary",
                   activeTab === "individual"
                     ? "bg-blue-800 text-white hover:bg-blue-800"
                     : "bg-white text-foreground hover:bg-white"
@@ -136,8 +144,12 @@ export function Pricing() {
               </Button>
               <Button
                 onClick={() => setActiveTab("business")}
+                role="tab"
+                aria-selected={activeTab === "business"}
+                aria-controls="pricing-content"
+                id="tab-business"
                 className={cn(
-                  "px-3 sm:px-4 md:px-5 py-2 sm:py-3 font-semibold text-sm sm:text-body transition-all rounded-r-sm rounded-l-none border-0 min-h-[40px] sm:min-h-[44px] touch-manipulation",
+                  "px-3 sm:px-4 md:px-5 py-2 sm:py-3 font-semibold text-sm sm:text-body transition-all rounded-r-sm rounded-l-none border-0 min-h-[40px] sm:min-h-[44px] touch-manipulation focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary",
                   activeTab === "business"
                     ? "bg-blue-800 text-white hover:bg-blue-800"
                     : "bg-white text-foreground hover:bg-white"
@@ -150,12 +162,13 @@ export function Pricing() {
             {/* Yearly Checkbox */}
             <label
               className={cn(
-                "px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-md font-semibold text-sm sm:text-body transition-all border-2 border-blue-800 flex items-center gap-2 bg-white text-foreground cursor-pointer hover:bg-white min-h-[40px] sm:min-h-[44px] touch-manipulation justify-center"
+                "px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-md font-semibold text-sm sm:text-body transition-all border-2 border-blue-800 flex items-center gap-2 bg-white text-foreground cursor-pointer hover:bg-white min-h-[40px] sm:min-h-[44px] touch-manipulation justify-center focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary"
               )}
             >
               <Checkbox
                 checked={isYearly}
                 onCheckedChange={(checked) => setIsYearly(checked === true)}
+                aria-label="Toggle yearly pricing"
                 className="border-blue-800 data-[state=checked]:bg-blue-800 data-[state=checked]:border-blue-800 text-white min-h-[20px] min-w-[20px]"
               />
               <span>Yearly</span>
@@ -164,11 +177,18 @@ export function Pricing() {
         </div>
 
         {/* Render appropriate pricing component based on active tab */}
-        {activeTab === "individual" ? (
-          <IndividualPricing isYearly={isYearly} />
-        ) : (
-          <BusinessPricing isYearly={isYearly} />
-        )}
+        <div
+          id="pricing-content"
+          role="tabpanel"
+          aria-labelledby={activeTab === "individual" ? "tab-individual" : "tab-business"}
+          aria-live="polite"
+        >
+          {activeTab === "individual" ? (
+            <IndividualPricing isYearly={isYearly} />
+          ) : (
+            <BusinessPricing isYearly={isYearly} />
+          )}
+        </div>
       </div>
     </section>
   );

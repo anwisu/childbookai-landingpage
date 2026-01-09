@@ -25,7 +25,7 @@ export function CreateABook() {
 
       <div className="relative z-10 max-w-7xl mx-auto p-8 sm:p-10 md:p-12 lg:pt-16">
         <div className="mb-4 sm:mb-8">
-          <div className="absolute shrink-0 -top-4 right-12 sm:-top-7 lg:-top-16 sm:right-[80px] md:-top-9 md:right-[100px] lg:right-[160px] hidden min-[421px]:block">
+          <div className="absolute shrink-0 -top-4 right-12 sm:-top-7 lg:-top-16 sm:right-[80px] md:-top-9 md:right-[100px] lg:right-[160px] hidden min-[421px]:block" aria-hidden="true">
             <Image
               src="/illustrations/bookmark.svg"
               alt=""
@@ -34,6 +34,7 @@ export function CreateABook() {
               className="w-8 h-auto sm:w-10 md:w-12 lg:w-14 xl:w-16"
               style={{ objectFit: "contain" }}
               priority
+              aria-hidden="true"
             />
           </div>
           <div className="relative flex items-start justify-center gap-2 sm:gap-3 md:gap-4 mb-2">
@@ -134,14 +135,15 @@ export function CreateABook() {
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 80vw, 50vw"
               />
               {/* Inner icon at bottom left */}
-              <div className="absolute -bottom-6 sm:-bottom-8 md:-bottom-12 left-0 z-10">
+              <div className="absolute -bottom-6 sm:-bottom-8 md:-bottom-12 left-0 z-10" aria-hidden="true">
                 <Image
                   src="/illustrations/inner-icon.svg"
-                  alt="Inner"
+                  alt=""
                   width={85}
                   height={83}
                   className="w-12 h-auto sm:w-14 md:w-16 lg:w-[72px] xl:w-20"
                   style={{ objectFit: "contain" }}
+                  aria-hidden="true"
                 />
               </div>
             </div>
@@ -178,7 +180,10 @@ export function CreateABook() {
                   </div>
                 </button>
               ))}
-              <button className="relative flex items-center gap-4 sm:gap-5 cursor-pointer hover:opacity-80 transition-opacity min-h-[44px] touch-manipulation">
+              <button 
+                className="relative flex items-center gap-4 sm:gap-5 cursor-pointer hover:opacity-80 transition-opacity min-h-[44px] touch-manipulation focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary rounded-md"
+                aria-label="Sign up and use your photo"
+              >
                 <div className="relative flex-1 text-right lg:order-1">
                   <ParagraphText
                     as="span"
@@ -195,13 +200,14 @@ export function CreateABook() {
                     {`Sign Up and use\nyour photo`}
                   </ParagraphText>
                 </div>
-                <div className="absolute -bottom-6 md:-bottom-10 lg:-bottom-8 left-0 right-10 flex z-10 pointer-events-none">
+                <div className="absolute -bottom-6 md:-bottom-10 lg:-bottom-8 left-0 right-10 flex z-10 pointer-events-none" aria-hidden="true">
                   <Image
                     src="/illustrations/Ellipse 9.svg"
                     alt=""
                     width={180}
                     height={88}
                     className="w-28 h-auto sm:w-32 md:w-40 lg:w-36 xl:w-64"
+                    aria-hidden="true"
                   />
                 </div>
                 <div className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 shrink-0 lg:order-2">
@@ -247,6 +253,7 @@ export function CreateABook() {
             className="object-contain"
             priority
             sizes="100vw"
+            aria-hidden="true"
           />
         </div>
       </div>

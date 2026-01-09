@@ -6,17 +6,22 @@ interface DecorativeElementProps {
 }
 
 export function DecorativeElement({ decoration }: DecorativeElementProps) {
+  // Decorative images should have empty alt and aria-hidden
+  const isDecorative = !decoration.alt || decoration.alt.trim() === "";
+  
   return (
     <div
       className={`${decoration.className} ${decoration.responsive?.hidden || ""} ${decoration.responsive?.visible || ""}`}
+      aria-hidden={isDecorative ? "true" : undefined}
     >
       <Image
         src={decoration.src}
-        alt={decoration.alt}
+        alt={isDecorative ? "" : decoration.alt}
         width={decoration.width}
         height={decoration.height}
         className={decoration.sizeClassName}
         style={{ objectFit: "contain" }}
+        aria-hidden={isDecorative ? "true" : undefined}
       />
     </div>
   );

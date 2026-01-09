@@ -60,7 +60,7 @@ export const heroCarouselDecorations: Decoration[] = [
     width: 50,
     height: 50,
     className:
-      "absolute top-[25%] left-[55%] sm:top-[34%] sm:left-[38%] md:top-[36%] md:left-[36%] lg:top-[38%] lg:left-[40%] z-20 pointer-events-none",
+      "absolute top-[25%] left-[55%] sm:top-[37%] sm:left-[36%] md:top-[36%] md:left-[36%] lg:top-[38%] lg:left-[40%] z-20 pointer-events-none",
     sizeClassName: "w-8 h-auto sm:w-18 md:w-28 lg:w-32",
     responsive: { hidden: "hidden", visible: "sm:block" },
   },

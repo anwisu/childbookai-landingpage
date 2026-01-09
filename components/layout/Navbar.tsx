@@ -23,6 +23,7 @@ export function Navbar() {
             height={90}
             className="w-full h-auto"
             priority
+            aria-hidden="true"
           />
 
           {/* Navbar content */}
@@ -40,12 +41,12 @@ export function Navbar() {
             </Link>
 
             {/* Desktop Menu */}
-            <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
+            <nav className="hidden lg:flex items-center gap-4 xl:gap-6" aria-label="Main navigation">
               {navItems.map((item) => (
                 <Link
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className="text-heading-sm font-medium text-blue-1000 hover:text-blue-600 transition-colors px-2 py-1 min-h-[44px] flex items-center"
+                  className="text-heading-sm font-medium text-blue-1000 hover:text-blue-600 transition-colors px-2 py-1 min-h-[44px] flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary rounded-md"
                 >
                   {item}
                 </Link>
@@ -98,13 +99,13 @@ export function Navbar() {
             </button>
           </div>
 
-          <nav className="flex flex-col items-center gap-4 sm:gap-5 mt-6 sm:mt-8 px-4 sm:px-6 pb-8">
+          <nav className="flex flex-col items-center gap-4 sm:gap-5 mt-6 sm:mt-8 px-4 sm:px-6 pb-8" aria-label="Mobile navigation">
             {navItems.map((item) => (
               <Link
                 key={item}
                 href={`#${item.toLowerCase()}`}
                 onClick={() => setMenuOpen(false)}
-                className="text-base sm:text-lg font-semibold text-blue-1000 hover:text-blue-600 transition-colors min-h-[44px] flex items-center px-4 py-2 w-full justify-center"
+                className="text-base sm:text-lg font-semibold text-blue-1000 hover:text-blue-600 transition-colors min-h-[44px] flex items-center px-4 py-2 w-full justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary rounded-md"
               >
                 {item}
               </Link>

@@ -14,6 +14,7 @@ export function Steps() {
           top: "52%",
           transform: `translateY(-${SPACING.STEP_COLUMN_OFFSET})`,
         }}
+        aria-hidden="true"
       >
         <Image
           src="/background/combined-stroke.svg"
@@ -22,6 +23,7 @@ export function Steps() {
           height={IMAGE_DIMENSIONS.COMBINED_STROKE.height}
           className="w-full h-auto object-contain"
           sizes="100vw"
+          aria-hidden="true"
         />
       </div>
 
@@ -66,7 +68,7 @@ export function Steps() {
               }`}
             >
               {step.id === 1 && (
-                <div className="absolute lg:-left-8 xl:-left-28 lg:top-[32%] xl:top-[30%] z-10 pointer-events-none hidden lg:block">
+                <div className="absolute lg:-left-8 xl:-left-28 lg:top-[32%] xl:top-[30%] z-10 pointer-events-none hidden lg:block" aria-hidden="true">
                   <Image
                     src="/illustrations/blue-2.svg"
                     alt=""
@@ -74,11 +76,12 @@ export function Steps() {
                     height={40}
                     className=" lg:w-12 lg:h-12 xl:w-14 xl:h-14"
                     style={{ objectFit: "contain" }}
+                    aria-hidden="true"
                   />
                 </div>
               )}
               {step.id === 1 && (
-                <div className="absolute lg:-right-18 xl:-right-16 lg:top-[40%] xl:top-[38%] z-10 pointer-events-none hidden lg:block">
+                <div className="absolute lg:-right-18 xl:-right-16 lg:top-[40%] xl:top-[38%] z-10 pointer-events-none hidden lg:block" aria-hidden="true">
                   <Image
                     src="/illustrations/blue-2.svg"
                     alt=""
@@ -86,11 +89,12 @@ export function Steps() {
                     height={40}
                     className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
                     style={{ objectFit: "contain" }}
+                    aria-hidden="true"
                   />
                 </div>
               )}
               {step.id === 3 && (
-                <div className="absolute lg:-left-20 xl:-left-32 lg:top-[22%] xl:top-[20%] z-10 pointer-events-none hidden lg:block">
+                <div className="absolute lg:-left-20 xl:-left-32 lg:top-[22%] xl:top-[20%] z-10 pointer-events-none hidden lg:block" aria-hidden="true">
                   <Image
                     src="/illustrations/white-1.svg"
                     alt=""
@@ -98,11 +102,12 @@ export function Steps() {
                     height={35}
                     className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
                     style={{ objectFit: "contain" }}
+                    aria-hidden="true"
                   />
                 </div>
               )}
               {step.id === 3 && (
-                <div className="absolute lg:-right-4 xl:-right-22 lg:top-[32%] xl:top-[30%] z-10 pointer-events-none hidden lg:block">
+                <div className="absolute lg:-right-4 xl:-right-22 lg:top-[32%] xl:top-[30%] z-10 pointer-events-none hidden lg:block" aria-hidden="true">
                   <Image
                     src="/illustrations/white-2.svg"
                     alt=""
@@ -110,6 +115,7 @@ export function Steps() {
                     height={60}
                     className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
                     style={{ objectFit: "contain" }}
+                    aria-hidden="true"
                   />
                 </div>
               )}

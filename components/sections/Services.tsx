@@ -62,52 +62,62 @@ export function Services() {
 
                 {/* Ellipse decorations based on column */}
                 {service.id === 1 && (
-                  <div className="absolute -bottom-6 -right-4 sm:-bottom-8 sm:-right-2 lg:right-2 -rotate-24 flex items-center justify-center pointer-events-none">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                  <div className="absolute -bottom-6 -right-4 sm:-bottom-8 sm:-right-2 lg:right-2 -rotate-24 flex items-center justify-center pointer-events-none" aria-hidden="true">
+                    <Image
                       src="/illustrations/Ellipse 4.svg"
                       alt=""
+                      width={56}
+                      height={100}
                       className="w-10 h-16 sm:w-14 sm:h-24 md:w-[56px] md:h-[100px] object-contain"
+                      aria-hidden="true"
                     />
                   </div>
                 )}
                 {service.id === 2 && (
                   <>
-                    <div className="absolute -bottom-3 -left-4 sm:-bottom-6 sm:-left-2 lg:left-2 rotate-18 flex items-center justify-center pointer-events-none">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                    <div className="absolute -bottom-3 -left-4 sm:-bottom-6 sm:-left-2 lg:left-2 rotate-18 flex items-center justify-center pointer-events-none" aria-hidden="true">
+                      <Image
                         src="/illustrations/Ellipse 5.svg"
                         alt=""
+                        width={30}
+                        height={66}
                         className="w-6 h-12 sm:w-8 sm:h-16 md:w-[30px] md:h-[66px] object-contain"
+                        aria-hidden="true"
                       />
                     </div>
-                    <div className="absolute -bottom-6 -right-14 rotate-4 sm:-bottom-10 sm:-right-12 md:-bottom-8 md:-right-10 md:rotate-26 lg:-bottom-16 lg:-right-2 lg:rotate-18 flex items-center justify-center pointer-events-none">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                    <div className="absolute -bottom-6 -right-14 rotate-4 sm:-bottom-10 sm:-right-12 md:-bottom-8 md:-right-10 md:rotate-26 lg:-bottom-16 lg:-right-2 lg:rotate-18 flex items-center justify-center pointer-events-none" aria-hidden="true">
+                      <Image
                         src="/illustrations/Ellipse 6.svg"
                         alt=""
+                        width={110}
+                        height={86}
                         className="w-20 h-16 sm:w-24 sm:h-20 md:w-[110px] md:h-[86px] object-contain"
+                        aria-hidden="true"
                       />
                     </div>
                   </>
                 )}
                 {service.id === 3 && (
-                  <div className="absolute -bottom-8 -left-8 sm:-bottom-10 sm:-left-2 md:-left-4 lg:-bottom-12 lg:left-10 xl:-bottom-12 xl:left-4 flex items-center justify-center pointer-events-none">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                  <div className="absolute -bottom-8 -left-8 sm:-bottom-10 sm:-left-2 md:-left-4 lg:-bottom-12 lg:left-10 xl:-bottom-12 xl:left-4 flex items-center justify-center pointer-events-none" aria-hidden="true">
+                    <Image
                       src="/illustrations/Ellipse 7.svg"
                       alt=""
+                      width={145}
+                      height={54}
                       className="w-28 h-10 sm:w-36 sm:h-14 md:w-[145px] md:h-[54px] lg:w-[120px] lg:h-[54px] xl:w-[145px] xl:h-[54px] object-contain"
+                      aria-hidden="true"
                     />
                   </div>
                 )}
                 {service.id === 4 && (
-                  <div className="absolute -bottom-10 -right-4 sm:-bottom-12 sm:-right-8 md:-right-6 lg:-right-4 -rotate-10 flex items-center justify-center pointer-events-none">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                  <div className="absolute -bottom-10 -right-4 sm:-bottom-12 sm:-right-8 md:-right-6 lg:-right-4 -rotate-10 flex items-center justify-center pointer-events-none" aria-hidden="true">
+                    <Image
                       src="/illustrations/Ellipse 8.svg"
                       alt=""
+                      width={180}
+                      height={86}
                       className="sm:w-[180px] sm:h-[78px] md:w-[180px] md:h-[86px] lg:w-[180px] lg:h-[80px] xl:w-[180px] xl:h-[86px] object-contain"
+                      aria-hidden="true"
                     />
                   </div>
                 )}

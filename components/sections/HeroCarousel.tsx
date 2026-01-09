@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import type { KeyboardEvent } from "react";
 import { AppButton } from "@/components/shared/AppButton";
 import { CarouselMask } from "@/components/shared/CarouselMask";
 import { DecorativeElements } from "@/components/shared/DecorativeElement";
@@ -46,8 +47,36 @@ export function HeroCarousel() {
     return () => clearInterval(id);
   }, []);
 
+  // Handle keyboard navigation for carousel
+  const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setActive(index);
+    }
+  };
+
+  // Handle arrow key navigation
+  useEffect(() => {
+    const handleArrowKeys = (e: globalThis.KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        setActive((prev) => (prev - 1 + slides.length) % slides.length);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        setActive((prev) => (prev + 1) % slides.length);
+      }
+    };
+
+    window.addEventListener("keydown", handleArrowKeys);
+    return () => window.removeEventListener("keydown", handleArrowKeys);
+  }, []);
+
   return (
-    <div className="relative w-full">
+    <section 
+      className="relative w-full"
+      aria-label="Hero carousel"
+      role="region"
+    >
       {/* Ratio-controlled hero frame */}
       <div className="relative w-full aspect-1264/629 max-h-[640px] mx-auto">
         <CarouselMask />
@@ -56,10 +85,12 @@ export function HeroCarousel() {
         <div
           className="absolute inset-0 overflow-hidden"
           style={{ clipPath: "url(#carouselMask)" }}
+          aria-live="polite"
+          aria-atomic="true"
         >
           <Image
             src={slides[active].src}
-            alt={slides[active].alt}
+            alt={`${slides[active].alt} - Slide ${active + 1} of ${slides.length}`}
             fill
             priority
             className="object-cover"
@@ -111,14 +142,23 @@ export function HeroCarousel() {
           <DecorativeElements decorations={heroCarouselDecorations} />
 
           {/* Navigation Dots */}
-          <div className="absolute hidden sm:inline-flex left-8 sm:left-12 md:left-16 lg:left-22 xl:left-[120px] top-1/2 translate-y-[66px] sm:translate-y-[110px] md:translate-y-[140px] lg:translate-y-[180px] xl:translate-y-[210px] z-10 items-center gap-2 sm:gap-3 max-w-full overflow-hidden">
+          <div 
+            className="absolute hidden sm:inline-flex left-8 sm:left-12 md:left-16 lg:left-22 xl:left-[120px] top-1/2 translate-y-[66px] sm:translate-y-[110px] md:translate-y-[140px] lg:translate-y-[180px] xl:translate-y-[210px] z-10 items-center gap-2 sm:gap-3 max-w-full overflow-hidden"
+            role="tablist"
+            aria-label="Carousel navigation"
+          >
             {slides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setActive(index)}
-                aria-label={`Go to slide ${index + 1}`}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+                aria-label={`Go to slide ${index + 1} of ${slides.length}`}
+                aria-selected={index === active}
+                role="tab"
+                tabIndex={index === active ? 0 : -1}
                 className={`
                 transition-all duration-300 rounded-full touch-manipulation flex items-center justify-center
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary
                 ${
                   index === active
                     ? "w-4 h-1 sm:w-5 sm:h-2 md:w-6 md:h-3 lg:w-6 lg:h-3 bg-primary"
@@ -130,6 +170,6 @@ export function HeroCarousel() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
