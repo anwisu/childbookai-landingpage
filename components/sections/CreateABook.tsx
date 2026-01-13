@@ -109,7 +109,7 @@ export function CreateABook() {
         >
           {/* First Column - Setting */}
           <motion.div
-            className="flex flex-col justify-center mt-6 md:mt-0 items-center md:items-start order-2 sm:order-2 lg:order-1 overflow-visible relative z-10"
+            className="flex flex-col justify-center mt-6 md:mt-0 items-center md:items-start order-2 sm:order-2 lg:order-1 overflow-visible relative z-10 mx-auto sm:mx-0"
             variants={scrollRevealLeft}
           >
             <h2 className="text-heading-md text-foreground mb-4 sm:mb-6 text-center lg:text-left">
@@ -153,7 +153,7 @@ export function CreateABook() {
             className="flex flex-col items-center justify-center order-1 sm:order-1 lg:order-2 pb-8 mb-4 sm:mb-0 sm:col-span-2 lg:col-span-1 relative z-0"
             variants={scaleIn}
           >
-            <div className="relative w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-md xl:max-w-xl aspect-4/3 overflow-visible z-0">
+            <div className="relative w-full max-w-[300px] sm:max-w-md md:max-w-xl lg:max-w-md xl:max-w-xl aspect-4/3 overflow-visible z-0">
               <Image
                 src="/illustrations/Childrens_Book_Mockup_3.svg"
                 alt="Book Preview"
@@ -165,7 +165,10 @@ export function CreateABook() {
                 loading="eager"
               />
               {/* Inner icon at bottom left */}
-              <div className="absolute -bottom-6 sm:-bottom-8 md:-bottom-12 left-0 z-10" aria-hidden="true">
+              <div
+                className="absolute -bottom-6 sm:-bottom-8 md:-bottom-12 left-0 z-10"
+                aria-hidden="true"
+              >
                 <Image
                   src="/illustrations/inner-icon.svg"
                   alt=""
@@ -181,7 +184,7 @@ export function CreateABook() {
 
           {/* Third Column - Kid Photo */}
           <motion.div
-            className="flex flex-col justify-center mt-6 lg:mt-0 items-center md:items-end order-3 sm:order-2 lg:order-3 overflow-visible"
+            className="flex flex-col justify-center mt-6 lg:mt-0 items-center sm:items-center md:items-end order-3 sm:order-2 lg:order-3 overflow-visible mx-auto sm:mx-0"
             variants={scrollRevealRight}
           >
             <h2 className="text-heading-md text-foreground mb-4 sm:mb-6 text-center lg:text-right">
@@ -201,7 +204,7 @@ export function CreateABook() {
                   <ParagraphText
                     as="span"
                     variant="body-sm"
-                    className="text-foreground flex-1 text-center lg:text-right wrap-break-word lg:order-1"
+                    className="text-foreground flex-1 text-right wrap-break-word lg:order-1"
                     defaultTextColor="text-foreground"
                   >
                     {kid.name}
@@ -241,13 +244,16 @@ export function CreateABook() {
                     {`Sign Up and use\nyour photo`}
                   </ParagraphText>
                 </div>
-                <div className="absolute -bottom-6 md:-bottom-10 lg:-bottom-8 left-0 right-10 flex z-10 pointer-events-none" aria-hidden="true">
+                <div
+                  className="absolute -bottom-6 md:-bottom-10 lg:-bottom-8 right-14 flex z-10 pointer-events-none"
+                  aria-hidden="true"
+                >
                   <Image
                     src="/illustrations/Ellipse 9.svg"
                     alt=""
                     width={180}
                     height={88}
-                    className="w-28 h-auto sm:w-32 md:w-40 lg:w-36 xl:w-64"
+                    className="w-28 h-auto sm:w-32 md:w-34 lg:w-36 xl:w-64"
                     aria-hidden="true"
                   />
                 </div>

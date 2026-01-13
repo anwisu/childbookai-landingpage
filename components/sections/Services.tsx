@@ -128,13 +128,13 @@ export function Services() {
                   </div>
                 )}
                 {service.id === SERVICE_IDS.FOURTH && (
-                  <div className="absolute -bottom-10 -right-4 sm:-bottom-12 sm:-right-8 md:-right-6 lg:-right-4 -rotate-10 flex items-center justify-center pointer-events-none" aria-hidden="true">
+                  <div className="absolute -bottom-10 -right-6 sm:-bottom-12 sm:right-0 md:-right-6 lg:-right-2 xl:-right-6 -rotate-10 flex items-center justify-center pointer-events-none" aria-hidden="true">
                     <Image
                       src="/illustrations/Ellipse 8.svg"
                       alt=""
                       width={180}
                       height={86}
-                      className="sm:w-[180px] sm:h-[78px] md:w-[180px] md:h-[86px] lg:w-[180px] lg:h-[80px] xl:w-[180px] xl:h-[86px] object-contain"
+                      className="w-28 h-16 sm:w-32 sm:h-[78px] md:w-[180px] md:h-[86px] lg:w-[180px] lg:h-[80px] xl:w-[180px] xl:h-[86px] object-contain"
                       aria-hidden="true"
                     />
                   </div>

@@ -9,6 +9,7 @@ const config: Config = {
   theme: {
     screens: {
       mobile: "360px", // small phones and up
+      xs: "450px", // extra small breakpoint
       sm: "640px", // Tailwind default (small tablets)
       tablet: "768px", // tablets portrait/landscape
       md: "768px", // keep default alias
