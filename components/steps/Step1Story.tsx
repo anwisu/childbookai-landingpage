@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { HeadingText } from "../typography";
 import { RadioButton, RadioCard } from "../shared";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { AppButton } from "@/components/shared";
 import { HighlightableInput } from "../shared/HighlightableInput";
 
@@ -30,7 +29,8 @@ const storyOptions = [
   {
     id: "story-2",
     title: "Unlikely Friends",
-    description: "A brave little squirrel sets off on a magical journey to find the lost acorn of wisdom.",
+    description:
+      "A brave little squirrel sets off on a magical journey in Enchanted Forest to find the lost acorn of wisdom.",
   },
   {
     id: "story-3",
@@ -39,13 +39,42 @@ const storyOptions = [
   },
 ] as const;
 
-export default function Step1Story() {
-  const [selectedOption, setSelectedOption] = useState<string | null>("Friendship");
-  const [selectedStory, setSelectedStory] = useState<string | null>("story-2");
-  const [storyTitle, setStoryTitle] = useState("Unlikely Friends");
-  const [description, setDescription] = useState(
-    "A brave little squirrel sets off on a magical journey in Enchanted Forest to find the lost acorn of wisdom."
-  );
+type Theme = (typeof themes)[number];
+type StoryOption = (typeof storyOptions)[number];
+type StoryId = StoryOption["id"];
+
+const DEFAULT_THEME: Theme = "Friendship";
+const DEFAULT_STORY_ID: StoryId = "story-2";
+
+const getStoryById = (id: StoryId): StoryOption => {
+  const story = storyOptions.find((option) => option.id === id);
+  // Fallback to first story in case of data mismatch; should never happen in normal use.
+  return story ?? storyOptions[0];
+};
+
+type Step1StoryProps = {
+  onNext: () => void;
+};
+
+const Step1Story: React.FC<Step1StoryProps> = ({ onNext }) => {
+  const defaultStory = getStoryById(DEFAULT_STORY_ID);
+
+  const [selectedOption, setSelectedOption] = useState<Theme | "Custom Story">(DEFAULT_THEME);
+  const [selectedStory, setSelectedStory] = useState<StoryId | null>(defaultStory.id);
+  const [storyTitle, setStoryTitle] = useState<string>(defaultStory.title);
+  const [description, setDescription] = useState<string>(defaultStory.description);
+
+  const handleSelectStory = useCallback((story: StoryOption) => {
+    setSelectedStory(story.id);
+    setStoryTitle(story.title);
+    setDescription(story.description);
+  }, []);
+
+  const handleReroll = useCallback(() => {
+    const randomStory =
+      storyOptions[Math.floor(Math.random() * storyOptions.length)];
+    handleSelectStory(randomStory);
+  }, [handleSelectStory]);
 
   return (
     <div className="w-full flex flex-col items-center justify-center gap-6">
@@ -100,6 +129,7 @@ export default function Step1Story() {
           <button
             type="button"
             className="text-blue-800 hover:text-blue-600 transition-colors font-semibold text-sm"
+            onClick={handleReroll}
           >
             Reroll Options
           </button>
@@ -113,11 +143,7 @@ export default function Step1Story() {
               title={story.title}
               description={story.description}
               isSelected={selectedStory === story.id}
-              onClick={() => {
-                setSelectedStory(story.id);
-                setStoryTitle(story.title);
-                setDescription(story.description);
-              }}
+              onClick={() => handleSelectStory(story)}
               radius="lg"
               padding="md"
             />
@@ -145,7 +171,7 @@ export default function Step1Story() {
         <div>
           <HighlightableInput
             value={description}
-            onChange={setDescription}
+            onChange={(html) => setDescription(html)}
           />
         </div>
 
@@ -155,6 +181,7 @@ export default function Step1Story() {
             size="md"
             shadow
             className="w-full sm:w-auto sm:min-w-[190px] text-heading-sm min-h-[44px]"
+            onClick={onNext}
           >
             Next Step
           </AppButton>
@@ -162,4 +189,6 @@ export default function Step1Story() {
       </div>
     </div>
   );
-}
+};
+
+export default Step1Story;

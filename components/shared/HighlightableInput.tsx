@@ -147,7 +147,7 @@ export function HighlightableInput({
         contentEditable
         onInput={handleInput}
         onMouseUp={applyHighlight}
-        className="w-full min-h-[72px] bg-blue-100 border border-blue-800 rounded-md p-3 text-lg focus:outline-none"
+        className="w-full min-h-[72px] bg-blue-100 border border-blue-800 rounded-md p-3 text-md focus:outline-none"
         suppressContentEditableWarning
       />
 
