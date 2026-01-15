@@ -377,5 +377,42 @@
     font-weight: var(--text-body-sm-weight);
   }
 
+  /* Custom scrollbar styles - hidden when not in use, small when visible */
+  .custom-scrollbar {
+    scrollbar-width: thin; /* Firefox - thin scrollbar */
+    scrollbar-color: rgba(48, 160, 166, 0.3) transparent; /* Firefox - subtle when visible */
+  }
+
+  .custom-scrollbar:hover {
+    scrollbar-color: #30A0A6 transparent; /* Firefox - more visible on hover */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px; /* Small scrollbar width */
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent; /* Transparent track */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(48, 160, 166, 0.2); /* Subtle by default */
+    border-radius: 3px;
+    transition: background 0.2s;
+  }
+
+  .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background: rgba(48, 160, 166, 0.5); /* More visible on hover */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #30A0A6; /* Full color on thumb hover */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:active {
+    background: #27858b; /* Darker when dragging */
+  }
+
 }
 

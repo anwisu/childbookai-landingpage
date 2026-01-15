@@ -26,3 +26,6 @@ export * from "./constants/content";
 
 // Background shapes
 export * from "./constants/backgroundShapes";
+
+// Character constants
+export * from "./constants/character";
