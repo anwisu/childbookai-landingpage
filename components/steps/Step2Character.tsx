@@ -1,13 +1,28 @@
+"use client";
+
+import { useState } from "react";
 import { HeadingText } from "../typography";
 import { ParagraphText } from "../typography";
 import { Card, CardContent } from "../ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { AppButton } from "../shared/AppButton";
-import { PenLine, Trash2 } from "lucide-react";
+import { Edit2, Trash } from "iconsax-react";
 import { cn } from "@/lib/utils";
+import AddCharacterDialog, {
+  type CharacterFormData,
+} from "./AddCharacterDialog";
 
 export type Step2CharacterProps = {
   onNext?: () => void;
+};
+
+const CHARACTER_IMAGES: Record<string, string> = {
+  Adam: "/images/Adam.png",
+  Emilia: "/images/Emilia.png",
+  User123: "/images/User123.png",
+  Garry: "/images/Garry.png",
+  Lukas: "/images/Lukas.png",
+  Amanda: "/images/Amanda.png",
 };
 
 const CHARACTERS = [
@@ -15,7 +30,7 @@ const CHARACTERS = [
     id: 1,
     name: "Emilia",
     description: "5 years old red haired female",
-    avatarSrc: "/images/child-1.png",
+    avatarSrc: CHARACTER_IMAGES["Emilia"] || "/images/child-1.png",
   },
   {
     id: 2,
@@ -26,12 +41,24 @@ const CHARACTERS = [
 ];
 
 export default function Step2Character({}: Step2CharacterProps) {
-   const cardColumnsClass =
-     CHARACTERS.length <= 1
-       ? "md:grid-cols-1 lg:grid-cols-1"
-       : CHARACTERS.length === 2
-       ? "md:grid-cols-2 lg:grid-cols-2"
-       : "md:grid-cols-3 lg:grid-cols-3";
+  const [characters, setCharacters] = useState(CHARACTERS);
+
+  const handleAddCharacter = (characterData: CharacterFormData) => {
+    const newCharacter = {
+      id: characters.length + 1,
+      name: characterData.name,
+      description: characterData.description,
+      avatarSrc: CHARACTER_IMAGES[characterData.name] || "/images/child-1.png",
+    };
+    setCharacters([...characters, newCharacter]);
+  };
+
+  const cardColumnsClass =
+    characters.length <= 1
+      ? "md:grid-cols-1 lg:grid-cols-1"
+      : characters.length === 2
+      ? "md:grid-cols-2 lg:grid-cols-2"
+      : "md:grid-cols-3 lg:grid-cols-3";
 
   return (
     <div className="relative w-full flex flex-col items-center justify-center gap-8">
@@ -57,7 +84,7 @@ export default function Step2Character({}: Step2CharacterProps) {
           cardColumnsClass
         )}
       >
-        {CHARACTERS.map((character) => (
+        {characters.map((character) => (
           <Card
             key={character.id}
             className="w-72 items-center border-none bg-blue-100 px-6 py-8 shadow-sm"
@@ -82,15 +109,15 @@ export default function Step2Character({}: Step2CharacterProps) {
               <div className="mt-3 flex items-center gap-4">
                 <button
                   type="button"
-                  className="inline-flex items-center gap-1 text-sm font-medium text-blue-800 hover:text-[#27858b]"
+                  className="inline-flex items-center gap-1 hover:text-teal-700"
                 >
-                  <PenLine size={16} strokeWidth={2.5} />
+                  <Edit2 size={24} color="#30a0a6" variant="Bold" />
                 </button>
                 <button
                   type="button"
-                  className="inline-flex items-center gap-1 text-sm font-medium text-blue-800 hover:text-[#27858b]"
+                  className="inline-flex items-center gap-1 hover:text-teal-700"
                 >
-                  <Trash2 size={16} strokeWidth={2.5} />
+                  <Trash size={24} color="#30a0a6" variant="Bold" />
                 </button>
               </div>
             </CardContent>
@@ -99,15 +126,20 @@ export default function Step2Character({}: Step2CharacterProps) {
       </div>
 
       <div className="mt-2 flex flex-wrap items-center justify-center gap-4">
-        <AppButton
-          type="button"
-          variant="secondary"
-          size="md"
-          shadow
-          className="font-semibold text-foreground"
-        >
-          Add a character
-        </AppButton>
+        <AddCharacterDialog
+          trigger={
+            <AppButton
+              type="button"
+              variant="secondary"
+              size="md"
+              shadow
+              className="font-semibold text-foreground"
+            >
+              Add a character
+            </AppButton>
+          }
+          onAddCharacter={handleAddCharacter}
+        />
 
         <AppButton
           size="md"
@@ -117,6 +149,7 @@ export default function Step2Character({}: Step2CharacterProps) {
           Next Step
         </AppButton>
       </div>
+      
     </div>
   );
 }

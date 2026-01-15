@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { CircleArrowLeft } from "lucide-react";
+import { ArrowCircleLeft2 } from "iconsax-react";
 import { Navbar } from "@/components/layout";
 import { Step1Story, Step2Character, Step3Settings } from "@/components/steps";
 
@@ -14,7 +14,7 @@ export default function CreateBook() {
     setActiveStep((prev) => (prev < steps.length ? prev + 1 : prev));
   };
 
-  const handlePrevStep = () => {
+  const handlePreviousStep = () => {
     setActiveStep((prev) => (prev > 1 ? prev - 1 : prev));
   };
 
@@ -85,39 +85,37 @@ export default function CreateBook() {
                 </div>
               </div>
 
-              <div className="relative">
-                <svg
-                  width="1240"
-                  height="953"
-                  viewBox="0 0 1240 953"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1240 912.689C1240 934.78 1222.09 952.689 1200 952.689L39.9999 952.689C17.9086 952.689 -0.000120505 934.78 -0.000118573 912.689L-4.55518e-05 77.4194C-4.36644e-05 55.8301 17.1322 38.1363 38.7103 37.4403L1198.71 0.0210535C1221.3 -0.70746 1240 17.4034 1240 40.0002L1240 912.689Z"
-                    fill="white"
-                  />
-                </svg>
+              <svg
+                width="1240"
+                height="953"
+                viewBox="0 0 1240 953"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1240 912.689C1240 934.78 1222.09 952.689 1200 952.689L39.9999 952.689C17.9086 952.689 -0.000120505 934.78 -0.000118573 912.689L-4.55518e-05 77.4194C-4.36644e-05 55.8301 17.1322 38.1363 38.7103 37.4403L1198.71 0.0210535C1221.3 -0.70746 1240 17.4034 1240 40.0002L1240 912.689Z"
+                  fill="white"
+                />
+              </svg>
 
-                {/* Back button at bottom-left of SVG card - only show when not on step 1 */}
-                {activeStep > 1 && (
-                  <button
-                    type="button"
-                    onClick={handlePrevStep}
-                    className="absolute bottom-10 left-10 rounded-lg bg-blue-100 p-3 shadow-md hover:bg-gray-100"
-                    aria-label="Go back to previous step"
-                  >
-                    <CircleArrowLeft size={20} color="#30A0A6" strokeWidth={2.5} />
-                  </button>
-                )}
-
-                {/* Step content - positioned inside SVG card, below stepper, centered */}
-                <div className="absolute top-24 left-1/2 -translate-x-1/2 w-full max-w-5xl px-8 z-10">
-                  {activeStep === 1 && <Step1Story onNext={handleNextStep} />}
-                  {activeStep === 2 && <Step2Character onNext={handleNextStep} />}
-                  {activeStep === 3 && <Step3Settings />}
-                </div>
+              {/* Step content - positioned inside SVG card, below stepper, centered */}
+              <div className="absolute top-24 left-1/2 -translate-x-1/2 w-full max-w-5xl px-8 z-10">
+                {activeStep === 1 && <Step1Story onNext={handleNextStep} />}
+                {activeStep === 2 && <Step2Character onNext={handleNextStep} />}
+                {activeStep === 3 && <Step3Settings />}
               </div>
+
+              {/* Back button - bottom left corner of SVG */}
+              {(activeStep === 2 || activeStep === 3) && (
+                <button
+                  type="button"
+                  onClick={handlePreviousStep}
+                  className="absolute bottom-8 left-8 p-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors z-20"
+                  aria-label="Go back to previous step"
+                >
+                  <ArrowCircleLeft2 size="24" color="#30a0a6" variant="Bold" />
+                </button>
+              )}
             </div>
           </section>
         </div>

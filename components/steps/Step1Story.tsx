@@ -163,7 +163,7 @@ const Step1Story: React.FC<Step1StoryProps> = ({ onNext }) => {
             type="text"
             value={storyTitle}
             onChange={(e) => setStoryTitle(e.target.value)}
-            className="w-full text-lg font-semibold text-foreground bg-blue-100 border border-blue-800 focus-visible:ring-1 focus-visible:ring-blue-800 focus-visible:border-blue-800"
+            className="w-full text-lg font-semibold text-foreground bg-blue-100 border border-blue-800"
           />
         </div>
 
