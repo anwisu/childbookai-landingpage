@@ -253,8 +253,13 @@
     width: 100%;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     overflow-x: hidden;
+    /* Match the page background so dialog scroll locking doesn't reveal a white strip */
+    background-image: url('/background/bg-2.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }
 
