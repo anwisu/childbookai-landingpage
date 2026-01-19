@@ -81,11 +81,11 @@ export function Services() {
           {services.map((service) => (
             <motion.div
               key={service.id}
-              className="flex flex-col items-center text-center transition-transform duration-200 ease-out hover:-translate-y-2"
+              className="group flex flex-col items-center text-center"
               variants={scrollReveal}
             >
               <motion.div
-                className="relative w-40 h-40 mobile:w-48 mobile:h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 mb-4 sm:mb-6"
+                className="relative w-40 h-40 mobile:w-48 mobile:h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 mb-4 sm:mb-6 transition-transform duration-300 ease-out group-hover:scale-105"
                 variants={scaleIn}
               >
                 <Image
@@ -134,7 +134,7 @@ export function Services() {
                   </>
                 )}
                 {service.id === SERVICE_IDS.THIRD && (
-                  <div className="absolute -bottom-8 -left-8 sm:-bottom-10 sm:-left-2 md:-left-4 lg:-bottom-12 lg:left-10 xl:-bottom-12 xl:left-4 flex items-center justify-center pointer-events-none" aria-hidden="true">
+                  <div className="absolute -bottom-8 -left-8 sm:-bottom-10 sm:-left-2 md:-left-4 lg:-bottom-12 lg:left-10 xl:-bottom-10 xl:left-4 flex items-center justify-center pointer-events-none" aria-hidden="true">
                     <Image
                       src="/illustrations/Ellipse 7.svg"
                       alt=""

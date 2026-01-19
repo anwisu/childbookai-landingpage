@@ -4,14 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useCallback, useRef, memo } from "react";
 import type { KeyboardEvent } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { AppButton, CarouselMask, DecorativeElements } from "@/components/shared";
 import { HeadingText } from "@/components/typography";
 import { heroCarouselDecorations } from "@/lib/data";
 import { CAROUSEL_CONFIG } from "@/lib/constants";
-import { heroText, staggerContainer, fadeInUp } from "@/lib/utils/animations";
+import { heroText, staggerContainer, fadeInUp, carouselFade } from "@/lib/utils/animations";
 
 // Move slides outside component to prevent recreation on each render
 const slides = [
@@ -143,84 +143,100 @@ function HeroCarousel() {
           aria-live="polite"
           aria-atomic="true"
         >
-          <div ref={emblaRef} className="absolute inset-0">
+          {/* Hidden Embla container - used only for navigation logic, not visual display */}
+          <div ref={emblaRef} className="absolute inset-0 opacity-0 pointer-events-none">
             <div className="flex h-full">
-              {slides.map((slide, index) => (
+              {slides.map((slide) => (
                 <div
                   key={slide.id}
                   className="relative flex-[0_0_100%] h-full"
-                  aria-hidden={index !== active}
-                >
-                  <Image
-                    src={slide.src}
-                    alt={`${slide.alt} - Slide ${index + 1} of ${slides.length}`}
-                    fill
-                    priority={index === 0}
-                    className="object-cover"
-                    sizes="100vw"
-                    quality={85}
-                    fetchPriority={index === 0 ? "high" : "auto"}
-                  />
-
-                  {/* Slide content (headline + CTA) */}
-                  <div className="absolute inset-0 z-10 flex items-center pt-4 sm:pt-0 overflow-visible">
-                    <motion.div
-                      className=" w-full max-w-[620px] p-2 sm:p-4 md:p-6 lg:p-6 ml-6 sm:ml-8 md:ml-10 lg:ml-16 xl:ml-[100px] overflow-visible"
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true, amount: 0.4 }}
-                      variants={staggerContainer}
-                    >
-                      <motion.div variants={heroText}>
-                        <HeadingText
-                          title={slide.title}
-                          variant="display"
-                          className="font-bold"
-                          glyphs={[
-                            {
-                              word: "Become",
-                              position: 3,
-                            },
-                            {
-                              word: "hero",
-                              position: 3,
-                              variant: "blue2",
-                            },
-                          ]}
-                          coloredPhrases={[
-                            {
-                              text: "Become the hero",
-                              color: "text-primary",
-                            },
-                          ]}
-                          defaultTextColor="text-white"
-                          defaultGlyphVariant="blue1"
-                          glyphSizeClassName="w-[0.5em] h-[0.5em] sm:w-[0.5em] sm:h-[0.5em] md:w-[0.6em] md:h-[0.6em]"
-                          endl={["hero of your own", "story"]}
-                        />
-                      </motion.div>
-                      <motion.div className="overflow-visible pb-2 sm:pb-3" variants={fadeInUp}>
-                        <Link href="/createbook">
-                          <AppButton
-                            variant="primary"
-                            size="hero"
-                            shadow
-                            withSparkles
-                            className="mt-2 sm:mt-4 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
-                          >
-                            Create a Book
-                          </AppButton>
-                        </Link>
-                      </motion.div>
-                    </motion.div>
-                  </div>
-
-                  {/* Decorative Elements - scoped to each slide */}
-                  <DecorativeElements decorations={heroCarouselDecorations} />
-                </div>
+                  aria-hidden={true}
+                />
               ))}
             </div>
           </div>
+
+          {/* Fade transition layer - only the image fades */}
+          <AnimatePresence mode="sync" initial={false}>
+            {slides[active] && (
+              <motion.div
+                key={active}
+                className="absolute inset-0"
+                style={{ clipPath: "url(#carouselMask)" }}
+                variants={carouselFade}
+                initial="enter"
+                animate="center"
+                exit="exit"
+              >
+                <Image
+                  src={slides[active].src}
+                  alt={`${slides[active].alt} - Slide ${active + 1} of ${slides.length}`}
+                  fill
+                  priority={active === 0}
+                  className="object-cover"
+                  sizes="100vw"
+                  quality={85}
+                  fetchPriority={active === 0 ? "high" : "auto"}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Slide content (headline + CTA) - static, doesn't fade */}
+          <div className="absolute inset-0 z-10 flex items-center pt-4 sm:pt-0 overflow-visible">
+            <motion.div
+              className=" w-full max-w-[620px] p-2 sm:p-4 md:p-6 lg:p-6 ml-6 sm:ml-8 md:ml-10 lg:ml-16 xl:ml-[100px] overflow-visible"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.4 }}
+              variants={staggerContainer}
+            >
+              <motion.div variants={heroText}>
+                <HeadingText
+                  title={slides[active]?.title || ""}
+                  variant="display"
+                  className="font-bold"
+                  glyphs={[
+                    {
+                      word: "Become",
+                      position: 3,
+                    },
+                    {
+                      word: "hero",
+                      position: 3,
+                      variant: "blue2",
+                    },
+                  ]}
+                  coloredPhrases={[
+                    {
+                      text: "Become the hero",
+                      color: "text-primary",
+                    },
+                  ]}
+                  defaultTextColor="text-white"
+                  defaultGlyphVariant="blue1"
+                  glyphSizeClassName="w-[0.5em] h-[0.5em] sm:w-[0.5em] sm:h-[0.5em] md:w-[0.6em] md:h-[0.6em]"
+                  endl={["hero of your own", "story"]}
+                />
+              </motion.div>
+              <motion.div className="overflow-visible pb-2 sm:pb-3" variants={fadeInUp}>
+                <Link href="/createbook">
+                  <AppButton
+                    variant="primary"
+                    size="hero"
+                    shadow
+                    withSparkles
+                    className="mt-2 sm:mt-4 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    Create a Book
+                  </AppButton>
+                </Link>
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Decorative Elements - static, doesn't fade */}
+          <DecorativeElements decorations={heroCarouselDecorations} />
 
           {/* Navigation Dots */}
           <div 

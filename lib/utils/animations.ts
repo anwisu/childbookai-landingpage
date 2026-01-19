@@ -307,6 +307,29 @@ enter: (direction: number) => ({
   }),
 };
 
+/**
+ * Carousel fade transition - Smooth fade in/out (no horizontal movement)
+ */
+export const carouselFade: Variants = {
+  enter: {
+    opacity: 0,
+  },
+  center: {
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.4, 0, 0.2, 1], // smooth easeInOut-style
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.4,
+      ease: [0.4, 0, 0.2, 1], // match entry feel
+    },
+  },
+};
+
 
 /**
  * Entrance + exit for decorative elements (used in hero carousel)
