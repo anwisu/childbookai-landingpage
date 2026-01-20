@@ -100,17 +100,34 @@ export function Features() {
           </div>
 
           <motion.div
-            className="flex items-center justify-center order-2 lg:order-0 my-4 sm:my-6 md:my-8 lg:my-0"
+            className="flex items-end justify-end order-2 lg:order-0 my-4 sm:my-6 md:my-8 lg:my-0"
             variants={scaleIn}
           >
-            <Image
-              src="/images/book-illustration.svg"
-              alt="Book Illustration"
-              width={1240}
-              height={883}
-              className="w-full max-w-[280px] sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-[1240px] h-auto object-contain"
-              sizes="(max-width: 640px) 280px, (max-width: 768px) 384px, (max-width: 1024px) 448px, (max-width: 1280px) 512px, 1240px"
-            />
+            <div className="relative inline-block">
+              <Image
+                src="/images/pirate-book.svg"
+                alt="Book Illustration"
+                width={1240}
+                height={883}
+                className="w-full max-w-[280px] sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-[1240px] h-auto object-contain"
+                sizes="(max-width: 640px) 280px, (max-width: 768px) 384px, (max-width: 1024px) 448px, (max-width: 1280px) 512px, 1240px"
+              />
+              <motion.div
+                className="absolute -top-48 left-1/2 -translate-x-1/2 w-16 sm:w-20 md:w-24 lg:w-64"
+                initial={{ x: 0, rotate: 0, scale: 1 }}
+                animate={{ x: [-10, 10, -10], rotate: [-5, 5, -5], scale: [1, 1.08, 1] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <Image
+                  src="/illustrations/parachute.svg"
+                  alt="Parachute"
+                  width={150}
+                  height={150}
+                  className="w-full h-auto object-contain"
+                  sizes="(max-width: 640px) 64px, (max-width: 768px) 80px, (max-width: 1024px) 96px, (max-width: 1280px) 112px, 150px"
+                />
+              </motion.div>
+            </div>
           </motion.div>
 
           <div className="space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-8 order-3 lg:order-0">

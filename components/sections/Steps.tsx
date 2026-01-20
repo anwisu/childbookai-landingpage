@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import styles from "./Sections.module.css";
 import { steps } from "@/lib/data";
