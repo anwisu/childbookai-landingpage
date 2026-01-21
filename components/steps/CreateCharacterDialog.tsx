@@ -27,6 +27,7 @@ import Image from "next/image";
 import { DocumentUpload } from "iconsax-react";
 import { AppButton } from "../shared/AppButton";
 import type { CharacterFormData } from "./AddCharacterDialog";
+import { TourGuide, type TourStep } from "./TourGuide";
 import {
   CHARACTER_TYPES,
   ETHNICITIES,
@@ -318,6 +319,47 @@ function HairLengthSelector({ value, onChange }: HairLengthSelectorProps) {
   );
 }
 
+// Tour guide steps data
+const TOUR_STEPS: TourStep[] = [
+  {
+    id: 1,
+    leftImage: "/images/child-wrong-1.jpg",
+    rightImage: "/images/child-wrong-2.png",
+    heading: "Face Is Clearly Visible",
+    description: "(no hats, no hands or toys in front)",
+    isGoodExample: false,
+  },
+  {
+    id: 2,
+    leftImage: "/images/child-wrong-3.png",
+    heading: "Good Light",
+    description: "not too dark or too bright",
+    isGoodExample: false,
+  },
+  {
+    id: 3,
+    leftImage: "/images/child-wrong-4.png",
+    heading: "Only One Child In The Picture",
+    description: "",
+    isGoodExample: false,
+  },
+  {
+    id: 4,
+    leftImage: "/images/child-wrong-5.png",
+    heading: "The Photo Is Straight",
+    description: "not from the side",
+    isGoodExample: false,
+  },
+  {
+    id: 5,
+    leftImage: "/images/child-correct-1.png",
+    rightImage: "/images/child-correct-2.png",
+    heading: "Face Is Easy To See",
+    description: "nothing covering the face",
+    isGoodExample: true,
+  },
+];
+
 function UploadSection() {
   return (
     <div className="mt-6 rounded-lg bg-gray-100 p-6 mx-12">
@@ -354,14 +396,19 @@ function UploadSection() {
           </div>
 
           <div className="mt-auto text-center">
-            <AppButton
-              variant="primary"
-              size="sm"
-              shadow
-              className="text-foreground font-semibold"
-            >
-              See guide
-            </AppButton>
+            <TourGuide
+              steps={TOUR_STEPS}
+              trigger={
+                <AppButton
+                  variant="primary"
+                  size="sm"
+                  shadow
+                  className="text-foreground font-semibold"
+                >
+                  See guide
+                </AppButton>
+              }
+            />
           </div>
         </div>
       </div>
@@ -611,7 +658,7 @@ export default function CreateCharacterDialog({
                     variant="primary"
                     size="sm"
                     shadow
-                    className="text-foreground font-medium"
+                    className="w-[180px] mx-auto text-foreground font-medium"
                   >
                     Generate
                   </AppButton>
@@ -621,7 +668,7 @@ export default function CreateCharacterDialog({
           </div>
         </div>
 
-        <DialogFooter className="flex flex-row justify-center gap-4 px-8 sm:px-10 pb-2 sm:py-4">
+        <DialogFooter className="flex flex-row justify-center gap-4 px-8 sm:px-10 mt-2 mb-8 mx-auto">
           <AppButton
             variant="secondary"
             size="sm"

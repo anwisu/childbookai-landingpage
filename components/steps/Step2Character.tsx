@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { HeadingText } from "../typography";
 import { ParagraphText } from "../typography";
 import { Card, CardContent } from "../ui/card";
@@ -8,50 +7,21 @@ import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { AppButton } from "../shared/AppButton";
 import { Edit2, Trash } from "iconsax-react";
 import { cn } from "@/lib/utils";
-import AddCharacterDialog, {
-  type CharacterFormData,
-} from "./AddCharacterDialog";
+import Image from "next/image";
+
+export type Character = {
+  id: number;
+  name: string;
+  description: string;
+  avatarSrc: string;
+};
 
 export type Step2CharacterProps = {
+  characters: Character[];
   onNext?: () => void;
 };
 
-const CHARACTER_IMAGES: Record<string, string> = {
-  Adam: "/images/Adam.png",
-  Emilia: "/images/Emilia.png",
-  User123: "/images/User123.png",
-  Garry: "/images/Garry.png",
-  Lukas: "/images/Lukas.png",
-  Amanda: "/images/Amanda.png",
-};
-
-const CHARACTERS = [
-  {
-    id: 1,
-    name: "Emilia",
-    description: "5 years old red haired female",
-    avatarSrc: CHARACTER_IMAGES["Emilia"] || "/images/child-1.png",
-  },
-  {
-    id: 2,
-    name: "David",
-    description: "7 years old blond haired male",
-    avatarSrc: "/images/child-1.png",
-  },
-];
-
-export default function Step2Character({}: Step2CharacterProps) {
-  const [characters, setCharacters] = useState(CHARACTERS);
-
-  const handleAddCharacter = (characterData: CharacterFormData) => {
-    const newCharacter = {
-      id: characters.length + 1,
-      name: characterData.name,
-      description: characterData.description,
-      avatarSrc: CHARACTER_IMAGES[characterData.name] || "/images/child-1.png",
-    };
-    setCharacters([...characters, newCharacter]);
-  };
+export default function Step2Character({ characters, onNext }: Step2CharacterProps) {
 
   const cardColumnsClass =
     characters.length <= 1
@@ -59,6 +29,56 @@ export default function Step2Character({}: Step2CharacterProps) {
       : characters.length === 2
       ? "md:grid-cols-2 lg:grid-cols-2"
       : "md:grid-cols-3 lg:grid-cols-3";
+
+  // Empty state when no characters
+  if (characters.length === 0) {
+    return (
+      <div className="relative w-full flex flex-col items-center justify-center gap-8 py-12">
+        <div className="flex flex-col items-center gap-4">
+          <HeadingText
+            variant="h1"
+            title="Create Your Story"
+            className="text-center font-bold"
+          />
+          <ParagraphText
+            as="p"
+            variant="text"
+            className="text-center font-medium max-w-xl text-slate-600"
+          >
+            Add characters to your story. It is advisable to use no more than 3 characters.
+          </ParagraphText>
+        </div>
+
+        {/* Empty state illustration/content */}
+        <div className="flex flex-col items-center gap-6 mt-8">
+          <div className="relative w-64 h-64 flex items-center justify-center">
+            <Image
+              src="/illustrations/book-face.svg"
+              alt="Empty characters"
+              width={256}
+              height={256}
+              className="opacity-50"
+            />
+          </div>
+          
+          <div className="flex flex-col items-center gap-3 text-center max-w-md">
+            <HeadingText
+              variant="h2"
+              title="No Characters Yet"
+              className="text-center font-semibold text-slate-700"
+            />
+            <ParagraphText
+              as="p"
+              variant="text"
+              className="text-center text-slate-500"
+            >
+              Click the &quot;Create&quot; button in the navigation bar to add your first character to the story.
+            </ParagraphText>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full flex flex-col items-center justify-center gap-8">
@@ -125,31 +145,18 @@ export default function Step2Character({}: Step2CharacterProps) {
         ))}
       </div>
 
-      <div className="mt-2 flex flex-wrap items-center justify-center gap-4">
-        <AddCharacterDialog
-          trigger={
-            <AppButton
-              type="button"
-              variant="secondary"
-              size="md"
-              shadow
-              className="font-semibold text-foreground"
-            >
-              Add a character
-            </AppButton>
-          }
-          onAddCharacter={handleAddCharacter}
-        />
-
-        <AppButton
-          size="md"
-          shadow
-          className="w-full sm:w-auto sm:min-w-[190px] text-heading-sm min-h-[44px]"
-        >
-          Next Step
-        </AppButton>
-      </div>
-      
+      {onNext && (
+        <div className="mt-2 flex flex-wrap items-center justify-center gap-4">
+          <AppButton
+            onClick={onNext}
+            size="md"
+            shadow
+            className="w-full sm:w-auto sm:min-w-[190px] text-heading-sm min-h-[44px]"
+          >
+            Next Step
+          </AppButton>
+        </div>
+      )}
     </div>
   );
 }

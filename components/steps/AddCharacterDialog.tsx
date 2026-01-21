@@ -25,6 +25,8 @@ export type CharacterFormData = {
 export type AddCharacterDialogProps = {
   trigger?: React.ReactNode;
   onAddCharacter?: (character: CharacterFormData) => void;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
 
 const TABS = ["Characters", "Illustrators", "Books"] as const;
@@ -63,13 +65,19 @@ const CHARACTER_IMAGES: Record<string, string> = {
 export default function AddCharacterDialog({
   trigger,
   onAddCharacter,
+  open: controlledOpen,
+  onOpenChange: controlledOnOpenChange,
 }: AddCharacterDialogProps) {
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabKey>("Characters");
   const [selectedCharacter, setSelectedCharacter] = useState<string | null>(
     null
   );
+
+  // Use controlled state if provided, otherwise use internal state
+  const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
+  const setOpen = controlledOnOpenChange || setInternalOpen;
 
   const handleSelect = (name: string) => {
     onAddCharacter?.({
@@ -95,15 +103,12 @@ export default function AddCharacterDialog({
 
   return (
     <>
-      {/* ADD CHARACTER DIALOG */}
       <Dialog open={open && !isCreateOpen} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          {trigger || (
-            <Button variant="outline" size="md">
-              Add a character
-            </Button>
-          )}
-        </DialogTrigger>
+        {trigger && (
+          <DialogTrigger asChild>
+            {trigger}
+          </DialogTrigger>
+        )}
 
         <DialogContent className="sm:max-w-[720px] rounded-3xl p-8 sm:p-10">
           <DialogHeader className="items-center text-center">
@@ -115,7 +120,6 @@ export default function AddCharacterDialog({
             </DialogDescription>
           </DialogHeader>
 
-          {/* Center circle (opens CreateCharacterDialog) */}
           <div className="flex w-full justify-center">
             <button
               type="button"
@@ -148,7 +152,6 @@ export default function AddCharacterDialog({
             })}
           </div>
 
-          {/* Avatars grid */}
           <div className="mt-2 grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-6 mx-auto">
             {MOCK_CHARACTERS.map((name) => {
               const isSelected = selectedCharacter === name;
@@ -222,7 +225,6 @@ export default function AddCharacterDialog({
         </DialogContent>
       </Dialog>
 
-      {/* CREATE CHARACTER DIALOG */}
       <CreateCharacterDialog
         open={isCreateOpen}
         onOpenChange={(open) => {

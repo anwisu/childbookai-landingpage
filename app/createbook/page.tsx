@@ -5,9 +5,22 @@ import Image from "next/image";
 import { ArrowCircleLeft2 } from "iconsax-react";
 import { Navbar } from "@/components/layout";
 import { Step1Story, Step2Character, Step3Settings } from "@/components/steps";
+import type { Character } from "@/components/steps/Step2Character";
+import type { CharacterFormData } from "@/components/steps/AddCharacterDialog";
+
+const CHARACTER_IMAGES: Record<string, string> = {
+  Adam: "/images/Adam.png",
+  Emilia: "/images/Emilia.png",
+  User123: "/images/User123.png",
+  Garry: "/images/Garry.png",
+  Lukas: "/images/Lukas.png",
+  Amanda: "/images/Amanda.png",
+};
 
 export default function CreateBook() {
   const [activeStep, setActiveStep] = useState(1);
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [addCharacterDialogOpen, setAddCharacterDialogOpen] = useState(false);
   const steps = [1, 2, 3] as const;
 
   const handleNextStep = () => {
@@ -18,6 +31,21 @@ export default function CreateBook() {
     setActiveStep((prev) => (prev > 1 ? prev - 1 : prev));
   };
 
+  const handleAddCharacter = (characterData: CharacterFormData) => {
+    const newCharacter: Character = {
+      id: characters.length + 1,
+      name: characterData.name,
+      description: characterData.description || `${characterData.age || ""} years old ${characterData.gender || ""}`.trim(),
+      avatarSrc: CHARACTER_IMAGES[characterData.name] || "/images/child-1.png",
+    };
+    setCharacters([...characters, newCharacter]);
+    setAddCharacterDialogOpen(false);
+  };
+
+  const handleOpenAddCharacterDialog = () => {
+    setAddCharacterDialogOpen(true);
+  };
+
   return (
     <>
       <main
@@ -25,7 +53,14 @@ export default function CreateBook() {
         className="min-h-screen flex flex-col bg-blue-800 overflow-x-hidden"
       >
         <div className="relative w-full min-h-screen bg-contain bg-repeat bg-center bg-hero">
-          <Navbar />
+          <Navbar 
+            {...(activeStep === 2 ? {
+              onOpenAddCharacterDialog: handleOpenAddCharacterDialog,
+              addCharacterDialogOpen,
+              onAddCharacterDialogChange: setAddCharacterDialogOpen,
+              onAddCharacter: handleAddCharacter,
+            } : {})}
+          />
 
           <section className="relative w-full py-2 lg:py-4 min-h-[400px] sm:min-h-[500px] flex items-center justify-center">
             <div className="relative z-10">
@@ -101,7 +136,7 @@ export default function CreateBook() {
               {/* Step content - positioned inside SVG card, below stepper, centered */}
               <div className="absolute top-24 left-1/2 -translate-x-1/2 w-full max-w-5xl px-8 z-10">
                 {activeStep === 1 && <Step1Story onNext={handleNextStep} />}
-                {activeStep === 2 && <Step2Character onNext={handleNextStep} />}
+                {activeStep === 2 && <Step2Character characters={characters} onNext={handleNextStep} />}
                 {activeStep === 3 && <Step3Settings />}
               </div>
 

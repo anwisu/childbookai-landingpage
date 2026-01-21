@@ -9,9 +9,38 @@ import { AppButton } from "@/components/shared";
 import { navItems } from "@/lib/data";
 import { IMAGE_DIMENSIONS } from "@/lib/constants";
 import { mobileMenu, mobileMenuContainer, fadeInUp } from "@/lib/utils/animations";
+import AddCharacterDialog, { type CharacterFormData } from "@/components/steps/AddCharacterDialog";
 
-export function Navbar() {
+export type NavbarProps = {
+  onOpenAddCharacterDialog?: () => void;
+  addCharacterDialogOpen?: boolean;
+  onAddCharacterDialogChange?: (open: boolean) => void;
+  onAddCharacter?: (character: CharacterFormData) => void;
+};
+
+export function Navbar({ 
+  onOpenAddCharacterDialog, 
+  addCharacterDialogOpen: controlledDialogOpen,
+  onAddCharacterDialogChange,
+  onAddCharacter 
+}: NavbarProps = {}) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [internalDialogOpen, setInternalDialogOpen] = useState(false);
+
+  // Use controlled state if provided, otherwise use internal state
+  const addCharacterDialogOpen = controlledDialogOpen !== undefined 
+    ? controlledDialogOpen 
+    : internalDialogOpen;
+  const setAddCharacterDialogOpen = onAddCharacterDialogChange || setInternalDialogOpen;
+
+  const handleCreateClick = () => {
+    if (onOpenAddCharacterDialog) {
+      onOpenAddCharacterDialog();
+    } else {
+      // Default behavior: navigate to createbook page
+      window.location.href = "/createbook";
+    }
+  };
 
   return (
     <header className="w-full">
@@ -58,13 +87,35 @@ export function Navbar() {
 
             {/* CTA + Mobile Icon */}
             <div className="flex items-center gap-2 sm:gap-3">
-              <AppButton
-                variant="primary"
-                size="sm"
-                className="hidden lg:inline-flex rounded-[10px] text-heading-sm min-h-[44px] transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
-              >
-                Create
-              </AppButton>
+              {onAddCharacter ? (
+                <>
+                  <AppButton
+                    variant="primary"
+                    size="sm"
+                    onClick={() => setAddCharacterDialogOpen(true)}
+                    className="hidden lg:inline-flex rounded-[10px] text-heading-sm min-h-[44px] transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    Create
+                  </AppButton>
+                  <AddCharacterDialog
+                    open={addCharacterDialogOpen}
+                    onOpenChange={setAddCharacterDialogOpen}
+                    onAddCharacter={(character) => {
+                      onAddCharacter(character);
+                      setAddCharacterDialogOpen(false);
+                    }}
+                  />
+                </>
+              ) : (
+                <AppButton
+                  variant="primary"
+                  size="sm"
+                  onClick={handleCreateClick}
+                  className="hidden lg:inline-flex rounded-[10px] text-heading-sm min-h-[44px] transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  Create
+                </AppButton>
+              )}
 
               {/* Mobile / Tablet Menu Icon */}
               <button
@@ -138,13 +189,38 @@ export function Navbar() {
               ))}
 
               <motion.div variants={fadeInUp} className="w-full flex justify-center mt-4">
-                <AppButton
-                  variant="primary"
-                  size="lg"
-                  className="w-full max-w-xs text-base sm:text-lg min-h-[44px] transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
-                >
-                  Create
-                </AppButton>
+                {onAddCharacter ? (
+                  <>
+                    <AppButton
+                      variant="primary"
+                      size="lg"
+                      onClick={() => {
+                        setAddCharacterDialogOpen(true);
+                        setMenuOpen(false);
+                      }}
+                      className="w-full max-w-xs text-base sm:text-lg min-h-[44px] transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
+                    >
+                      Create
+                    </AppButton>
+                    <AddCharacterDialog
+                      open={addCharacterDialogOpen}
+                      onOpenChange={setAddCharacterDialogOpen}
+                      onAddCharacter={(character) => {
+                        onAddCharacter?.(character);
+                        setAddCharacterDialogOpen(false);
+                      }}
+                    />
+                  </>
+                ) : (
+                  <AppButton
+                    variant="primary"
+                    size="lg"
+                    onClick={handleCreateClick}
+                    className="w-full max-w-xs text-base sm:text-lg min-h-[44px] transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    Create
+                  </AppButton>
+                )}
               </motion.div>
             </motion.nav>
           </motion.div>
