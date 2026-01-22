@@ -47,9 +47,11 @@ const BOOK_COLORS = {
 export type Step3SettingsProps = {
   storyData: StoryData;
   characters: Character[];
+  onShowMoreToggle?: () => void;
+  showMore?: boolean;
 };
 
-const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters }) => {
+const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters, onShowMoreToggle, showMore = false }) => {
   const [isAudiobookEnabled, setIsAudiobookEnabled] = useState(true);
   const [selectedVoice, setSelectedVoice] = useState("ruth");
   const [selectedBookColor, setSelectedBookColor] = useState("#FFFFFF");
@@ -135,9 +137,10 @@ const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters }) 
           />
           <button
             type="button"
+            onClick={onShowMoreToggle}
             className="absolute right-0 text-blue-800 hover:text-blue-600 transition-colors font-medium text-sm"
           >
-            Show more
+            {showMore ? "Show less" : "Show more"}
           </button>
         </div>
 
@@ -216,6 +219,7 @@ const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters }) 
             </div>
           </CardContent>
         </Card>
+        {showMore && (
         <Card className="border-none bg-blue-100 px-6 py-4 shadow-sm">
           <CardContent className="flex flex-col gap-6 px-0">
             {/* Top Row: Heading, Description */}
@@ -285,6 +289,7 @@ const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters }) 
             </div>
           </CardContent>
         </Card>
+        )}
       </div>
     </div>
   );
