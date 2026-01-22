@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { HeadingText } from "../typography";
 import { RadioButton, RadioCard } from "../shared";
 import { Input } from "@/components/ui/input";
@@ -30,7 +30,7 @@ const storyOptions = [
     id: "story-2",
     title: "Unlikely Friends",
     description:
-      "A brave little squirrel sets off on a magical journey in Enchanted Forest to find the lost acorn of wisdom.",
+      "A shy bookworm and an outgoing athlete form an unexpected friendship that changes both their lives.",
   },
   {
     id: "story-3",
@@ -52,11 +52,17 @@ const getStoryById = (id: StoryId): StoryOption => {
   return story ?? storyOptions[0];
 };
 
-type Step1StoryProps = {
-  onNext: () => void;
+type StoryData = {
+  title: string;
+  description: string;
 };
 
-const Step1Story: React.FC<Step1StoryProps> = ({ onNext }) => {
+type Step1StoryProps = {
+  onNext: () => void;
+  onStoryChange?: (storyData: StoryData) => void;
+};
+
+const Step1Story: React.FC<Step1StoryProps> = ({ onNext, onStoryChange }) => {
   const defaultStory = getStoryById(DEFAULT_STORY_ID);
 
   const [selectedOption, setSelectedOption] = useState<Theme | "Custom Story">(DEFAULT_THEME);
@@ -64,11 +70,17 @@ const Step1Story: React.FC<Step1StoryProps> = ({ onNext }) => {
   const [storyTitle, setStoryTitle] = useState<string>(defaultStory.title);
   const [description, setDescription] = useState<string>(defaultStory.description);
 
+  // Sync initial story data with parent
+  useEffect(() => {
+    onStoryChange?.({ title: defaultStory.title, description: defaultStory.description });
+  }, []); // Only run on mount
+
   const handleSelectStory = useCallback((story: StoryOption) => {
     setSelectedStory(story.id);
     setStoryTitle(story.title);
     setDescription(story.description);
-  }, []);
+    onStoryChange?.({ title: story.title, description: story.description });
+  }, [onStoryChange]);
 
   const handleReroll = useCallback(() => {
     const randomStory =
@@ -162,7 +174,11 @@ const Step1Story: React.FC<Step1StoryProps> = ({ onNext }) => {
             id="story-title"
             type="text"
             value={storyTitle}
-            onChange={(e) => setStoryTitle(e.target.value)}
+            onChange={(e) => {
+              const newTitle = e.target.value;
+              setStoryTitle(newTitle);
+              onStoryChange?.({ title: newTitle, description });
+            }}
             className="w-full text-lg font-semibold text-foreground bg-blue-100 border border-blue-800"
           />
         </div>
@@ -171,7 +187,10 @@ const Step1Story: React.FC<Step1StoryProps> = ({ onNext }) => {
         <div>
           <HighlightableInput
             value={description}
-            onChange={(html) => setDescription(html)}
+            onChange={(html) => {
+              setDescription(html);
+              onStoryChange?.({ title: storyTitle, description: html });
+            }}
           />
         </div>
 

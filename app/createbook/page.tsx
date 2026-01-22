@@ -17,10 +17,19 @@ const CHARACTER_IMAGES: Record<string, string> = {
   Amanda: "/images/Amanda.png",
 };
 
+export type StoryData = {
+  title: string;
+  description: string;
+};
+
 export default function CreateBook() {
   const [activeStep, setActiveStep] = useState(1);
   const [characters, setCharacters] = useState<Character[]>([]);
   const [addCharacterDialogOpen, setAddCharacterDialogOpen] = useState(false);
+  const [storyData, setStoryData] = useState<StoryData>({
+    title: "Unlikely Friends",
+    description: "A shy bookworm and an outgoing athlete form an unexpected friendship that changes both their lives.",
+  });
   const steps = [1, 2, 3] as const;
 
   const handleNextStep = () => {
@@ -79,7 +88,7 @@ export default function CreateBook() {
                 </div>
 
                 {/* Step buttons */}
-                <div className="relative flex items-end gap-6 pb-4">
+                <div className="relative flex items-end gap-8 pb-4">
                   {steps.map((step) => {
                     const isActive = activeStep === step;
                     const isCompleted = step < activeStep;
@@ -120,24 +129,39 @@ export default function CreateBook() {
                 </div>
               </div>
 
-              <svg
-                width="1240"
-                height="953"
-                viewBox="0 0 1240 953"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M1240 912.689C1240 934.78 1222.09 952.689 1200 952.689L39.9999 952.689C17.9086 952.689 -0.000120505 934.78 -0.000118573 912.689L-4.55518e-05 77.4194C-4.36644e-05 55.8301 17.1322 38.1363 38.7103 37.4403L1198.71 0.0210535C1221.3 -0.70746 1240 17.4034 1240 40.0002L1240 912.689Z"
-                  fill="white"
-                />
-              </svg>
+              {activeStep === 3 ? (
+                <svg
+                  width="1240"
+                  height="2497"
+                  viewBox="0 0 1240 2497"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1240 2456.69C1240 2478.78 1222.09 2496.69 1200 2496.69L39.9999 2496.69C17.9086 2496.69 -0.000120505 2478.78 -0.000118573 2456.69L8.9429e-05 77.4191C9.13164e-05 55.8297 17.1323 38.1359 38.7104 37.4398L1198.71 0.0209925C1221.3 -0.707765 1240 17.4033 1240 40L1240 2456.69Z"
+                    fill="white"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  width="1240"
+                  height="953"
+                  viewBox="0 0 1240 953"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1240 912.689C1240 934.78 1222.09 952.689 1200 952.689L39.9999 952.689C17.9086 952.689 -0.000120505 934.78 -0.000118573 912.689L-4.55518e-05 77.4194C-4.36644e-05 55.8301 17.1322 38.1363 38.7103 37.4403L1198.71 0.0210535C1221.3 -0.70746 1240 17.4034 1240 40.0002L1240 912.689Z"
+                    fill="white"
+                  />
+                </svg>
+              )}
 
               {/* Step content - positioned inside SVG card, below stepper, centered */}
               <div className="absolute top-24 left-1/2 -translate-x-1/2 w-full max-w-5xl px-8 z-10">
-                {activeStep === 1 && <Step1Story onNext={handleNextStep} />}
+                {activeStep === 1 && <Step1Story onNext={handleNextStep} onStoryChange={setStoryData} />}
                 {activeStep === 2 && <Step2Character characters={characters} onNext={handleNextStep} onAddCharacter={handleOpenAddCharacterDialog} />}
-                {activeStep === 3 && <Step3Settings />}
+                {activeStep === 3 && <Step3Settings storyData={storyData} characters={characters} />}
               </div>
 
               {/* Back button - bottom left corner of SVG */}
