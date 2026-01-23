@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { AppButton, RadioButton } from "@/components/shared";
 import type { Character } from "./Step2Character";
@@ -73,6 +74,7 @@ const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters, on
   const [extrasLongerText, setExtrasLongerText] = useState("standard");
   const [extrasRhymingStory, setExtrasRhymingStory] = useState("disabled");
   const [isRhymingStoryChecked, setIsRhymingStoryChecked] = useState(false);
+  const [maximizedCover, setMaximizedCover] = useState<CoverStyle | null>(null);
 
   return (
     <div className="relative w-full flex flex-col items-center justify-center gap-8">
@@ -368,7 +370,14 @@ const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters, on
                             sizes="190px"
                           />
                           {selectedCoverStyle === option.id && (
-                            <span className="absolute inset-0 flex items-center justify-center rounded-md bg-primary/30">
+                            <span 
+                              className="absolute inset-0 flex items-center justify-center rounded-md bg-primary/30 cursor-pointer"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setMaximizedCover(option.id);
+                              }}
+                              aria-label="Maximize cover image"
+                            >
                               <span className="rounded-full bg-white p-2" aria-hidden>
                                 <Maximize2 size={20} className="text-blue-800" />
                               </span>
@@ -694,6 +703,32 @@ const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters, on
           Create
         </AppButton>
       </div>
+
+      {/* Maximized Cover Image Dialog */}
+      <Dialog open={maximizedCover !== null} onOpenChange={(open) => !open && setMaximizedCover(null)}>
+        <DialogContent 
+          className="max-w-4xl w-full p-0 bg-transparent border-none shadow-none"
+          showCloseButton={true}
+        >
+          <DialogTitle className="sr-only">
+            {maximizedCover 
+              ? `${COVER_OPTIONS.find(opt => opt.id === maximizedCover)?.label || "Cover"} preview`
+              : "Cover preview"}
+          </DialogTitle>
+          {maximizedCover && (
+            <div className="relative w-full h-auto max-h-[90vh] flex items-center justify-center">
+              <Image
+                src={COVER_OPTIONS.find(opt => opt.id === maximizedCover)?.image || ""}
+                alt={COVER_OPTIONS.find(opt => opt.id === maximizedCover)?.label || "Cover preview"}
+                width={800}
+                height={800}
+                className="object-contain rounded-lg w-full h-auto max-h-[90vh]"
+                sizes="(max-width: 768px) 100vw, 800px"
+              />
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
