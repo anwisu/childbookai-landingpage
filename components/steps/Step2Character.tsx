@@ -2,19 +2,10 @@
 
 import { HeadingText } from "../typography";
 import { ParagraphText } from "../typography";
-import { Card, CardContent } from "../ui/card";
-import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { AppButton } from "../shared/AppButton";
-import { Edit2, Trash } from "iconsax-react";
+import { CharacterCard, type Character } from "../ui/character-card";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-
-export type Character = {
-  id: number;
-  name: string;
-  description: string;
-  avatarSrc: string;
-};
 
 export type Step2CharacterProps = {
   characters: Character[];
@@ -106,43 +97,10 @@ export default function Step2Character({ characters, onNext, onAddCharacter }: S
         )}
       >
         {characters.map((character) => (
-          <Card
+          <CharacterCard
             key={character.id}
-            className="w-72 items-center border-none bg-blue-100 px-6 py-8 shadow-sm"
-          >
-            <CardContent className="flex flex-col items-center gap-4 px-0">
-              <Avatar className="size-24 shadow-md">
-                <AvatarImage src={character.avatarSrc} alt={character.name} />
-                <AvatarFallback className="bg-blue-800/10 text-primary font-semibold">
-                  {character.name.charAt(0)}
-                </AvatarFallback>
-              </Avatar>
-
-              <div className="flex flex-col items-center gap-1 text-center">
-                <p className="text-lg font-semibold text-foreground">
-                  {character.name}
-                </p>
-                <p className="text-md text-foreground">
-                  {character.description}
-                </p>
-              </div>
-
-              <div className="mt-3 flex items-center gap-4">
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-1 hover:text-teal-700"
-                >
-                  <Edit2 size={24} color="#30a0a6" variant="Bold" />
-                </button>
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-1 hover:text-teal-700"
-                >
-                  <Trash size={24} color="#30a0a6" variant="Bold" />
-                </button>
-              </div>
-            </CardContent>
-          </Card>
+            character={character}
+          />
         ))}
       </div>
 

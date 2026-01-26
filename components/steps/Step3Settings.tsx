@@ -2,9 +2,10 @@
 
 import React, { useState } from "react";
 import { HeadingText } from "../typography";
-import { Card, CardContent } from "../ui/card";
-import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
-import { Edit2, Trash, VideoSquare, Crown, InfoCircle } from "iconsax-react";
+import { CharacterCard, type Character } from "../ui/character-card";
+import { SettingsCard } from "../ui/settings-card";
+import { ColorPicker } from "../ui/color-picker";
+import { VideoSquare, Crown, InfoCircle } from "iconsax-react";
 import { Maximize2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,12 +17,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { AppButton, RadioButton } from "@/components/shared";
-import type { Character } from "./Step2Character";
 import type { StoryData } from "@/app/createbook/page";
 import Image from "next/image";
 import Step3Creating from "./Step3Creating";
@@ -117,43 +116,10 @@ const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters, on
         <div className="w-full flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-5">
             {characters.map((character) => (
-              <Card
+              <CharacterCard
                 key={character.id}
-                className="w-72 items-center border-none bg-blue-100 px-6 py-8 shadow-sm"
-              >
-                <CardContent className="flex flex-col items-center gap-4 px-0">
-                  <Avatar className="size-24 shadow-md">
-                    <AvatarImage src={character.avatarSrc} alt={character.name} />
-                    <AvatarFallback className="bg-blue-800/10 text-primary font-semibold">
-                      {character.name.charAt(0)}
-                    </AvatarFallback>
-                  </Avatar>
-
-                  <div className="flex flex-col items-center gap-1 text-center">
-                    <p className="text-lg font-semibold text-foreground">
-                      {character.name}
-                    </p>
-                    <p className="text-md text-foreground">
-                      {character.description}
-                    </p>
-                  </div>
-
-                  <div className="mt-3 flex items-center gap-4">
-                    <button
-                      type="button"
-                      className="inline-flex items-center gap-1 hover:text-teal-700"
-                    >
-                      <Edit2 size={24} color="#30a0a6" variant="Bold" />
-                    </button>
-                    <button
-                      type="button"
-                      className="inline-flex items-center gap-1 hover:text-teal-700"
-                    >
-                      <Trash size={24} color="#30a0a6" variant="Bold" />
-                    </button>
-                  </div>
-                </CardContent>
-              </Card>
+                character={character}
+              />
             ))}
           </div>
         </div>
@@ -178,165 +144,90 @@ const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters, on
         </div>
 
         {/* Audiobook Card */}
-        <Card className="border-none bg-blue-100 px-6 py-4 shadow-sm">
-          <CardContent className="flex flex-col gap-6 px-0">
-            {/* Top Row: Heading, Description, and Check Button */}
-            <div className="flex items-start justify-between">
-              <div className="flex flex-col gap-1">
-                <HeadingText
-                  variant="h5"
-                  title="Audiobook"
-                  className="font-semibold text-foreground"
-                />
-                <p className="text-sm text-gray-600">
-                  Add voice narration to your book
+        <SettingsCard
+          title="Audiobook"
+          description="Add voice narration to your book"
+          action={
+            <Checkbox
+              checked={isAudiobookEnabled}
+              onCheckedChange={(checked) => setIsAudiobookEnabled(checked === true)}
+              className="size-5"
+              aria-label="Toggle audiobook"
+            />
+          }
+        >
+          {/* Bottom Section: Two Columns */}
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 items-center">
+            {/* Left Column: Megaphone Image */}
+            <div className="flex items-center justify-center">
+              <div className="relative w-48 h-48 flex items-center justify-center">
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <Image src="/images/megaphone.svg" alt="Megaphone" width={200} height={200} />
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Voice Selection Controls */}
+            <div className="flex flex-col gap-4">
+              {/* Voice Label and Dropdown */}
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="voice-select" className="text-sm font-medium text-foreground">
+                  Voice
+                </Label>
+                <Select value={selectedVoice} onValueChange={setSelectedVoice}>
+                  <SelectTrigger id="voice-select" className="w-full">
+                    <SelectValue placeholder="Select a voice" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="ruth">US - Female Adult - Ruth</SelectItem>
+                    <SelectItem value="john">US - Male Adult - John</SelectItem>
+                    <SelectItem value="emily">US - Female Child - Emily</SelectItem>
+                    <SelectItem value="mike">US - Male Child - Mike</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-gray-500">
+                  You can choose the voice of the narrator
                 </p>
               </div>
-              <Checkbox
-                checked={isAudiobookEnabled}
-                onCheckedChange={(checked) => setIsAudiobookEnabled(checked === true)}
-                className="size-5"
-                aria-label="Toggle audiobook"
-              />
-            </div>
 
-            {/* Bottom Section: Two Columns */}
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 items-center">
-              {/* Left Column: Megaphone Image */}
-              <div className="flex items-center justify-center">
-                <div className="relative w-48 h-48 flex items-center justify-center">
-                  <div className="relative w-full h-full flex items-center justify-center">
-                    <Image src="/images/megaphone.svg" alt="Megaphone" width={200} height={200} />
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column: Voice Selection Controls */}
-              <div className="flex flex-col gap-4">
-                {/* Voice Label and Dropdown */}
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="voice-select" className="text-sm font-medium text-foreground">
-                    Voice
-                  </Label>
-                  <Select value={selectedVoice} onValueChange={setSelectedVoice}>
-                    <SelectTrigger id="voice-select" className="w-full">
-                      <SelectValue placeholder="Select a voice" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="ruth">US - Female Adult - Ruth</SelectItem>
-                      <SelectItem value="john">US - Male Adult - John</SelectItem>
-                      <SelectItem value="emily">US - Female Child - Emily</SelectItem>
-                      <SelectItem value="mike">US - Male Child - Mike</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <p className="text-xs text-gray-500">
-                    You can choose the voice of the narrator
-                  </p>
-                </div>
-
-                {/* Voice Preview Button */}
-                <div className="flex flex-col gap-2">
-                  <button
-                    type="button"
-                    className="w-full flex items-center justify-between px-3 py-2 border-2 border-blue-800 rounded-md bg-transparent hover:bg-blue-50 transition-colors text-left"
-                    aria-label="Play voice preview"
-                  >
-                    <span className="text-sm text-foreground">Voice Preview</span>
-                    <VideoSquare size={20} color="#30a0a6" variant="Bold" />
-                  </button>
-                  <p className="text-xs text-gray-500">
-                    You can choose the voice of the narrator
-                  </p>
-                </div>
+              {/* Voice Preview Button */}
+              <div className="flex flex-col gap-2">
+                <button
+                  type="button"
+                  className="w-full flex items-center justify-between px-3 py-2 border-2 border-blue-800 rounded-md bg-transparent hover:bg-blue-50 transition-colors text-left"
+                  aria-label="Play voice preview"
+                >
+                  <span className="text-sm text-foreground">Voice Preview</span>
+                  <VideoSquare size={20} color="#30a0a6" variant="Bold" />
+                </button>
+                <p className="text-xs text-gray-500">
+                  You can choose the voice of the narrator
+                </p>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </SettingsCard>
 
         {showMore && (
           <>
-            <Card className="border-none bg-blue-100 px-6 py-4 shadow-sm">
-              <CardContent className="flex flex-col gap-6 px-0">
-                {/* Top Row: Heading, Description */}
-                <div className="flex items-start justify-between">
-                  <div className="flex flex-col gap-1">
-                    <HeadingText
-                      variant="h5"
-                      title="Book Color"
-                      className="font-semibold text-foreground"
-                      />
-                    <p className="text-sm text-gray-600">
-                      Select page color
-                    </p>
-                  </div>
-                  <div className="flex items-center justify-center -space-x-2">
-                    {BOOK_COLORS.primary.map((bookColor, index) => (
-                      <button
-                        key={index}
-                        type="button"
-                        onClick={() => setSelectedBookColor(bookColor.color)}
-                        className={cn(
-                          "relative w-10 h-10 rounded-full border-2 transition-all hover:z-10",
-                          selectedBookColor === bookColor.color
-                            ? "border-blue-800 ring-2 ring-blue-800 ring-offset-1 z-10"
-                            : "border-white hover:border-blue-800"
-                        )}
-                        style={{ backgroundColor: bookColor.color }}
-                        aria-label={`Select book color ${bookColor.name}`}
-                      />
-                    ))}
+            <SettingsCard
+              title="Book Color"
+              description="Select page color"
+            >
+              <div className="flex items-center justify-center">
+                <ColorPicker
+                  value={selectedBookColor}
+                  onChange={setSelectedBookColor}
+                  primaryColors={BOOK_COLORS.primary}
+                  extendedColors={BOOK_COLORS.extended}
+                />
+              </div>
+            </SettingsCard>
 
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <button
-                          type="button"
-                          className="relative w-10 h-10 rounded-full border-2 border-blue-800 bg-white flex items-center justify-center hover:bg-gray-50 transition-colors hover:z-10 ml-2"
-                          aria-label="More book color options"
-                        >
-                          <div className="flex gap-0.5">
-                            <div className="w-1 h-1 rounded-full bg-blue-800" />
-                            <div className="w-1 h-1 rounded-full bg-blue-800" />
-                            <div className="w-1 h-1 rounded-full bg-blue-800" />
-                          </div>
-                        </button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-4 bg-[#F4FAFA]">
-                        <div className="grid grid-cols-3 gap-3">
-                          {BOOK_COLORS.extended.map((bookColor, index) => (
-                            <button
-                              key={index}
-                              type="button"
-                              onClick={() => setSelectedBookColor(bookColor.color)}
-                              className={cn(
-                                "w-10 h-10 rounded-full border-2 transition-all",
-                                selectedBookColor === bookColor.color
-                                  ? "border-blue-800 ring-2 ring-blue-800 ring-offset-1"
-                                  : "border-gray-300 hover:border-blue-800"
-                              )}
-                              style={{ backgroundColor: bookColor.color }}
-                              aria-label={`Select book color ${bookColor.name}`}
-                            />
-                          ))}
-                        </div>
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-none bg-blue-100 px-6 py-4 shadow-sm">
-              <CardContent className="flex flex-col gap-6 px-0">
-                <div className="flex flex-col gap-1">
-                  <HeadingText
-                    variant="h5"
-                    title="Cover Style"
-                    className="font-semibold text-foreground"
-                  />
-                  <p className="text-sm text-gray-600">
-                    Choose cover design for your book
-                  </p>
-                </div>
+            <SettingsCard
+              title="Cover Style"
+              description="Choose cover design for your book"
+            >
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                   {COVER_OPTIONS.map((option) => (
                     <div key={option.id} className="flex flex-col gap-3 items-center sm:items-start">
@@ -420,26 +311,13 @@ const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters, on
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+            </SettingsCard>
 
-            <Card className="border-none bg-blue-100 px-6 py-4 shadow-sm">
-              <CardContent className="flex flex-col gap-6 px-0">
-                {/* Top Row: Heading, Description, and Check Button */}
-                <div className="flex items-start justify-between">
-                  <div className="flex flex-col gap-1">
-                    <HeadingText
-                      variant="h5"
-                      title="Page Count"
-                      className="font-semibold text-foreground"
-                    />
-                    <p className="text-sm text-gray-600">
-                      12 pages are available for a basic account
-                    </p>
-                  </div>
-                </div>
-
-                {/* Bottom Section: Two Columns */}
+            <SettingsCard
+              title="Page Count"
+              description="12 pages are available for a basic account"
+            >
+              {/* Bottom Section: Two Columns */}
                 <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 items-center">
                   {/* Left Column: Megaphone Image */}
                   <div className="flex items-center justify-center">
@@ -539,56 +417,36 @@ const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters, on
                     </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+            </SettingsCard>
 
-            <Card className="border-none bg-blue-100 px-6 py-4 shadow-sm">
-              <CardContent className="flex flex-col gap-6 px-0">
-                {/* Top Row: Heading, Description, and Check Button */}
-                <div className="flex items-start justify-between">
-                  <div className="flex flex-col gap-1">
-                    <HeadingText
-                      variant="h5"
-                      title="Public"
-                      className="font-semibold text-foreground"
-                    />
-                    <p className="text-sm text-gray-600">
-                      Make your book visible to other users in the library
-                    </p>
-                  </div>
-                  <Checkbox
-                    checked={isAudiobookEnabled}
-                    onCheckedChange={(checked) => setIsAudiobookEnabled(checked === true)}
-                    className="size-5"
-                    aria-label="Toggle audiobook"
-                  />
-                </div>
-              </CardContent>
-            </Card>
+            <SettingsCard
+              title="Public"
+              description="Make your book visible to other users in the library"
+              action={
+                <Checkbox
+                  checked={isAudiobookEnabled}
+                  onCheckedChange={(checked) => setIsAudiobookEnabled(checked === true)}
+                  className="size-5"
+                  aria-label="Toggle audiobook"
+                />
+              }
+            >
+              {null}
+            </SettingsCard>
 
-            <Card className="border-none bg-blue-100 px-6 py-4 shadow-sm">
-              <CardContent className="flex flex-col gap-6 px-0">
-                {/* Top Row: Heading, Description, and Check Button */}
-                <div className="flex items-start justify-between">
-                  <div className="flex flex-col gap-1">
-                    <HeadingText
-                      variant="h5"
-                      title="Extras"
-                      className="font-semibold text-foreground"
-                    />
-                    <p className="text-sm text-gray-600">
-                      12 pages are available for a basic account
-                    </p>
-                  </div>
-                  <Checkbox
-                    checked={isAudiobookEnabled}
-                    onCheckedChange={(checked) => setIsAudiobookEnabled(checked === true)}
-                    className="size-5"
-                    aria-label="Toggle audiobook"
-                  />
-                </div>
-
-                {/* Bottom Section: Two Columns */}
+            <SettingsCard
+              title="Extras"
+              description="12 pages are available for a basic account"
+              action={
+                <Checkbox
+                  checked={isAudiobookEnabled}
+                  onCheckedChange={(checked) => setIsAudiobookEnabled(checked === true)}
+                  className="size-5"
+                  aria-label="Toggle audiobook"
+                />
+              }
+            >
+              {/* Bottom Section: Two Columns */}
                 <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 items-stretch">
                   {/* Left Column: Crown illustration + Buy button at bottom */}
                   <div className="flex h-full flex-col items-center justify-between gap-4">
@@ -609,7 +467,7 @@ const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters, on
                   {/* Right Column: Extras Controls */}
                   <div className="flex flex-col gap-4">
                     {/* 1. Adnotation - Input with info icon */}
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-1">
                       <Label htmlFor="adnotation-input" className="text-sm font-medium text-foreground">
                         Adnotation
                       </Label>
@@ -638,7 +496,7 @@ const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters, on
                     </div>
 
                     {/* 2. Longer text - Select */}
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-1">
                       <Label htmlFor="extras-longer-text" className="text-sm font-medium text-foreground">
                         Longer text
                       </Label>
@@ -654,7 +512,7 @@ const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters, on
                     </div>
 
                     {/* 3. Rhyming story - Select with checkbox inside content */}
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-1">
                       <Label htmlFor="extras-rhyming-story" className="text-sm font-medium text-foreground">
                         Rhyming story
                       </Label>
@@ -713,11 +571,10 @@ const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters, on
                     </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+            </SettingsCard>
 
             {/* Bottom Create CTA */}
-            <div className="w-full flex justify-center pb-8">
+            <div className="w-full flex justify-center pb-2 mt-2">
               <AppButton
                 variant="primary"
                 size="md"

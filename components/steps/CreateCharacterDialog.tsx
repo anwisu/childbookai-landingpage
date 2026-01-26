@@ -17,11 +17,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { DocumentUpload } from "iconsax-react";
 import { AppButton } from "../shared/AppButton";
+import { ColorPicker } from "../ui/color-picker";
 import type { CharacterFormData } from "./AddCharacterDialog";
 import { TourGuide, type TourStep } from "./TourGuide";
 import {
@@ -117,144 +117,6 @@ function GenderRadioButtons({ value, onChange }: GenderRadioButtonsProps) {
   );
 }
 
-interface HairColorPickerProps {
-  value: string;
-  onChange: (color: string) => void;
-}
-
-function HairColorPicker({ value, onChange }: HairColorPickerProps) {
-  return (
-    <div className="flex items-center -space-x-2">
-      {HAIR_COLORS.primary.map((color, index) => (
-        <button
-          key={index}
-          type="button"
-          onClick={() => onChange(color)}
-          className={`relative w-10 h-10 rounded-full border-2 transition-all hover:z-10 ${
-            value === color
-              ? "border-blue-800 ring-2 ring-blue-800 ring-offset-1 z-10"
-              : "border-white hover:border-blue-800"
-          }`}
-          style={{ backgroundColor: color }}
-          aria-label={`Select hair color ${color}`}
-        />
-      ))}
-
-      <Popover>
-        <PopoverTrigger asChild>
-          <button
-            type="button"
-            className="relative w-10 h-10 rounded-full border-2 border-blue-800 bg-white flex items-center justify-center hover:bg-gray-50 transition-colors hover:z-10 ml-2"
-            aria-label="More hair color options"
-          >
-            <div className="flex gap-0.5">
-              <div className="w-1 h-1 rounded-full bg-blue-800" />
-              <div className="w-1 h-1 rounded-full bg-blue-800" />
-              <div className="w-1 h-1 rounded-full bg-blue-800" />
-            </div>
-          </button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-4 bg-[#F4FAFA]">
-          <div className="grid grid-cols-3 gap-3">
-            {HAIR_COLORS.extended.map((color, index) => (
-              <button
-                key={index}
-                type="button"
-                onClick={() => onChange(color)}
-                className={`w-10 h-10 rounded-full border-2 transition-all ${
-                  value === color
-                    ? "border-blue-800 ring-2 ring-blue-800 ring-offset-1"
-                    : "border-gray-300 hover:border-blue-800"
-                }`}
-                style={{ backgroundColor: color }}
-                aria-label={`Select hair color ${color}`}
-              />
-            ))}
-          </div>
-        </PopoverContent>
-      </Popover>
-    </div>
-  );
-}
-
-interface EyeColorPickerProps {
-  value: string;
-  onChange: (color: string) => void;
-}
-
-function EyeColorPicker({ value, onChange }: EyeColorPickerProps) {
-  return (
-    <>
-      <div className="bg-gray-100 rounded-xl p-4 flex flex-col items-center justify-center gap-2 h-[240px]">
-        <Label className="text-heading-sm text-center">Eye color</Label>
-        <div className="relative w-38 h-38 p-12">
-          <Image
-            src={`/illustrations/eye-color/${value}.svg`}
-            alt={`${value} eyes`}
-            fill
-            className="object-contain"
-          />
-        </div>
-      </div>
-
-      <div className="w-full space-y-2">
-        <Label className="text-sm text-center block">
-          Select the desired eye color
-        </Label>
-        <div className="flex items-center justify-center -space-x-2">
-          {EYE_COLORS.primary.map((eyeColor, index) => (
-            <button
-              key={index}
-              type="button"
-              onClick={() => onChange(eyeColor.svg)}
-              className={`relative w-10 h-10 rounded-full border-2 transition-all hover:z-10 ${
-                value === eyeColor.svg
-                  ? "border-blue-800 ring-2 ring-blue-800 ring-offset-1 z-10"
-                  : "border-white hover:border-blue-800"
-              }`}
-              style={{ backgroundColor: eyeColor.color }}
-              aria-label={`Select eye color ${eyeColor.name}`}
-            />
-          ))}
-
-          <Popover>
-            <PopoverTrigger asChild>
-              <button
-                type="button"
-                className="relative w-10 h-10 rounded-full border-2 border-blue-800 bg-white flex items-center justify-center hover:bg-gray-50 transition-colors hover:z-10 ml-2"
-                aria-label="More eye color options"
-              >
-                <div className="flex gap-0.5">
-                  <div className="w-1 h-1 rounded-full bg-blue-800" />
-                  <div className="w-1 h-1 rounded-full bg-blue-800" />
-                  <div className="w-1 h-1 rounded-full bg-blue-800" />
-                </div>
-              </button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-4 bg-[#F4FAFA]">
-              <div className="grid grid-cols-3 gap-3">
-                {EYE_COLORS.extended.map((eyeColor, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={() => onChange(eyeColor.svg)}
-                    className={`w-10 h-10 rounded-full border-2 transition-all ${
-                      value === eyeColor.svg
-                        ? "border-blue-800 ring-2 ring-blue-800 ring-offset-1"
-                        : "border-gray-300 hover:border-blue-800"
-                    }`}
-                    style={{ backgroundColor: eyeColor.color }}
-                    aria-label={`Select eye color ${eyeColor.name}`}
-                  />
-                ))}
-              </div>
-            </PopoverContent>
-          </Popover>
-        </div>
-      </div>
-    </>
-  );
-}
 
 interface HairLengthSelectorProps {
   value: string;
@@ -655,9 +517,11 @@ export default function CreateCharacterDialog({
 
               <div className="space-y-2">
                 <Label>Hair color</Label>
-                <HairColorPicker
+                <ColorPicker
                   value={formData.hairColor}
                   onChange={(color) => updateFormData({ hairColor: color })}
+                  primaryColors={HAIR_COLORS.primary}
+                  extendedColors={HAIR_COLORS.extended}
                 />
               </div>
             </div>
@@ -665,9 +529,15 @@ export default function CreateCharacterDialog({
           {/* Fourth Row: Eye color and Hair length */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-2">
               <div className="flex flex-col gap-4">
-                <EyeColorPicker
+                <ColorPicker
                   value={formData.eyeColor}
                   onChange={(color) => updateFormData({ eyeColor: color })}
+                  primaryColors={EYE_COLORS.primary}
+                  extendedColors={EYE_COLORS.extended}
+                  showPreview={true}
+                  previewImagePath="/illustrations/eye-color/{value}.svg"
+                  previewLabel="Eye color"
+                  label="Select the desired eye color"
                 />
               </div>
 

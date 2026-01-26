@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ArrowCircleLeft2 } from "iconsax-react";
 import { Navbar } from "@/components/layout";
@@ -33,6 +33,32 @@ export default function CreateBook() {
     description: "A shy bookworm and an outgoing athlete form an unexpected friendship that changes both their lives.",
   });
   const steps = [1, 2, 3] as const;
+
+  // Get SVG config for Step 3 - generates dynamic path that maintains rounded corners
+  const getStep3SvgConfig = (height: number) => {
+    // Use original paths for exact matches
+    if (!showMoreContent && Math.abs(height - 1080) < 50) {
+      return {
+        height: 1080,
+        viewBox: "0 -227.311 1240 1080",
+        path: "M1240 812.689 C1240 834.781 1222.09 852.689 1200 852.689 L39.9999 852.689 C17.9086 852.689 -0.000120505 834.781 -0.000118573 812.689 L-5.42941e-05 -149.891 C-5.24067e-05 -171.48 17.1322 -189.174 38.7103 -189.87 L1198.71 -227.289 C1221.3 -228.018 1240 -209.906 1240 -187.309 L1240 812.689 Z"
+      };
+    }
+    
+    // For dynamic heights: generate path that extends middle section
+    // Top rounded corner: y starts at 40 (rounded)
+    // Bottom rounded corner: y ends at height - 40.311 (rounded)
+    // Middle section extends proportionally
+    const topY = 40;
+    const bottomY = height - 40.311;
+    const bottomCurveY = height - 0.311;
+    
+    return {
+      height: height,
+      viewBox: `0 0 1240 ${height}`,
+      path: `M1240 ${bottomY}C1240 ${bottomY + 22.092} 1222.09 ${bottomCurveY} 1200 ${bottomCurveY}L39.9999 ${bottomCurveY}C17.9086 ${bottomCurveY} 0 ${bottomY + 22.092} 0 ${bottomY}L0 77.4191C0 55.8297 17.1323 38.1359 38.7104 37.4398L1198.71 0.0209925C1221.3 -0.707765 1240 17.4033 1240 ${topY}L1240 ${bottomY}Z`
+    };
+  };
 
   const handleNextStep = () => {
     setActiveStep((prev) => (prev < steps.length ? prev + 1 : prev));
@@ -71,6 +97,38 @@ export default function CreateBook() {
       setShowMoreContent(false);
     }
   }, [activeStep]);
+
+  // Measure content height for dynamic SVG sizing (Step 3 only)
+  const step3ContentRef = useRef<HTMLDivElement>(null);
+  const [svgHeight, setSvgHeight] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (activeStep === 3 && step3ContentRef.current && !isCreating) {
+      const updateHeight = () => {
+        const contentHeight = step3ContentRef.current?.offsetHeight || 0;
+        // Add padding: top-24 (96px) + bottom padding (80px for rounded corners) + buffer
+        const minHeight = showMoreContent ? 2497 : 1080;
+        const calculatedHeight = Math.max(
+          minHeight,
+          contentHeight + 96 + 80 + 60
+        );
+        setSvgHeight(calculatedHeight);
+      };
+
+      // Initial measurement
+      const timeoutId = setTimeout(updateHeight, 100);
+      
+      const resizeObserver = new ResizeObserver(updateHeight);
+      resizeObserver.observe(step3ContentRef.current);
+
+      return () => {
+        clearTimeout(timeoutId);
+        resizeObserver.disconnect();
+      };
+    } else {
+      setSvgHeight(null);
+    }
+  }, [activeStep, showMoreContent, isCreating]);
 
   return (
     <>
@@ -160,20 +218,25 @@ export default function CreateBook() {
                       fill="white"
                     />
                   </svg>
-                ) : showMoreContent ? (
-                  <svg
-                    width="1240"
-                    height="2497"
-                    viewBox="0 0 1240 2497"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M1240 2456.69C1240 2478.78 1222.09 2496.69 1200 2496.69L39.9999 2496.69C17.9086 2496.69 -0.000120505 2478.78 -0.000118573 2456.69L8.9429e-05 77.4191C9.13164e-05 55.8297 17.1323 38.1359 38.7104 37.4398L1198.71 0.0209925C1221.3 -0.707765 1240 17.4033 1240 40L1240 2456.69Z"
-                      fill="white"
-                    />
-                  </svg>
-                ) : (
+                ) : svgHeight ? (() => {
+                  const svgConfig = getStep3SvgConfig(svgHeight);
+                  return (
+                    <svg
+                      width="1240"
+                      height={svgConfig.height}
+                      viewBox={svgConfig.viewBox}
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-full h-auto"
+                      preserveAspectRatio="xMidYMid meet"
+                    >
+                      <path
+                        d={svgConfig.path}
+                        fill="white"
+                      />
+                    </svg>
+                  );
+                })() : (
                   <svg
                     width="1240"
                     height="1080"
@@ -203,7 +266,10 @@ export default function CreateBook() {
               )}
 
               {/* Step content - positioned inside SVG card, below stepper, centered */}
-              <div className="absolute top-24 left-1/2 -translate-x-1/2 w-full max-w-5xl px-8 z-10">
+              <div 
+                ref={activeStep === 3 ? step3ContentRef : null}
+                className="absolute top-24 left-1/2 -translate-x-1/2 w-full max-w-5xl px-8 z-10"
+              >
                 {activeStep === 1 && <Step1Story onNext={handleNextStep} onStoryChange={setStoryData} />}
                 {activeStep === 2 && <Step2Character characters={characters} onNext={handleNextStep} onAddCharacter={handleOpenAddCharacterDialog} />}
                 {activeStep === 3 && <Step3Settings storyData={storyData} characters={characters} onShowMoreToggle={handleShowMoreToggle} showMore={showMoreContent} onCreateClick={handleCreateClick} />}

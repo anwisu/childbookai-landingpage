@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { CustomCard, AppButton } from "@/components/shared";
 import { HeadingText, ParagraphText } from "@/components/typography";
+import { FeatureList } from "@/components/ui/feature-list";
 import { cn } from "@/lib/utils";
 import { pricingData } from "@/lib/data";
 import type { PricingCard } from "@/lib/types";
@@ -144,29 +145,12 @@ export function IndividualPricing({ isYearly }: IndividualPricingProps) {
               }
             >
               <div className="flex flex-col h-full">
-                <ul className="space-y-1 xl:space-y-2 -mt-12 mb-3">
-                  {plan.features.map((feature, index) => {
-                    const isLast = index === plan.features.length - 1;
-                    return (
-                      <li
-                        key={index}
-                        className={`flex items-start text-body-sm text-foreground ${
-                          isLast ? "pt-2 pb-4" : "py-2"
-                        }`}
-                      >
-                        <Image
-                          src="/illustrations/check-icon.svg"
-                          alt=""
-                          width={20}
-                          height={20}
-                          className="mr-2 shrink-0 mt-0.5 w-5 h-5 sm:w-5 sm:h-5"
-                          sizes="20px"
-                        />
-                        <span>{feature}</span>
-                      </li>
-                    );
-                  })}
-                </ul>
+                <FeatureList
+                  features={plan.features}
+                  columns={1}
+                  textSize="sm"
+                  iconSize="md"
+                />
 
                 <AppButton
                   variant="primary"

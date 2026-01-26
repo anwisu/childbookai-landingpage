@@ -139,7 +139,7 @@ export function Pricing() {
                 aria-controls="pricing-content"
                 id="tab-individual"
                 className={cn(
-                  "px-3 sm:px-4 md:px-5 py-2 sm:py-3 font-semibold text-sm sm:text-body transition-all duration-200 ease-out rounded-l-sm rounded-r-none border-0 min-h-[40px] sm:min-h-[44px] touch-manipulation focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary hover:scale-105 active:scale-95",
+                  "px-3 sm:px-4 md:px-5 py-2 sm:py-3 font-semibold text-sm sm:text-body transition-all duration-200 ease-out rounded-l-sm rounded-r-none border-0 min-h-[40px] sm:min-h-[44px] touch-manipulation focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-teal-600 active:scale-95",
                   activeTab === "individual"
                     ? "bg-blue-800 text-white hover:bg-blue-800"
                     : "bg-white text-foreground hover:bg-white"
@@ -154,7 +154,7 @@ export function Pricing() {
                 aria-controls="pricing-content"
                 id="tab-business"
                 className={cn(
-                  "px-3 sm:px-4 md:px-5 py-2 sm:py-3 font-semibold text-sm sm:text-body transition-all duration-200 ease-out rounded-r-sm rounded-l-none border-0 min-h-[40px] sm:min-h-[44px] touch-manipulation focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary hover:scale-105 active:scale-95",
+                  "px-3 sm:px-4 md:px-5 py-2 sm:py-3 font-semibold text-sm sm:text-body transition-all duration-200 ease-out rounded-r-sm rounded-l-none border-0 min-h-[40px] sm:min-h-[44px] touch-manipulation focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-teal-600 active:scale-95",
                   activeTab === "business"
                     ? "bg-blue-800 text-white hover:bg-blue-800"
                     : "bg-white text-foreground hover:bg-white"
@@ -167,7 +167,7 @@ export function Pricing() {
             {/* Yearly Checkbox */}
             <label
               className={cn(
-                "px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-md font-semibold text-sm sm:text-body transition-all duration-200 ease-out border-2 border-blue-800 flex items-center gap-2 bg-white text-foreground cursor-pointer hover:bg-white hover:scale-105 active:scale-95 min-h-[40px] sm:min-h-[44px] touch-manipulation justify-center focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary"
+                "px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-md font-semibold text-sm sm:text-body transition-all duration-200 ease-out border-2 border-blue-800 flex items-center gap-2 bg-white text-foreground cursor-pointer hover:bg-white hover:scale-105 active:scale-95 min-h-[40px] sm:min-h-[44px] touch-manipulation justify-center focus-within:outline-none focus-within:ring-1 focus-within:ring-offset-1 focus-within:ring-teal-600"
               )}
             >
               <Checkbox
