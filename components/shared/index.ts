@@ -19,6 +19,7 @@ export { CustomCard } from "./CustomCard";
 export { DecorativeElement, DecorativeElements } from "./DecorativeElement";
 export { InnerIconButton } from "./InnerIconButton";
 export { MobileBackgroundCard } from "./MobileBackgroundCard";
+export { SectionContainer } from "./SectionContainer";
 export { default as ProgressBar } from "./ProgressBar";
 export { default as ProgressBadge } from "./ProgressBadge";
 export { RadioButton } from "./RadioButton";

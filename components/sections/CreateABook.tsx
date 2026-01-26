@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { AppButton, InnerIconButton } from "@/components/shared";
 import { settings, kids } from "@/lib/data";
 import { IMAGE_DIMENSIONS, ASPECT_RATIOS, SCALE, CREATE_BOOK_CONFIG, BACKGROUND_SHAPES } from "@/lib/constants";
-import { BackgroundShape, MobileBackgroundCard } from "@/components/shared";
+import { SectionContainer } from "@/components/shared";
 import { HeadingText, ParagraphText } from "@/components/typography";
 import { scrollReveal, scrollRevealLeft, scrollRevealRight, staggerContainer, scaleIn, viewportOnce } from "@/lib/utils/animations";
 
@@ -17,19 +17,36 @@ export function CreateABook() {
     setIsBookMockupActive((prev) => !prev);
   };
   return (
-    <section className="relative w-full py-8 sm:py-10 md:py-12 lg:py-16 min-h-[400px] sm:min-h-[500px]">
-      {/* Desktop / large screens: SVG background */}
-      <BackgroundShape
-        viewBox={BACKGROUND_SHAPES.CREATE_BOOK.viewBox}
-        path={BACKGROUND_SHAPES.CREATE_BOOK.path}
-        fill="white"
-        className="hidden lg:flex"
-      />
-
-      {/* Tablet / mobile: soft white background card */}
-      <MobileBackgroundCard />
-
-      <div className="relative z-10 max-w-7xl mx-auto p-8 sm:p-10 md:p-12 lg:pt-16">
+    <SectionContainer
+      viewBox={BACKGROUND_SHAPES.CREATE_BOOK.viewBox}
+      path={BACKGROUND_SHAPES.CREATE_BOOK.path}
+      fill="white"
+      sectionClassName="py-8 sm:py-10 md:py-12 lg:py-16 min-h-[400px] sm:min-h-[500px]"
+      contentClassName="p-8 sm:p-10 md:p-12 lg:pt-16"
+      overlay={
+        <div
+          className="absolute bottom-0 left-0 right-0 z-1 w-full max-w-full overflow-hidden"
+          style={{
+            transform: "translateY(35%)",
+          }}
+        >
+          <div
+            className="relative w-full mx-auto"
+            style={{ aspectRatio: ASPECT_RATIOS.FOOTER_BG, maxWidth: "100%" }}
+          >
+            <Image
+              src="/background/inverted-cloud.svg"
+              alt=""
+              fill
+              className="object-contain"
+              priority
+              sizes="100vw"
+              aria-hidden="true"
+            />
+          </div>
+        </div>
+      }
+    >
         <motion.div
           className="mb-4 sm:mb-8"
           initial="hidden"
@@ -302,29 +319,6 @@ export function CreateABook() {
             </AppButton>
           </motion.div>
         </motion.div>
-      </div>
-
-      <div
-        className="absolute bottom-0 left-0 right-0 z-1 w-full max-w-full overflow-hidden"
-        style={{
-          transform: "translateY(35%)",
-        }}
-      >
-        <div
-          className="relative w-full mx-auto"
-          style={{ aspectRatio: ASPECT_RATIOS.FOOTER_BG, maxWidth: "100%" }}
-        >
-          <Image
-            src="/background/inverted-cloud.svg"
-            alt=""
-            fill
-            className="object-contain"
-            priority
-            sizes="100vw"
-            aria-hidden="true"
-          />
-        </div>
-      </div>
-    </section>
+    </SectionContainer>
   );
 }

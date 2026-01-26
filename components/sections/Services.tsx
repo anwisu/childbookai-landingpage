@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { services } from "@/lib/data";
-import { BackgroundShape, MobileBackgroundCard } from "@/components/shared";
+import { SectionContainer } from "@/components/shared";
 import { HeadingText, ParagraphText } from "@/components/typography";
 import { SERVICE_IDS, BACKGROUND_SHAPES } from "@/lib/constants";
 import { scrollReveal, staggerContainer, scaleIn, viewportOnce } from "@/lib/utils/animations";
@@ -26,20 +26,13 @@ export function Services() {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24">
-      {/* Desktop / large screens: SVG background */}
-      <BackgroundShape
-        viewBox={BACKGROUND_SHAPES.SERVICES.viewBox}
-        path={BACKGROUND_SHAPES.SERVICES.path}
-        fill="white"
-        className="hidden lg:flex"
-      />
-
-      {/* Tablet / mobile: soft white background card */}
-      <MobileBackgroundCard />
-
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 ">
+    <SectionContainer
+      viewBox={BACKGROUND_SHAPES.SERVICES.viewBox}
+      path={BACKGROUND_SHAPES.SERVICES.path}
+      fill="white"
+      sectionClassName="overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24"
+      contentClassName="p-4 sm:p-6 lg:p-8 "
+    >
         <motion.div
           className="text-center mb-4 sm:mb-8 md:mb-10"
           initial="hidden"
@@ -177,8 +170,7 @@ export function Services() {
             </motion.div>
           ))}
         </motion.div>
-      </div>
-    </section>
+    </SectionContainer>
   );
 }
 

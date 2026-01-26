@@ -9,7 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { IndividualPricing, BusinessPricing } from "./";
 import { IMAGE_DIMENSIONS, Z_INDEX, BACKGROUND_SHAPES } from "@/lib/constants";
-import { BackgroundShape, MobileBackgroundCard } from "@/components/shared";
+import { SectionContainer } from "@/components/shared";
 import { HeadingText } from "@/components/typography";
 import { scrollReveal, viewportOnce } from "@/lib/utils/animations";
 
@@ -20,18 +20,15 @@ export function Pricing() {
   const [isYearly, setIsYearly] = useState(true);
 
   return (
-    <section className="relative w-full py-24 min-h-[500px] overflow-visible">
-      {/* Desktop / large screens: SVG background */}
-      <BackgroundShape
-        viewBox={BACKGROUND_SHAPES.PRICING.viewBox}
-        path={BACKGROUND_SHAPES.PRICING.path}
-        fill="white"
-        className="hidden lg:flex overflow-visible"
-      />
-
-      {/* Tablet / mobile: soft white background card */}
-      <MobileBackgroundCard className="mb-10" />
-
+    <SectionContainer
+      viewBox={BACKGROUND_SHAPES.PRICING.viewBox}
+      path={BACKGROUND_SHAPES.PRICING.path}
+      fill="white"
+      sectionClassName="py-24 min-h-[500px] overflow-visible"
+      backgroundShapeClassName="overflow-visible"
+      mobileCardClassName="mb-10"
+      contentClassName="px-4 sm:px-6 lg:px-8 overflow-visible"
+    >
       {/* Decorative Elements - Behind Cards */}
       <div
         className="absolute inset-0 pointer-events-none overflow-visible hidden sm:block"
@@ -96,9 +93,7 @@ export function Pricing() {
         )}
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
-        <motion.div
+      <motion.div
           className="text-center mb-8 sm:mb-10 md:mb-12"
           initial="hidden"
           whileInView="visible"
@@ -201,8 +196,7 @@ export function Pricing() {
             )}
           </motion.div>
         </AnimatePresence>
-      </div>
-    </section>
+    </SectionContainer>
   );
 }
 

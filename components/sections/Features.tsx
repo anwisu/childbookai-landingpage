@@ -4,25 +4,19 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { features } from "@/lib/data";
 import { HeadingText } from "@/components/typography";
-import { BackgroundShape, MobileBackgroundCard } from "@/components/shared";
+import { SectionContainer } from "@/components/shared";
 import { BACKGROUND_SHAPES } from "@/lib/constants";
 import { scrollReveal, staggerContainerSlow, scaleIn, viewportOnce } from "@/lib/utils/animations";
 
 export function Features() {
   return (
-    <section className="relative w-full overflow-hidden py-12 sm:py-16 md:py-18 lg:py-32 pb-16 sm:pb-20 md:pb-24 lg:pb-28 xl:pb-32 -top-[50px] sm:-top-[80px] md:-top-[100px] lg:-top-[150px] min-h-[600px] sm:min-h-[700px] md:min-h-[800px] lg:min-h-[900px]">
-      {/* Desktop / large screens: SVG background */}
-      <BackgroundShape
-        viewBox={BACKGROUND_SHAPES.FEATURES.viewBox}
-        path={BACKGROUND_SHAPES.FEATURES.path}
-        fill="white"
-        className="hidden lg:flex"
-      />
-
-      {/* Tablet / mobile: soft white background card */}
-      <MobileBackgroundCard />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
+    <SectionContainer
+      viewBox={BACKGROUND_SHAPES.FEATURES.viewBox}
+      path={BACKGROUND_SHAPES.FEATURES.path}
+      fill="white"
+      sectionClassName="overflow-hidden py-12 sm:py-16 md:py-18 lg:py-32 pb-16 sm:pb-20 md:pb-24 lg:pb-28 xl:pb-32 -top-[50px] sm:-top-[80px] md:-top-[100px] lg:-top-[150px] min-h-[600px] sm:min-h-[700px] md:min-h-[800px] lg:min-h-[900px]"
+      contentClassName="px-4 sm:px-6 lg:px-8 overflow-visible"
+    >
         <motion.div
           className="text-center mb-8 sm:mb-10 md:mb-12"
           initial="hidden"
@@ -160,7 +154,6 @@ export function Features() {
             ))}
           </div>
         </motion.div>
-      </div>
-    </section>
+    </SectionContainer>
   );
 }
