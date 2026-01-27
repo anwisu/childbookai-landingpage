@@ -208,9 +208,8 @@ export function IndividualPricing({ isYearly }: IndividualPricingProps) {
                   {plan.description && (
                     <ParagraphText
                       as="p"
-                      // Use custom responsive classes only (no fixed variant font-size)
-                      className={cn(
-                        "text-[12px] leading-[16px] sm:text-xs sm:leading-[18px] sm:font-light md:text-body-sm lg:text-body-sm mb-6",
+                      variant="body-sm"
+                      className={cn( "mb-6",
                         isAlternate ? "text-white" : "text-foreground"
                       )}
                       defaultTextColor={

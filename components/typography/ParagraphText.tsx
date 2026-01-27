@@ -38,7 +38,7 @@ type TextSegment = {
  */
 const variantClasses: Record<NonNullable<ParagraphTextProps['variant']>, string> = {
   body: 'text-body',
-  'body-sm': 'text-body-sm',
+  'body-sm': 'text-xs sm:text-sm md:text-body-sm',
   text: 'text-sm sm:text-base md:text-lg',
   lead: 'text-base sm:text-lg md:text-xl lg:text-2xl',
 };
