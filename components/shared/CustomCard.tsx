@@ -9,6 +9,22 @@ export interface CustomCardProps extends React.HTMLAttributes<HTMLDivElement> {
   width?: number | string;
   height?: number | string;
   svgVariant?: "first" | "second" | "business";
+  /**
+   * Optional override for header height in pixels (before converting to ratio).
+   * If not provided, a sensible default based on the SVG variant is used.
+   */
+  headerHeightPx?: number;
+  /**
+   * Optional override for the cloud divider translateY percentage.
+   * Example: -50 for translateY(-50%), -140 for translateY(-140%).
+   */
+  cloudTranslateYPercent?: number;
+  /**
+   * Optional additional vertical offset for the body/content area
+   * (below the cloud divider), in percentage.
+   * Example: -5 for translateY(-5%) to move content slightly upward.
+   */
+  bodyTranslateYPercent?: number;
 }
 
 export function CustomCard({
@@ -20,6 +36,9 @@ export function CustomCard({
   width = 400,
   height = 913,
   svgVariant = "second",
+  headerHeightPx,
+  cloudTranslateYPercent,
+  bodyTranslateYPercent,
   ...props
 }: CustomCardProps) {
   const w = typeof width === "number" ? `${width}px` : width;
@@ -28,7 +47,10 @@ export function CustomCard({
   // Calculate header height and cloud divider ratios based on variant
   const isBusiness = svgVariant === "business";
   const baseHeight = isBusiness ? 663 : 913;
-  const headerHeightRatio = 230 / baseHeight;
+  // Default header height (in px) per variant; can be overridden per card
+  const defaultHeaderHeightPx = isBusiness ? 230 : 290;
+  const effectiveHeaderHeightPx = headerHeightPx ?? defaultHeaderHeightPx;
+  const headerHeightRatio = effectiveHeaderHeightPx / baseHeight;
   const cloudHeightRatio = 92 / baseHeight;
 
   // SVG variants
@@ -109,7 +131,7 @@ export function CustomCard({
         style={{
           top: `${headerHeightRatio * 100}%`,
           height: `${cloudHeightRatio * 100}%`,
-          transform: "translateY(-50%)",
+          transform: `translateY(${cloudTranslateYPercent ?? -120}%)`,
           zIndex: 15,
         }}
         preserveAspectRatio="none"
@@ -136,6 +158,10 @@ export function CustomCard({
         style={{
           top: `${(headerHeightRatio + cloudHeightRatio * 0.5) * 100}%`,
           height: `${(1 - headerHeightRatio - cloudHeightRatio * 0.5) * 100}%`,
+          transform:
+            bodyTranslateYPercent !== undefined
+              ? `translateY(${bodyTranslateYPercent}%)`
+              : undefined,
         }}
       >
         {children}

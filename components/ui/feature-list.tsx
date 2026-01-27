@@ -24,7 +24,10 @@ export function FeatureList({
   className,
 }: FeatureListProps) {
   const textSizeClass =
-    textSize === "sm" ? "text-body-sm" : "text-xs md:text-body";
+    // Make feature text responsive: smaller on xs/sm, keep current size on md+
+    textSize === "sm"
+      ? "text-xs sm:text-sm md:text-body-sm lg:text-body-sm"
+      : "text-xs md:text-body";
 
   // For two columns, split features in half
   const midPoint = columns === 2 ? Math.ceil(features.length / 2) : features.length;
@@ -36,7 +39,7 @@ export function FeatureList({
     return (
       <ul
         className={cn(
-          "space-y-1 xl:space-y-2 -mt-12 mb-3",
+          "space-y-0 xl:space-y-2 -mt-12 mb-3",
           className
         )}
       >

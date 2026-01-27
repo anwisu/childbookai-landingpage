@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ArrowCircleLeft2 } from "iconsax-react";
 import { Navbar } from "@/components/layout";
 import { Step1Story, Step2Character, Step3Settings } from "@/components/steps";
-import type { Character } from "@/components/steps/Step2Character";
+import type { Character } from "@/components/ui/character-card";
 import type { CharacterFormData } from "@/components/steps/AddCharacterDialog";
 
 const CHARACTER_IMAGES: Record<string, string> = {
@@ -61,11 +61,23 @@ export default function CreateBook() {
   };
 
   const handleNextStep = () => {
-    setActiveStep((prev) => (prev < steps.length ? prev + 1 : prev));
+    setActiveStep((prev) => {
+      const next = prev < steps.length ? prev + 1 : prev;
+      if (next !== 3) {
+        setShowMoreContent(false);
+      }
+      return next;
+    });
   };
 
   const handlePreviousStep = () => {
-    setActiveStep((prev) => (prev > 1 ? prev - 1 : prev));
+    setActiveStep((prev) => {
+      const next = prev > 1 ? prev - 1 : prev;
+      if (next !== 3) {
+        setShowMoreContent(false);
+      }
+      return next;
+    });
   };
 
   const handleAddCharacter = (characterData: CharacterFormData) => {
@@ -90,13 +102,6 @@ export default function CreateBook() {
   const handleCreateClick = () => {
     setIsCreating(true);
   };
-
-  // Reset showMoreContent when step changes
-  useEffect(() => {
-    if (activeStep !== 3) {
-      setShowMoreContent(false);
-    }
-  }, [activeStep]);
 
   // Measure content height for dynamic SVG sizing (Step 3 only)
   const step3ContentRef = useRef<HTMLDivElement>(null);
@@ -125,8 +130,6 @@ export default function CreateBook() {
         clearTimeout(timeoutId);
         resizeObserver.disconnect();
       };
-    } else {
-      setSvgHeight(null);
     }
   }, [activeStep, showMoreContent, isCreating]);
 
