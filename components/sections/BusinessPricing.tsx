@@ -139,8 +139,8 @@ export function BusinessPricing({ isYearly }: BusinessPricingProps) {
                 <FeatureList
                   features={plan.features}
                   columns={2}
-                  textSize="md"
-                  iconSize="sm"
+                  textSize="sm"
+                  iconSize="md"
                 />
 
                 <AppButton
