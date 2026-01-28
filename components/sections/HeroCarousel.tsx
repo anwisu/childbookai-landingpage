@@ -128,18 +128,21 @@ function HeroCarousel() {
   }, [emblaApi]);
 
   return (
-    <section 
-      className="relative w-full"
+    <section
+      className="relative w-full mt-4 px-4 sm:px-0"
       aria-label="Hero carousel"
       role="region"
     >
       {/* Ratio-controlled hero frame */}
-      <div className="relative w-full aspect-1264/629 max-h-[640px] mx-auto">
-        <CarouselMask />
+      <div className="relative w-full aspect-[3/4] sm:aspect-1264/629 max-h-[640px] mx-0 md:mx-auto">
+        {/* SVG mask only on md+; basic rounded rectangle on xs/sm */}
+        <div className="hidden md:block">
+          <CarouselMask />
+        </div>
 
         {/* Masked image layer */}
         <div
-          className="absolute inset-0 overflow-hidden"
+          className="absolute inset-0 overflow-hidden rounded-2xl sm:rounded-2xl md:rounded-none"
           style={{ clipPath: "url(#carouselMask)" }}
           aria-live="polite"
           aria-atomic="true"
@@ -162,8 +165,7 @@ function HeroCarousel() {
             {slides[active] && (
               <motion.div
                 key={active}
-                className="absolute inset-0"
-                style={{ clipPath: "url(#carouselMask)" }}
+                className="absolute inset-0 z-0"
                 variants={carouselFade}
                 initial="enter"
                 animate="center"
@@ -183,10 +185,13 @@ function HeroCarousel() {
             )}
           </AnimatePresence>
 
-          {/* Slide content (headline + CTA) - static, doesn't fade */}
-          <div className="absolute inset-0 z-10 flex items-center pt-4 sm:pt-0 overflow-visible">
+          {/* Gradient overlay to improve text legibility on all screens */}
+          <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+
+          {/* Slide content (headline + CTA) - overlaid for all breakpoints */}
+          <div className="absolute inset-0 z-10 flex items-end justify-center sm:items-center sm:justify-start pb-6 sm:pb-0 overflow-visible">
             <motion.div
-              className=" w-full max-w-[620px] p-2 sm:p-4 md:p-6 lg:p-6 ml-6 sm:ml-8 md:ml-10 lg:ml-16 xl:ml-[100px] overflow-visible"
+              className="w-full max-w-[620px] px-2 sm:px-4 md:px-6 lg:px-6 mx-auto sm:mx-0 sm:ml-8 md:ml-10 lg:ml-16 xl:ml-[100px] text-center sm:text-left overflow-visible"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.4 }}
@@ -196,7 +201,7 @@ function HeroCarousel() {
                 <HeadingText
                   title={slides[active]?.title || ""}
                   variant="display"
-                  className="font-bold"
+                  className="font-bold text-3xl xs:text-4xl sm:text-5xl lg:text-6xl leading-tight"
                   glyphs={[
                     {
                       word: "Become",
@@ -220,14 +225,14 @@ function HeroCarousel() {
                   endl={["hero of your own", "story"]}
                 />
               </motion.div>
-              <motion.div className="overflow-visible pb-2 sm:pb-3" variants={fadeInUp}>
+              <motion.div className="overflow-visible pt-3 pb-1 sm:pb-3" variants={fadeInUp}>
                 <Link href="/createbook">
                   <AppButton
                     variant="primary"
                     size="hero"
                     shadow
                     withSparkles
-                    className="mt-2 sm:mt-4 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
+                    className="mt-1 sm:mt-4 w-full max-w-xs sm:max-w-none sm:w-auto transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
                   >
                     Create a Book
                   </AppButton>
@@ -236,12 +241,14 @@ function HeroCarousel() {
             </motion.div>
           </div>
 
-          {/* Decorative Elements - static, doesn't fade */}
-          <DecorativeElements decorations={heroCarouselDecorations} />
+          {/* Decorative Elements - static, doesn't fade (hidden on mobile for cleaner UI) */}
+          <div className="hidden sm:block">
+            <DecorativeElements decorations={heroCarouselDecorations} />
+          </div>
 
-          {/* Navigation Dots */}
+          {/* Navigation Dots - pinned to bottom, visible on all breakpoints */}
           <div 
-            className="absolute hidden sm:inline-flex left-8 sm:left-12 md:left-16 lg:left-22 xl:left-[120px] top-1/2 translate-y-[66px] sm:translate-y-[110px] md:translate-y-[140px] lg:translate-y-[180px] xl:translate-y-[210px] z-10 items-center gap-2 sm:gap-3 max-w-full overflow-hidden"
+            className="absolute inset-x-0 bottom-4 z-20 flex items-center justify-center gap-2 sm:gap-3"
             role="tablist"
             aria-label="Carousel navigation"
           >
