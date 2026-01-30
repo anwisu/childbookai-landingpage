@@ -85,21 +85,23 @@ function GenderRadioButtons({ value, onChange }: GenderRadioButtonsProps) {
   return (
     <div className="flex gap-4 w-full">
       {GENDERS.map((genderOption) => (
-        <label
+        <div
           key={genderOption}
+          onClick={() => onChange(genderOption)}
           className={`flex items-center justify-start gap-2 px-4 py-2 rounded-md border-2 cursor-pointer transition-all flex-1 ${value === genderOption
             ? "bg-blue-800 text-white border-blue-800"
             : "bg-white text-foreground border-blue-800 hover:bg-blue-800/10"
             }`}
+          role="radio"
+          aria-checked={value === genderOption}
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onChange(genderOption);
+            }
+          }}
         >
-          <input
-            type="radio"
-            name="gender"
-            value={genderOption}
-            checked={value === genderOption}
-            onChange={(e) => onChange(e.target.value)}
-            className="sr-only"
-          />
           <div
             className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${value === genderOption ? "border-white" : "border-blue-800"
               }`}
@@ -109,7 +111,7 @@ function GenderRadioButtons({ value, onChange }: GenderRadioButtonsProps) {
             )}
           </div>
           <span className="text-sm font-medium">{genderOption}</span>
-        </label>
+        </div>
       ))}
     </div>
   );
@@ -419,7 +421,7 @@ export default function CreateCharacterDialog({
       <DialogContent className="sm:max-w-[820px] max-h-[90vh] rounded-3xl p-0 bg-[#F4FAFA] overflow-hidden flex flex-col w-[95%]">
         <div
           ref={scrollContainerRef}
-          className="overflow-y-auto flex-1 px-4 sm:px-10 pt-4 sm:pt-10 custom-scrollbar"
+          className="overflow-y-auto px-4 sm:px-10 pt-4 sm:pt-10 custom-scrollbar"
         >
           <DialogHeader className="items-center text-center pt-4 sm:pt-8">
             <DialogTitle className="text-3xl sm:text-5xl font-bold text-foreground">

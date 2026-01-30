@@ -110,8 +110,8 @@ export default function AddCharacterDialog({
           </DialogTrigger>
         )}
 
-        <DialogContent className="sm:max-w-[720px] rounded-3xl p-6 sm:p-10 w-[95%]">
-          <DialogHeader className="items-center text-center">
+        <DialogContent className="sm:max-w-[720px] max-h-[98vh] overflow-y-auto custom-scrollbar rounded-3xl p-6 sm:p-10 w-[95%]">
+          <DialogHeader className="items-center text-center mt-4">
             <DialogTitle className="text-3xl sm:text-5xl font-bold text-foreground">
               Create Character
             </DialogTitle>
