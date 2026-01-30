@@ -246,51 +246,60 @@ export default function CreateBook() {
               </div>
 
               {activeStep === 3 ? (
-                isCreating ? (
-                  <svg
-                    width="1240"
-                    height="853"
-                    viewBox="0 0 1240 853"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M1240 812.689C1240 834.781 1222.09 852.689 1200 852.689L39.9999 852.689C17.9086 852.689 -0.000120505 834.781 -0.000118573 812.689L-5.42941e-05 77.4199C-5.24067e-05 55.8306 17.1322 38.1368 38.7103 37.4408L1198.71 0.0215418C1221.3 -0.706972 1240 17.4039 1240 40.0007L1240 812.689Z"
-                      fill="white"
-                    />
-                  </svg>
-                ) : (svgHeight ? (() => {
-                  const svgConfig = getStep3SvgConfig(svgHeight);
-                  return (
-                    <svg
-                      width="1240"
-                      height={svgConfig.height}
-                      viewBox={svgConfig.viewBox}
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-full h-auto"
-                      preserveAspectRatio="xMidYMid meet"
-                    >
-                      <path
-                        d={svgConfig.path}
-                        fill="white"
-                      />
-                    </svg>
-                  );
-                })() : (
-                  <svg
-                    width="1240"
-                    height="1080"
-                    viewBox="0 -227.311 1240 1080"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M1240 812.689 C1240 834.781 1222.09 852.689 1200 852.689 L39.9999 852.689 C17.9086 852.689 -0.000120505 834.781 -0.000118573 812.689 L-5.42941e-05 -149.891 C-5.24067e-05 -171.48 17.1322 -189.174 38.7103 -189.87 L1198.71 -227.289 C1221.3 -228.018 1240 -209.906 1240 -187.309 L1240 812.689 Z"
-                      fill="white"
-                    />
-                  </svg>
-                ))
+                <>
+                  <div className="hidden lg:block">
+                    {isCreating ? (
+                      <svg
+                        width="1240"
+                        height="853"
+                        viewBox="0 0 1240 853"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1240 812.689C1240 834.781 1222.09 852.689 1200 852.689L39.9999 852.689C17.9086 852.689 -0.000120505 834.781 -0.000118573 812.689L-5.42941e-05 77.4199C-5.24067e-05 55.8306 17.1322 38.1368 38.7103 37.4408L1198.71 0.0215418C1221.3 -0.706972 1240 17.4039 1240 40.0007L1240 812.689Z"
+                          fill="white"
+                        />
+                      </svg>
+                    ) : (svgHeight ? (() => {
+                      const svgConfig = getStep3SvgConfig(svgHeight);
+                      return (
+                        <svg
+                          width="1240"
+                          height={svgConfig.height}
+                          viewBox={svgConfig.viewBox}
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-full h-auto"
+                          preserveAspectRatio="xMidYMid meet"
+                        >
+                          <path
+                            d={svgConfig.path}
+                            fill="white"
+                          />
+                        </svg>
+                      );
+                    })() : (
+                      <svg
+                        width="1240"
+                        height="1080"
+                        viewBox="0 -227.311 1240 1080"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1240 812.689 C1240 834.781 1222.09 852.689 1200 852.689 L39.9999 852.689 C17.9086 852.689 -0.000120505 834.781 -0.000118573 812.689 L-5.42941e-05 -149.891 C-5.24067e-05 -171.48 17.1322 -189.174 38.7103 -189.87 L1198.71 -227.289 C1221.3 -228.018 1240 -209.906 1240 -187.309 L1240 812.689 Z"
+                          fill="white"
+                        />
+                      </svg>
+                    ))}
+                  </div>
+
+                  {/* Mobile/Tablet: Card Background */}
+                  <div className="lg:hidden absolute inset-0 z-0 flex items-center justify-center pointer-events-none top-0 mt-6 px-0">
+                    <div className="w-full h-full bg-white rounded-[40px] shadow-[0_18px_60px_rgba(15,23,42,0.14)]" />
+                  </div>
+                </>
               ) : activeStep === 1 ? (
                 <>
                   {/* LG Screens: SVG Background */}
