@@ -42,14 +42,14 @@
   /* Surfaces */
   --color-muted: var(--blue-100);
   --color-border: var(--grey-100);
-  
+
   /* Grey colors */
   --color-grey-100: var(--grey-100);
   --color-grey-200: var(--grey-200);
   --color-grey-hover: var(--grey-hover);
   --color-grey-active: var(--grey-active);
   --color-grey-disabled: var(--grey-disabled);
-  
+
   /* Blue colors */
   --color-blue-100: var(--blue-100);
   --color-blue-200: var(--blue-200);
@@ -57,7 +57,7 @@
   --color-blue-600: var(--blue-600);
   --color-blue-800: var(--blue-800);
   --color-blue-1000: var(--blue-1000);
-  
+
   /* Button shadow */
   --color-button-shadow: var(--button-shadow);
 
@@ -248,17 +248,19 @@
   * {
     @apply border-border;
   }
+
   html {
     overflow-x: hidden;
     width: 100%;
   }
+
   body {
     @apply text-foreground;
     overflow-x: hidden;
     /* Match the page background so dialog scroll locking doesn't reveal a white strip */
     background-image: url('/background/bg-2.png');
-    background-size: contain;
-    background-position: top center;
+    background-size: 100vw auto;
+    background-position: top left;
     background-repeat: repeat;
   }
 }
@@ -266,14 +268,18 @@
 @layer utilities {
   .bg-hero {
     background-image: url('/background/bg-2.png');
+    background-size: 100vw auto;
+    background-position: top left;
+    background-repeat: repeat;
   }
-  
+
   .bg-footer {
     background-image: url('/background/bg-2.png');
   }
 }
 
 @layer utilities {
+
   /* Screen reader only utility */
   .sr-only {
     position: absolute;
@@ -386,39 +392,48 @@
 
   /* Custom scrollbar styles - hidden when not in use, small when visible */
   .custom-scrollbar {
-    scrollbar-width: thin; /* Firefox - thin scrollbar */
-    scrollbar-color: rgba(48, 160, 166, 0.3) transparent; /* Firefox - subtle when visible */
+    scrollbar-width: thin;
+    /* Firefox - thin scrollbar */
+    scrollbar-color: rgba(48, 160, 166, 0.3) transparent;
+    /* Firefox - subtle when visible */
   }
 
   .custom-scrollbar:hover {
-    scrollbar-color: #30A0A6 transparent; /* Firefox - more visible on hover */
+    scrollbar-color: #30A0A6 transparent;
+    /* Firefox - more visible on hover */
   }
 
   .custom-scrollbar::-webkit-scrollbar {
-    width: 6px; /* Small scrollbar width */
+    width: 6px;
+    /* Small scrollbar width */
     height: 6px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent; /* Transparent track */
+    background: transparent;
+    /* Transparent track */
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(48, 160, 166, 0.2); /* Subtle by default */
+    background: rgba(48, 160, 166, 0.2);
+    /* Subtle by default */
     border-radius: 3px;
     transition: background 0.2s;
   }
 
   .custom-scrollbar:hover::-webkit-scrollbar-thumb {
-    background: rgba(48, 160, 166, 0.5); /* More visible on hover */
+    background: rgba(48, 160, 166, 0.5);
+    /* More visible on hover */
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #30A0A6; /* Full color on thumb hover */
+    background: #30A0A6;
+    /* Full color on thumb hover */
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:active {
-    background: #27858b; /* Darker when dragging */
+    background: #27858b;
+    /* Darker when dragging */
   }
 
   /* Animated dashed line fill effect - mask reveal from left to right */
@@ -426,6 +441,7 @@
     from {
       width: 0%;
     }
+
     to {
       width: 100%;
     }
@@ -440,6 +456,7 @@
     from {
       stroke-dashoffset: 100%;
     }
+
     to {
       stroke-dashoffset: 0%;
     }
@@ -454,6 +471,7 @@
     from {
       transform: scale(1);
     }
+
     to {
       transform: scale(1.10);
     }
@@ -463,6 +481,7 @@
     from {
       fill: white;
     }
+
     to {
       fill: var(--sparkle-fill-color, #54E6ED);
     }
@@ -473,4 +492,3 @@
   }
 
 }
-

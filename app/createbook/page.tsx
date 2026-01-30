@@ -177,7 +177,7 @@ export default function CreateBook() {
         id="main-content"
         className="min-h-screen flex flex-col bg-blue-800 overflow-x-hidden"
       >
-        <div className="relative w-full min-h-screen bg-contain bg-repeat bg-center bg-hero">
+        <div className="relative w-full min-h-screen bg-hero">
           <Navbar
             {...(activeStep === 2 ? {
               onOpenAddCharacterDialog: handleOpenAddCharacterDialog,
