@@ -580,7 +580,7 @@ const Step3Settings: React.FC<Step3SettingsProps> = ({ storyData, characters, on
                 variant="primary"
                 size="md"
                 shadow
-                className="text-heading-sm font-semibold w-36"
+              className="w-full sm:w-auto sm:min-w-[190px] text-sm sm:text-heading-sm min-h-[44px] sm:font-semibold"
                 onClick={handleCreateClick}
               >
                 Create

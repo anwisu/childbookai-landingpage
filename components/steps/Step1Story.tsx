@@ -200,7 +200,7 @@ const Step1Story: React.FC<Step1StoryProps> = ({ onNext, onStoryChange }) => {
           <AppButton
             size="md"
             shadow
-            className="w-full sm:w-auto sm:min-w-[190px] text-heading-sm min-h-[44px]"
+            className="w-full sm:w-auto sm:min-w-[190px] text-sm sm:text-heading-sm min-h-[44px] sm:font-semibold"
             onClick={onNext}
           >
             Next Step
