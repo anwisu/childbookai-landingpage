@@ -19,10 +19,7 @@ const CHARACTER_IMAGES: Record<string, string> = {
   Amanda: "/images/Amanda.png",
 };
 
-export type StoryData = {
-  title: string;
-  description: string;
-};
+import type { StoryData } from "@/lib/types/story";
 
 export default function CreateBook() {
   const [activeStep, setActiveStep] = useState(1);
