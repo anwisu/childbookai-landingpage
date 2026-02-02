@@ -7,6 +7,8 @@ import ProgressBar from "@/components/ui/progress-bar";
 import ProgressBadge from "@/components/ui/progress-badge";
 import { Skeleton } from "@/components/ui/skeleton";
 
+import { CREATING_STORY_CONFIG } from "@/lib/constants/content";
+
 const Step3Creating: React.FC = () => {
   const [progress, setProgress] = useState(0);
 
@@ -71,15 +73,15 @@ const Step3Creating: React.FC = () => {
       <div className="text-center max-w-xl">
         <p className="text-base sm:text-lg text-foreground">
           We&apos;re creating your story and will email you the book once ready. This takes{" "}
-          <span className="font-bold">5-8 minutes</span>
+          <span className="font-bold">{CREATING_STORY_CONFIG.ESTIMATED_TIME}</span>
           . If there&apos;s no progress after{" "}
-          <span className="font-bold">15 minutes</span>
+          <span className="font-bold">{CREATING_STORY_CONFIG.MAX_WAIT_TIME}</span>
           , please contact{" "}
           <a
-            href="mailto:support@childbook.ai"
+            href={`mailto:${CREATING_STORY_CONFIG.SUPPORT_EMAIL}`}
             className="text-primary font-semibold hover:underline"
           >
-            support@childbook.ai
+            {CREATING_STORY_CONFIG.SUPPORT_EMAIL}
           </a>
         </p>
       </div>

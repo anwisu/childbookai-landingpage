@@ -11,6 +11,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
+import {
+  MOCK_CHARACTER_NAMES,
+  CHARACTER_AVATARS,
+  CHARACTER_CREATION_TABS
+} from "@/lib/constants/character";
 import { Button } from "../ui/button";
 import { AddCircle, Edit2, Trash, MagicStar } from "iconsax-react";
 import CreateCharacterDialog from "./CreateCharacterDialog";
@@ -23,38 +28,7 @@ export type AddCharacterDialogProps = {
   onOpenChange?: (open: boolean) => void;
 };
 
-const TABS = ["Characters", "Illustrators", "Books"] as const;
-type TabKey = (typeof TABS)[number];
 
-const MOCK_CHARACTERS = [
-  "Adam",
-  "Emilia",
-  "User123",
-  "Amanda",
-  "Garry",
-  "Lukas",
-  "Adam2",
-  "Emilia2",
-  "User1232",
-  "Amanda2",
-  "Garry2",
-  "Lukas2",
-] as const;
-
-const CHARACTER_IMAGES: Record<string, string> = {
-  Adam: "/images/Adam.png",
-  Emilia: "/images/Emilia.png",
-  User123: "/images/User123.png",
-  Amanda: "/images/Amanda.png",
-  Garry: "/images/Garry.png",
-  Lukas: "/images/Lukas.png",
-  Adam2: "/images/Adam.png",
-  Emilia2: "/images/Emilia.png",
-  User1232: "/images/User123.png",
-  Amanda2: "/images/Amanda.png",
-  Garry2: "/images/Garry.png",
-  Lukas2: "/images/Lukas.png",
-};
 
 export default function AddCharacterDialog({
   trigger,
@@ -64,7 +38,7 @@ export default function AddCharacterDialog({
 }: AddCharacterDialogProps) {
   const [internalOpen, setInternalOpen] = useState(false);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<TabKey>("Characters");
+  const [activeTab, setActiveTab] = useState<string>("Characters");
   const [selectedCharacter, setSelectedCharacter] = useState<string | null>(
     null
   );
@@ -126,7 +100,7 @@ export default function AddCharacterDialog({
 
           {/* Tabs */}
           <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
-            {TABS.map((tab) => {
+            {CHARACTER_CREATION_TABS.map((tab) => {
               const isActive = tab === activeTab;
               return (
                 <button
@@ -147,7 +121,7 @@ export default function AddCharacterDialog({
           </div>
 
           <div className="mt-2 grid grid-cols-3 sm:grid-cols-6 gap-4 sm:gap-6 mx-auto">
-            {MOCK_CHARACTERS.map((name) => {
+            {MOCK_CHARACTER_NAMES.map((name) => {
               const isSelected = selectedCharacter === name;
               return (
                 <div
@@ -164,7 +138,7 @@ export default function AddCharacterDialog({
                     aria-pressed={isSelected}
                   >
                     <Image
-                      src={CHARACTER_IMAGES[name] || "/images/child-1.png"}
+                      src={CHARACTER_AVATARS[name] || "/images/child-1.png"}
                       alt={name}
                       fill
                       className="object-cover"

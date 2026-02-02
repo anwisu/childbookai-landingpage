@@ -87,3 +87,35 @@ export const ATTRIBUTES = [
   "Tie",
   "Earrings",
 ] as const;
+
+export const MOCK_CHARACTER_NAMES = [
+  "Adam",
+  "Emilia",
+  "User123",
+  "Amanda",
+  "Garry",
+  "Lukas",
+  "Adam2",
+  "Emilia2",
+  "User1232",
+  "Amanda2",
+  "Garry2",
+  "Lukas2",
+] as const;
+
+export const CHARACTER_AVATARS: Record<string, string> = {
+  Adam: "/images/Adam.png",
+  Emilia: "/images/Emilia.png",
+  User123: "/images/User123.png",
+  Amanda: "/images/Amanda.png",
+  Garry: "/images/Garry.png",
+  Lukas: "/images/Lukas.png",
+  Adam2: "/images/Adam.png",
+  Emilia2: "/images/Emilia.png",
+  User1232: "/images/User123.png",
+  Amanda2: "/images/Amanda.png",
+  Garry2: "/images/Garry.png",
+  Lukas2: "/images/Lukas.png",
+};
+
+export const CHARACTER_CREATION_TABS = ["Characters", "Illustrators", "Books"] as const;
