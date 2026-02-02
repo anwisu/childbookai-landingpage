@@ -3,13 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Edit2, Trash } from "iconsax-react";
-
-export type Character = {
-  id: number;
-  name: string;
-  description: string;
-  avatarSrc: string;
-};
+import type { Character } from "@/lib/types/character";
 
 export interface CharacterCardProps {
   character: Character;

@@ -5,8 +5,7 @@ import Image from "next/image";
 import { ArrowCircleLeft2 } from "iconsax-react";
 import { Navbar } from "@/components/layout";
 import { Step1Story, Step2Character, Step3Settings } from "@/components/steps";
-import type { Character } from "@/components/ui/character-card";
-import type { CharacterFormData } from "@/components/steps/AddCharacterDialog";
+import type { Character, CharacterFormData } from "@/lib/types/character";
 import stepperDashedLines from "@/public/illustrations/stepper-dashed-lines.svg";
 import stepperActiveIcon from "@/public/illustrations/stepper-active-icon.svg";
 

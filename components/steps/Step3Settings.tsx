@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import { HeadingText } from "../typography";
-import { CharacterCard, type Character } from "../ui/character-card";
+import { CharacterCard } from "../ui/character-card";
+import type { Character } from "@/lib/types/character";
 import { AppButton } from "@/components/ui/app-button";
 import type { StoryData, CoverStyle } from "@/lib/types/story";
 import Step3Creating from "./Step3Creating";

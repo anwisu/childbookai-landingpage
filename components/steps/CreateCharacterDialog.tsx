@@ -22,7 +22,7 @@ import Image from "next/image";
 import { DocumentUpload } from "iconsax-react";
 import { AppButton } from "../shared/AppButton";
 import { ColorPicker } from "../ui/color-picker";
-import type { CharacterFormData } from "./AddCharacterDialog";
+import type { CharacterFormData } from "@/lib/types/character";
 import { TourGuide, type TourStep } from "./TourGuide";
 import {
   CHARACTER_TYPES,
@@ -622,7 +622,7 @@ export default function CreateCharacterDialog({
                         if (isSelected) {
                           updateFormData({
                             attributes: formData.attributes.filter(
-                              (attr) => attr !== option
+                              (attr: string) => attr !== option
                             ),
                           });
                         } else {

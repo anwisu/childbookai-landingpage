@@ -9,7 +9,8 @@ import { AppButton } from "@/components/ui/app-button";
 import { navItems } from "@/lib/data";
 import { IMAGE_DIMENSIONS } from "@/lib/constants";
 import { mobileMenu, mobileMenuContainer, fadeInUp } from "@/lib/utils/animations";
-import AddCharacterDialog, { type CharacterFormData } from "@/components/steps/AddCharacterDialog";
+import AddCharacterDialog from "@/components/steps/AddCharacterDialog";
+import type { CharacterFormData } from "@/lib/types/character";
 
 export type NavbarProps = {
   onOpenAddCharacterDialog?: () => void;
@@ -18,18 +19,18 @@ export type NavbarProps = {
   onAddCharacter?: (character: CharacterFormData) => void;
 };
 
-export function Navbar({ 
-  onOpenAddCharacterDialog, 
+export function Navbar({
+  onOpenAddCharacterDialog,
   addCharacterDialogOpen: controlledDialogOpen,
   onAddCharacterDialogChange,
-  onAddCharacter 
+  onAddCharacter
 }: NavbarProps = {}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [internalDialogOpen, setInternalDialogOpen] = useState(false);
 
   // Use controlled state if provided, otherwise use internal state
-  const addCharacterDialogOpen = controlledDialogOpen !== undefined 
-    ? controlledDialogOpen 
+  const addCharacterDialogOpen = controlledDialogOpen !== undefined
+    ? controlledDialogOpen
     : internalDialogOpen;
   const setAddCharacterDialogOpen = onAddCharacterDialogChange || setInternalDialogOpen;
 

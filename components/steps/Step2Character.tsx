@@ -3,7 +3,8 @@
 import { HeadingText } from "../typography";
 import { ParagraphText } from "../typography";
 import { AppButton } from "../shared/AppButton";
-import { CharacterCard, type Character } from "../ui/character-card";
+import { CharacterCard } from "../ui/character-card";
+import type { Character } from "@/lib/types/character";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import bookFaceImg from "@/public/illustrations/book-face.svg";

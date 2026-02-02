@@ -14,13 +14,7 @@ import {
 import { Button } from "../ui/button";
 import { AddCircle, Edit2, Trash, MagicStar } from "iconsax-react";
 import CreateCharacterDialog from "./CreateCharacterDialog";
-
-export type CharacterFormData = {
-  name: string;
-  description: string;
-  age?: string;
-  gender?: string;
-};
+import type { CharacterFormData } from "@/lib/types/character";
 
 export type AddCharacterDialogProps = {
   trigger?: React.ReactNode;
