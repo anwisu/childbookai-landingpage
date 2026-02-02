@@ -7,6 +7,8 @@ import { Navbar } from "@/components/layout";
 import { Step1Story, Step2Character, Step3Settings } from "@/components/steps";
 import type { Character } from "@/components/ui/character-card";
 import type { CharacterFormData } from "@/components/steps/AddCharacterDialog";
+import stepperDashedLines from "@/public/illustrations/stepper-dashed-lines.svg";
+import stepperActiveIcon from "@/public/illustrations/stepper-active-icon.svg";
 
 const CHARACTER_IMAGES: Record<string, string> = {
   Adam: "/images/Adam.png",
@@ -194,7 +196,7 @@ export default function CreateBook() {
                 {/* Dashed connector behind buttons */}
                 <div className="absolute left-6 -top-2 -z-10 pointer-events-none">
                   <Image
-                    src="/illustrations/stepper-dashed-lines.svg"
+                    src={stepperDashedLines}
                     alt=""
                     width={180}
                     height={20}
@@ -230,7 +232,7 @@ export default function CreateBook() {
                         {isActive && (
                           <div className="absolute top-4 left-1/2 -translate-x-1/2 pointer-events-none">
                             <Image
-                              src="/illustrations/stepper-active-icon.svg"
+                              src={stepperActiveIcon}
                               alt=""
                               width={60}
                               height={20}

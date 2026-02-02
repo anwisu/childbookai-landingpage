@@ -6,6 +6,7 @@ import { AppButton } from "../shared/AppButton";
 import { CharacterCard, type Character } from "../ui/character-card";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import bookFaceImg from "@/public/illustrations/book-face.svg";
 
 export type Step2CharacterProps = {
   characters: Character[];
@@ -45,7 +46,7 @@ export default function Step2Character({ characters, onNext, onAddCharacter }: S
         <div className="flex flex-col items-center gap-6 mt-8">
           <div className="relative w-64 h-64 flex items-center justify-center">
             <Image
-              src="/illustrations/book-face.svg"
+              src={bookFaceImg}
               alt="Empty characters"
               width={256}
               height={256}

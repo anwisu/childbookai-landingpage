@@ -3,19 +3,19 @@ import { Hero, Services, CreateABook } from "@/components/sections";
 import dynamic from "next/dynamic";
 
 // Lazy load below-the-fold components for better initial load performance
-const Steps = dynamic(() => import("@/components/sections").then((mod) => ({ default: mod.Steps })), {
+const Steps = dynamic(() => import("@/components/sections/Steps").then((mod) => mod.Steps), {
   loading: () => <div className="min-h-[400px]" />, // Prevent layout shift
 });
 
-const Pricing = dynamic(() => import("@/components/sections").then((mod) => ({ default: mod.Pricing })), {
+const Pricing = dynamic(() => import("@/components/sections/Pricing").then((mod) => mod.Pricing), {
   loading: () => <div className="min-h-[500px]" />,
 });
 
-const Features = dynamic(() => import("@/components/sections").then((mod) => ({ default: mod.Features })), {
+const Features = dynamic(() => import("@/components/sections/Features").then((mod) => mod.Features), {
   loading: () => <div className="min-h-[600px]" />,
 });
 
-const Footer = dynamic(() => import("@/components/layout").then((mod) => ({ default: mod.Footer })));
+const Footer = dynamic(() => import("@/components/layout/Footer").then((mod) => mod.Footer));
 
 export default function Home() {
   return (

@@ -13,6 +13,22 @@ const nextConfig: NextConfig = {
   compress: true,
   // Optimize production builds
   productionBrowserSourceMaps: false,
+  experimental: {
+    optimizePackageImports: [
+      "lucide-react",
+      "iconsax-react",
+      "framer-motion",
+      "@radix-ui/react-avatar",
+      "@radix-ui/react-dialog",
+      "@radix-ui/react-label",
+      "@radix-ui/react-popover",
+      "@radix-ui/react-scroll-area",
+      "@radix-ui/react-select",
+      "@radix-ui/react-separator",
+      "@radix-ui/react-slot",
+      "@radix-ui/react-tooltip",
+    ],
+  },
   // Headers for caching
   async headers() {
     return [

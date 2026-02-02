@@ -13,30 +13,32 @@ import { HeadingText } from "@/components/typography";
 import { heroCarouselDecorations } from "@/lib/data";
 import { CAROUSEL_CONFIG } from "@/lib/constants";
 import { heroText, staggerContainer, fadeInUp, carouselFade } from "@/lib/utils/animations";
+import childStudyingImg from "@/public/images/child-studying-2 1.png";
+import childReadingImg from "@/public/images/child-reading-2.jpg";
 
 // Move slides outside component to prevent recreation on each render
 const slides = [
   {
     id: 1,
-    src: "/images/child-studying-2 1.png",
+    src: childStudyingImg,
     alt: "Child reading a book",
     title: "Become the hero of your own story",
   },
   {
     id: 2,
-    src: "/images/child-reading-2.jpg",
+    src: childReadingImg,
     alt: "Child reading a book",
     title: "Become the hero of your own story",
   },
   {
     id: 3,
-    src: "/images/child-studying-2 1.png",
+    src: childStudyingImg,
     alt: "Child reading a book",
     title: "Become the hero of your own story",
   },
   {
     id: 4,
-    src: "/images/child-reading-2.jpg",
+    src: childReadingImg,
     alt: "Child reading a book",
     title: "Become the hero of your own story",
   },
