@@ -78,7 +78,7 @@ export function Navbar({
                 <Link
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className="text-heading-sm font-medium text-blue-1000 hover:text-blue-600 transition-all duration-200 ease-out hover:scale-105 px-2 py-1 min-h-[44px] flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary rounded-md relative group"
+                  className="text-heading-sm font-medium text-blue-1000 hover:text-blue-600 transition-all duration-200 ease-out hover:scale-105 px-2 py-1 min-h-[44px] flex items-center rounded-md relative group"
                 >
                   {item}
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 ease-out group-hover:w-full" />
