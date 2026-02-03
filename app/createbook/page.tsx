@@ -8,6 +8,7 @@ import { Step1Story, Step2Character, Step3Settings } from "@/components/steps";
 import type { Character, CharacterFormData } from "@/lib/types/character";
 import stepperDashedLines from "@/public/illustrations/stepper-dashed-lines.svg";
 import stepperActiveIcon from "@/public/illustrations/stepper-active-icon.svg";
+import { toast } from "sonner";
 
 const CHARACTER_IMAGES: Record<string, string> = {
   Adam: "/images/Adam.png",
@@ -43,12 +44,9 @@ export default function CreateBook() {
     if (activeStep === 3 && step3ContentRef.current && !isCreating) {
       const updateHeight = () => {
         const contentHeight = step3ContentRef.current?.offsetHeight || 0;
-        // Add padding: top-24 (96px) + bottom padding (80px for rounded corners) + buffer
-        const minHeight = showMoreContent ? 2497 : 1080;
-        const calculatedHeight = Math.max(
-          minHeight,
-          contentHeight + 96 + 80 + 60
-        );
+        // Match Step 1 minHeight logic
+        const minHeight = 953;
+        const calculatedHeight = Math.max(minHeight, contentHeight + 96 + 80 + 60);
         setSvgHeight(calculatedHeight);
       };
 
@@ -81,18 +79,17 @@ export default function CreateBook() {
     }
   }, [activeStep, showMoreContent, isCreating]);
 
-  // Get SVG config for Step 3 - generates dynamic path that maintains rounded corners
+  // Get SVG config for Step 3 - matched with Step 1
   const getStep3SvgConfig = (height: number) => {
-    // Use original paths for exact matches
-    if (!showMoreContent && Math.abs(height - 1080) < 50) {
+    // Default/Static for standard height
+    if (Math.abs(height - 953) < 50) {
       return {
-        height: 1080,
-        viewBox: "0 -227.311 1240 1080",
-        path: "M1240 812.689 C1240 834.781 1222.09 852.689 1200 852.689 L39.9999 852.689 C17.9086 852.689 -0.000120505 834.781 -0.000118573 812.689 L-5.42941e-05 -149.891 C-5.24067e-05 -171.48 17.1322 -189.174 38.7103 -189.87 L1198.71 -227.289 C1221.3 -228.018 1240 -209.906 1240 -187.309 L1240 812.689 Z"
+        height: 953,
+        viewBox: "0 0 1240 953",
+        path: "M1240 912.689C1240 934.78 1222.09 952.689 1200 952.689L39.9999 952.689C17.9086 952.689 -0.000120505 934.78 -0.000118573 912.689L-4.55518e-05 77.4194C-4.36644e-05 55.8301 17.1322 38.1363 38.7103 37.4403L1198.71 0.0210535C1221.3 -0.70746 1240 17.4034 1240 40.0002L1240 912.689Z"
       };
     }
 
-    // For dynamic heights: generate path that extends middle section
     const topY = 40;
     const bottomY = height - 40.311;
     const bottomCurveY = height - 0.311;
@@ -154,10 +151,15 @@ export default function CreateBook() {
       avatarSrc: CHARACTER_IMAGES[characterData.name] || "/images/child-1.png",
     };
     setCharacters([...characters, newCharacter]);
+    toast.success(`${newCharacter.name} has been added to the story!`);
     setAddCharacterDialogOpen(false);
   };
 
   const handleOpenAddCharacterDialog = () => {
+    if (characters.length >= 3) {
+      toast.error("You can add a maximum of 3 characters.");
+      return;
+    }
     setAddCharacterDialogOpen(true);
   };
 
@@ -249,13 +251,13 @@ export default function CreateBook() {
                     {isCreating ? (
                       <svg
                         width="1240"
-                        height="853"
-                        viewBox="0 0 1240 853"
+                        height="953"
+                        viewBox="0 0 1240 953"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M1240 812.689C1240 834.781 1222.09 852.689 1200 852.689L39.9999 852.689C17.9086 852.689 -0.000120505 834.781 -0.000118573 812.689L-5.42941e-05 77.4199C-5.24067e-05 55.8306 17.1322 38.1368 38.7103 37.4408L1198.71 0.0215418C1221.3 -0.706972 1240 17.4039 1240 40.0007L1240 812.689Z"
+                          d="M1240 912.689C1240 934.78 1222.09 952.689 1200 952.689L39.9999 952.689C17.9086 952.689 -0.000120505 934.78 -0.000118573 912.689L-4.55518e-05 77.4194C-4.36644e-05 55.8301 17.1322 38.1363 38.7103 37.4403L1198.71 0.0210535C1221.3 -0.70746 1240 17.4034 1240 40.0002L1240 912.689Z"
                           fill="white"
                         />
                       </svg>
@@ -280,13 +282,13 @@ export default function CreateBook() {
                     })() : (
                       <svg
                         width="1240"
-                        height="1080"
-                        viewBox="0 -227.311 1240 1080"
+                        height="953"
+                        viewBox="0 0 1240 953"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M1240 812.689 C1240 834.781 1222.09 852.689 1200 852.689 L39.9999 852.689 C17.9086 852.689 -0.000120505 834.781 -0.000118573 812.689 L-5.42941e-05 -149.891 C-5.24067e-05 -171.48 17.1322 -189.174 38.7103 -189.87 L1198.71 -227.289 C1221.3 -228.018 1240 -209.906 1240 -187.309 L1240 812.689 Z"
+                          d="M1240 912.689C1240 934.78 1222.09 952.689 1200 952.689L39.9999 952.689C17.9086 952.689 -0.000120505 934.78 -0.000118573 912.689L-4.55518e-05 77.4194C-4.36644e-05 55.8301 17.1322 38.1363 38.7103 37.4403L1198.71 0.0210535C1221.3 -0.70746 1240 17.4034 1240 40.0002L1240 912.689Z"
                           fill="white"
                         />
                       </svg>

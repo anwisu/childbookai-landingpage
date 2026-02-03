@@ -35,6 +35,7 @@ import {
 } from "@/lib/constants";
 import { MultiSelectAutocomplete } from "../ui/multi-select-autocomplete";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 // ============================================================================
 // Types
@@ -294,9 +295,13 @@ export default function CreateCharacterDialog({
   const prevOpenRef = useRef(open);
 
   const handleCreateCharacter = () => {
-    if (!formData.name.trim()) return;
+    if (!formData.name.trim()) {
+      toast.error("Please enter a character name");
+      return;
+    }
 
     onCharacterCreated?.(formData);
+    toast.success(`Character "${formData.name}" created successfully!`);
     onOpenChange(false);
     setFormData(DEFAULT_FORM_DATA);
     setAttributesPopoverDismissed(false);

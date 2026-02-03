@@ -6,11 +6,11 @@ import { HeadingText } from "../typography";
 import ProgressBar from "@/components/ui/progress-bar";
 import ProgressBadge from "@/components/ui/progress-badge";
 import { Skeleton } from "@/components/ui/skeleton";
-
-import { CREATING_STORY_CONFIG } from "@/lib/constants/content";
+import { toast } from "sonner";
 
 const Step3Creating: React.FC = () => {
   const [progress, setProgress] = useState(0);
+  const hasToastedRef = React.useRef(false);
 
   // Sequential image loading logic
   const imageProgresses = useMemo(() => {
@@ -18,24 +18,29 @@ const Step3Creating: React.FC = () => {
     const progressPerImage = 100 / totalImages; // ~33.33% per image
     const newProgresses = [0, 0, 0];
 
+
     if (progress >= 100) {
       // All images complete when overall is 100%
       return [100, 100, 100];
     }
 
+
     // Calculate which image is currently loading
     const currentImageIndex = Math.floor(progress / progressPerImage);
     const progressInCurrentImage = (progress % progressPerImage) / progressPerImage * 100;
+
 
     // Set completed images to 100%
     for (let i = 0; i < currentImageIndex; i++) {
       newProgresses[i] = 100;
     }
 
+
     // Set current image progress
     if (currentImageIndex < totalImages) {
       newProgresses[currentImageIndex] = Math.min(progressInCurrentImage, 100);
     }
+
 
     return newProgresses;
   }, [progress]);
@@ -55,6 +60,13 @@ const Step3Creating: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (progress >= 100 && !hasToastedRef.current) {
+      toast.success("Story created successfully!");
+      hasToastedRef.current = true;
+    }
+  }, [progress]);
+
   const previewImages = [
     { src: "/images/child-preview-image.png" },
     { src: "/images/child-preview-image-1.png" },
@@ -71,17 +83,20 @@ const Step3Creating: React.FC = () => {
       />
       {/* Subheading with highlighted text */}
       <div className="text-center max-w-xl">
+        {/* <p className="text-lg text-foreground"> */}
         <p className="text-base sm:text-lg text-foreground">
           We&apos;re creating your story and will email you the book once ready. This takes{" "}
-          <span className="font-bold">{CREATING_STORY_CONFIG.ESTIMATED_TIME}</span>
+          <span className="font-bold">5-8 minutes</span>
           . If there&apos;s no progress after{" "}
-          <span className="font-bold">{CREATING_STORY_CONFIG.MAX_WAIT_TIME}</span>
+          <span className="font-bold">15 minutes</span>
           , please contact{" "}
+          {/* <a 
+            href="mailto:support@childbook.ai"  */}
           <a
-            href={`mailto:${CREATING_STORY_CONFIG.SUPPORT_EMAIL}`}
+            href="mailto:support@childbook.ai"
             className="text-primary font-semibold hover:underline"
           >
-            {CREATING_STORY_CONFIG.SUPPORT_EMAIL}
+            support@childbook.ai
           </a>
         </p>
       </div>
@@ -96,6 +111,7 @@ const Step3Creating: React.FC = () => {
           const imageProgress = imageProgresses[index];
           const isCompleted = imageProgress >= 100;
 
+
           return (
             <div key={index} className="relative rounded-md overflow-hidden" style={{ width: '190px', height: '190px' }}>
               <Image
@@ -105,6 +121,7 @@ const Step3Creating: React.FC = () => {
                 height={190}
                 className={`w-full h-full object-cover rounded-md transition-all duration-300 ${isCompleted ? "" : "blur-sm"
                   }`}
+
               />
               {/* Progress badge */}
               <ProgressBadge
@@ -115,11 +132,13 @@ const Step3Creating: React.FC = () => {
           );
         })}
 
+
         {/* Skeleton placeholders for remaining 5 slots */}
         {Array.from({ length: 5 }).map((_, index) => (
           <Skeleton key={`skeleton-${index}`} className="rounded-md" style={{ width: '190px', height: '190px' }} />
         ))}
       </div>
+
 
       {/* Test indicator - remove in production */}
       <div className="text-sm text-gray-500 mt-2">
@@ -127,6 +146,7 @@ const Step3Creating: React.FC = () => {
       </div>
 
     </div>
+
   );
 };
 
