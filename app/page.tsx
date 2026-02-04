@@ -1,10 +1,13 @@
+"use client";
+
 import { Navbar } from "@/components/layout";
 import { Hero, Services, CreateABook } from "@/components/sections";
 import dynamic from "next/dynamic";
+import { LoadingProvider, useLoading } from "@/components/providers/LoadingProvider";
 
-// Lazy load below-the-fold components for better initial load performance
+// Lazy load below-the-fold components
 const Steps = dynamic(() => import("@/components/sections/Steps").then((mod) => mod.Steps), {
-  loading: () => <div className="min-h-[400px]" />, // Prevent layout shift
+  loading: () => <div className="min-h-[400px]" />,
 });
 
 const Pricing = dynamic(() => import("@/components/sections/Pricing").then((mod) => mod.Pricing), {
@@ -17,32 +20,41 @@ const Features = dynamic(() => import("@/components/sections/Features").then((mo
 
 const Footer = dynamic(() => import("@/components/layout/Footer").then((mod) => mod.Footer));
 
+function HomeContent() {
+  const { heroLoaded } = useLoading();
+
+  return (
+    <main id="main-content" className="min-h-screen flex flex-col bg-blue-800 overflow-x-hidden">
+      <div className="relative w-full min-h-screen bg-hero">
+        <Navbar />
+        <Hero />
+        {heroLoaded && (
+          <>
+            <Services />
+            <CreateABook />
+          </>
+        )}
+      </div>
+      {heroLoaded && (
+        <>
+          <div className="relative w-full min-h-screen bg-blue-800 -top-2 sm:-top-4">
+            <Steps />
+            <Pricing />
+          </div>
+          <div className="relative w-full min-h-screen bg-contain bg-center mt-12 sm:mt-16 lg:mt-24 bg-footer">
+            <Features />
+            <Footer />
+          </div>
+        </>
+      )}
+    </main>
+  );
+}
+
 export default function Home() {
   return (
-    <>
-      {/* Skip to main content link for keyboard navigation */}
-      {/* <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-      >
-        Skip to main content
-      </a> */}
-      <main id="main-content" className="min-h-screen flex flex-col bg-blue-800 overflow-x-hidden">
-        <div className="relative w-full min-h-screen bg-hero">
-          <Navbar />
-          <Hero />
-          <Services />
-          <CreateABook />
-        </div>
-        <div className="relative w-full min-h-screen bg-blue-800 -top-2 sm:-top-4">
-          <Steps />
-          <Pricing />
-        </div>
-        <div className="relative w-full min-h-screen bg-contain bg-center mt-12 sm:mt-16 lg:mt-24 bg-footer">
-          <Features />
-          <Footer />
-        </div>
-      </main>
-    </>
+    <LoadingProvider>
+      <HomeContent />
+    </LoadingProvider>
   );
 }

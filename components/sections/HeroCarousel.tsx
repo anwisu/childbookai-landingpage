@@ -13,6 +13,7 @@ import { HeadingText } from "@/components/typography";
 import { heroCarouselDecorations } from "@/lib/data";
 import { CAROUSEL_CONFIG } from "@/lib/constants";
 import { heroText, staggerContainer, fadeInUp, carouselFade } from "@/lib/utils/animations";
+import { useLoading } from "@/components/providers/LoadingProvider";
 import childStudyingImg from "@/public/images/child-studying-2 1.png";
 import childReadingImg from "@/public/images/child-reading-2.jpg";
 
@@ -46,6 +47,15 @@ const slides = [
 
 function HeroCarousel() {
   const [active, setActive] = useState(0);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [animationFinished, setAnimationFinished] = useState(false);
+  const { setHeroLoaded } = useLoading();
+
+  useEffect(() => {
+    if (active === 0 && isImageLoaded && animationFinished) {
+      setHeroLoaded(true);
+    }
+  }, [active, isImageLoaded, animationFinished, setHeroLoaded]);
 
   // Stable autoplay plugin instance so it doesn't get recreated on every render
   const autoplay = useRef(
@@ -166,9 +176,13 @@ function HeroCarousel() {
                 key={active}
                 className="absolute inset-0"
                 style={{ clipPath: "url(#carouselMask)" }}
+                variants={carouselFade}
                 initial="enter"
-                animate="center"
+                animate={active === 0 ? (isImageLoaded ? "center" : "enter") : "center"}
                 exit="exit"
+                onAnimationComplete={() => {
+                  if (active === 0 && isImageLoaded) setAnimationFinished(true);
+                }}
               >
                 <Image
                   src={slides[active].src}
@@ -179,94 +193,101 @@ function HeroCarousel() {
                   sizes="100vw"
                   quality={85}
                   fetchPriority={active === 0 ? "high" : "auto"}
+                  onLoad={() => {
+                    if (active === 0) setIsImageLoaded(true);
+                  }}
                 />
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Slide content (headline + CTA) - static, doesn't fade */}
-          <div className="absolute inset-0 z-10 flex items-center pt-4 sm:pt-0 overflow-visible">
-            <motion.div
-              className="w-full max-w-[620px] p-4 md:p-6 lg:p-6 ml-8 md:ml-10 lg:ml-16 xl:ml-[100px] overflow-visible"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.4 }}
-              variants={staggerContainer}
-            >
-              <motion.div variants={heroText}>
-                <HeadingText
-                  title={slides[active]?.title || ""}
-                  variant="display"
-                  className="font-bold text-3xl xs:text-4xl sm:text-5xl lg:text-6xl leading-tight"
-                  glyphs={[
-                    {
-                      word: "Become",
-                      position: 3,
-                    },
-                    {
-                      word: "hero",
-                      position: 3,
-                      variant: "blue2",
-                    },
-                  ]}
-                  coloredPhrases={[
-                    {
-                      text: "Become the hero",
-                      color: "text-primary",
-                    },
-                  ]}
-                  defaultTextColor="text-white"
-                  defaultGlyphVariant="blue1"
-                  glyphSizeClassName="w-[0.5em] h-[0.5em] sm:w-[0.5em] sm:h-[0.5em] md:w-[0.6em] md:h-[0.6em]"
-                  endl={["hero of your own", "story"]}
-                />
+          {/* Slide content (headline + CTA) - static, doesn't fade, waits for image load and animation */}
+          {animationFinished && (
+            <div className="absolute inset-0 z-10 flex items-center pt-4 sm:pt-0 overflow-visible">
+              <motion.div
+                className="w-full max-w-[620px] p-4 md:p-6 lg:p-6 ml-8 md:ml-10 lg:ml-16 xl:ml-[100px] overflow-visible"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.4 }}
+                variants={staggerContainer}
+              >
+                <motion.div variants={heroText}>
+                  <HeadingText
+                    title={slides[active]?.title || ""}
+                    variant="display"
+                    className="font-bold text-3xl xs:text-4xl sm:text-5xl lg:text-6xl leading-tight"
+                    glyphs={[
+                      {
+                        word: "Become",
+                        position: 3,
+                      },
+                      {
+                        word: "hero",
+                        position: 3,
+                        variant: "blue2",
+                      },
+                    ]}
+                    coloredPhrases={[
+                      {
+                        text: "Become the hero",
+                        color: "text-primary",
+                      },
+                    ]}
+                    defaultTextColor="text-white"
+                    defaultGlyphVariant="blue1"
+                    glyphSizeClassName="w-[0.5em] h-[0.5em] sm:w-[0.5em] sm:h-[0.5em] md:w-[0.6em] md:h-[0.6em]"
+                    endl={["hero of your own", "story"]}
+                  />
+                </motion.div>
+                <motion.div className="overflow-visible pt-3 pb-3" variants={fadeInUp}>
+                  <Link href="/createbook">
+                    <AppButton
+                      variant="primary"
+                      size="hero"
+                      shadow
+                      withSparkles
+                      className="mt-4 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
+                    >
+                      Create a Book
+                    </AppButton>
+                  </Link>
+                </motion.div>
               </motion.div>
-              <motion.div className="overflow-visible pt-3 pb-3" variants={fadeInUp}>
-                <Link href="/createbook">
-                  <AppButton
-                    variant="primary"
-                    size="hero"
-                    shadow
-                    withSparkles
-                    className="mt-4 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                    Create a Book
-                  </AppButton>
-                </Link>
-              </motion.div>
-            </motion.div>
-          </div>
+            </div>
+          )}
 
           {/* Decorative Elements - static, doesn't fade */}
           <DecorativeElements decorations={heroCarouselDecorations} />
 
-          {/* Navigation Dots */}
-          <div
-            className="absolute inline-flex left-12 md:left-16 lg:left-22 xl:left-[120px] top-1/2 translate-y-[140px] lg:translate-y-[180px] xl:translate-y-[210px] z-10 items-center gap-3 max-w-full overflow-hidden"
-            role="tablist"
-            aria-label="Carousel navigation"
-          >
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => emblaApi && emblaApi.scrollTo(index)}
-                onKeyDown={(e) => handleKeyDown(e, index)}
-                aria-label={`Go to slide ${index + 1} of ${slides.length}`}
-                aria-selected={index === active}
-                role="tab"
-                tabIndex={index === active ? 0 : -1}
-                style={{ transitionDuration: `${CAROUSEL_CONFIG.TRANSITION_DURATION}ms` }}
-                className={`
+          {/* Navigation Dots - wait for image load and animation */}
+          {animationFinished && (
+            <div
+              className="absolute inline-flex left-12 md:left-16 lg:left-22 xl:left-[120px] top-1/2 translate-y-[140px] lg:translate-y-[180px] xl:translate-y-[210px] z-10 items-center gap-3 max-w-full overflow-hidden"
+              role="tablist"
+              aria-label="Carousel navigation"
+            >
+              {slides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => emblaApi && emblaApi.scrollTo(index)}
+                  onKeyDown={(e) => handleKeyDown(e, index)}
+                  aria-label={`Go to slide ${index + 1} of ${slides.length}`}
+                  aria-selected={index === active}
+                  role="tab"
+                  tabIndex={index === active ? 0 : -1}
+                  style={{ transitionDuration: `${CAROUSEL_CONFIG.TRANSITION_DURATION}ms` }}
+                  className={`
                 transition-all rounded-full touch-manipulation flex items-center justify-center
                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary
                 ${index === active
-                    ? "w-5 h-2 md:w-6 md:h-3 lg:w-6 lg:h-3 bg-primary"
-                    : "w-2 h-2 md:w-3 md:h-3 lg:w-3 lg:h-3 bg-primary/50"
-                  }
+                      ? "w-5 h-2 md:w-6 md:h-3 lg:w-6 lg:h-3 bg-primary"
+                      : "w-2 h-2 md:w-3 md:h-3 lg:w-3 lg:h-3 bg-primary/50"
+                    }
               `}
-              />
-            ))}
-          </div>
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -287,9 +308,13 @@ function HeroCarousel() {
                 key={active}
                 className="absolute inset-0"
                 style={{ clipPath: "url(#carouselMaskMobile)" }}
+                variants={carouselFade}
                 initial="enter"
-                animate="center"
+                animate={active === 0 ? (isImageLoaded ? "center" : "enter") : "center"}
                 exit="exit"
+                onAnimationComplete={() => {
+                  if (active === 0 && isImageLoaded) setAnimationFinished(true);
+                }}
               >
                 <Image
                   src={slides[active].src}
@@ -300,90 +325,95 @@ function HeroCarousel() {
                   sizes="100vw"
                   quality={85}
                   fetchPriority={active === 0 ? "high" : "auto"}
+                  onLoad={() => {
+                    if (active === 0) setIsImageLoaded(true);
+                  }}
                 />
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Slide content (headline + CTA) - static, doesn't fade */}
-          <div className="absolute inset-0 z-10 flex items-center pt-4 overflow-visible">
-            <motion.div
-              className="w-full max-w-[620px] px-4 ml-4 overflow-visible"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.4 }}
-              variants={staggerContainer}
-            >
-              <motion.div variants={heroText}>
-                <HeadingText
-                  title={slides[active]?.title || ""}
-                  variant="display"
-                  className="font-bold text-3xl xs:text-4xl leading-tight"
-                  glyphs={[
-                    {
-                      word: "Become",
-                      position: 3,
-                    },
-                    {
-                      word: "hero",
-                      position: 3,
-                      variant: "blue2",
-                    },
-                  ]}
-                  coloredPhrases={[
-                    {
-                      text: "Become the hero",
-                      color: "text-primary",
-                    },
-                  ]}
-                  defaultTextColor="text-white"
-                  defaultGlyphVariant="blue1"
-                  glyphSizeClassName="w-[0.5em] h-[0.5em]"
-                  endl={["hero of your own", "story"]}
-                />
-              </motion.div>
-              <motion.div className="overflow-visible pt-3 pb-3" variants={fadeInUp}>
-                <Link href="/createbook">
-                  <AppButton
-                    variant="primary"
-                    size="hero"
-                    shadow
-                    withSparkles
-                    className="mt-3 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                    Create a Book
-                  </AppButton>
-                </Link>
-              </motion.div>
-              {/* Mobile navigation dots */}
-              <div
-                className="mt-4 flex items-center gap-2 justify-start"
-                role="tablist"
-                aria-label="Carousel navigation"
+          {/* Slide content (headline + CTA) - static, doesn't fade, waits for image load and animation */}
+          {animationFinished && (
+            <div className="absolute inset-0 z-10 flex items-center pt-4 overflow-visible">
+              <motion.div
+                className="w-full max-w-[620px] px-4 ml-4 overflow-visible"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.4 }}
+                variants={staggerContainer}
               >
-                {slides.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => emblaApi && emblaApi.scrollTo(index)}
-                    onKeyDown={(e) => handleKeyDown(e, index)}
-                    aria-label={`Go to slide ${index + 1} of ${slides.length}`}
-                    aria-selected={index === active}
-                    role="tab"
-                    tabIndex={index === active ? 0 : -1}
-                    style={{ transitionDuration: `${CAROUSEL_CONFIG.TRANSITION_DURATION}ms` }}
-                    className={`
+                <motion.div variants={heroText}>
+                  <HeadingText
+                    title={slides[active]?.title || ""}
+                    variant="display"
+                    className="font-bold text-3xl xs:text-4xl leading-tight"
+                    glyphs={[
+                      {
+                        word: "Become",
+                        position: 3,
+                      },
+                      {
+                        word: "hero",
+                        position: 3,
+                        variant: "blue2",
+                      },
+                    ]}
+                    coloredPhrases={[
+                      {
+                        text: "Become the hero",
+                        color: "text-primary",
+                      },
+                    ]}
+                    defaultTextColor="text-white"
+                    defaultGlyphVariant="blue1"
+                    glyphSizeClassName="w-[0.5em] h-[0.5em]"
+                    endl={["hero of your own", "story"]}
+                  />
+                </motion.div>
+                <motion.div className="overflow-visible pt-3 pb-3" variants={fadeInUp}>
+                  <Link href="/createbook">
+                    <AppButton
+                      variant="primary"
+                      size="hero"
+                      shadow
+                      withSparkles
+                      className="mt-3 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
+                    >
+                      Create a Book
+                    </AppButton>
+                  </Link>
+                </motion.div>
+                {/* Mobile navigation dots */}
+                <div
+                  className="mt-4 flex items-center gap-2 justify-start"
+                  role="tablist"
+                  aria-label="Carousel navigation"
+                >
+                  {slides.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => emblaApi && emblaApi.scrollTo(index)}
+                      onKeyDown={(e) => handleKeyDown(e, index)}
+                      aria-label={`Go to slide ${index + 1} of ${slides.length}`}
+                      aria-selected={index === active}
+                      role="tab"
+                      tabIndex={index === active ? 0 : -1}
+                      style={{ transitionDuration: `${CAROUSEL_CONFIG.TRANSITION_DURATION}ms` }}
+                      className={`
                       transition-all rounded-full touch-manipulation flex items-center justify-center
                       focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary
                       ${index === active
-                        ? "w-4 h-2 bg-primary"
-                        : "w-2 h-2 bg-primary/50"
-                      }
+                          ? "w-4 h-2 bg-primary"
+                          : "w-2 h-2 bg-primary/50"
+                        }
                     `}
-                  />
-                ))}
-              </div>
-            </motion.div>
-          </div>
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          )}
         </div>
       </div>
     </section>
