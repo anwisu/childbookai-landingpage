@@ -61,12 +61,12 @@ export function Footer() {
                     <h3 className="text-[10px] sm:text-xs md:text-sm lg:text-base font-bold text-foreground mb-1.5 sm:mb-2 md:mb-3 lg:mb-4">
                       {section.title}
                     </h3>
-                    <ul className="-space-y-1 sm:space-y-0">
+                    <ul className="space-y-0 sm:space-y-1">
                       {section.links.map((link) => (
                         <li key={link.href}>
                           <Link
                             href={link.href}
-                            className="text-[9px] sm:text-[10px] md:text-xs lg:text-sm text-foreground hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary rounded-sm"
+                            className="text-[9px] sm:text-[10px] md:text-xs lg:text-sm text-foreground hover:text-primary transition-colors"
                           >
                             {link.label}
                           </Link>

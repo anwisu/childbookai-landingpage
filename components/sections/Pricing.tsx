@@ -94,108 +94,110 @@ export function Pricing() {
       </div>
 
       <motion.div
-          className="text-center mb-8 sm:mb-10 md:mb-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={scrollReveal}
-        >
-          <HeadingText
-            variant="h1"
-            title="Customers Pricing"
-            className="font-bold "
-            glyphs={[
-              {
-                word: "Customers",
-                position: 4,
-                variant: "blue1",
-              },
-            ]}
-            coloredPhrases={[
-              {
-                text: "Customers",
-                color: "text-primary",
-              },
-            ]}
-            defaultTextColor="text-foreground"
-            glyphSizeClassName="w-[0.6em] h-[0.6em] sm:w-[0.5em] sm:h-[0.5m] md:w-[0.6em] md:h-[0.6em] mb-8 sm:mb-10 md:mb-12"
-          />
+        className="text-center mb-8 sm:mb-10 md:mb-12"
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
+        variants={scrollReveal}
+      >
+        <HeadingText
+          as="h2"
+          variant="h1"
+          title="Customers Pricing"
+          className="font-bold "
+          glyphs={[
+            {
+              word: "Customers",
+              position: 4,
+              variant: "blue1",
+            },
+          ]}
+          coloredPhrases={[
+            {
+              text: "Customers",
+              color: "text-primary",
+            },
+          ]}
+          defaultTextColor="text-foreground"
+          glyphSizeClassName="w-[0.6em] h-[0.6em] sm:w-[0.5em] sm:h-[0.5m] md:w-[0.6em] md:h-[0.6em] mb-8 sm:mb-10 md:mb-12"
+        />
 
-          {/* Tab Buttons and Yearly Toggle */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-            <ButtonGroup
-              orientation="horizontal"
-              className="rounded-md border-2 border-blue-800"
-            >
-              <Button
-                onClick={() => setActiveTab("individual")}
-                role="tab"
-                aria-selected={activeTab === "individual"}
-                aria-controls="pricing-content"
-                id="tab-individual"
-                className={cn(
-                  "px-3 sm:px-4 md:px-5 py-2 sm:py-3 font-semibold text-sm sm:text-body transition-all duration-200 ease-out rounded-l-sm rounded-r-none border-0 min-h-[40px] sm:min-h-[44px] touch-manipulation focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-teal-600 active:scale-95",
-                  activeTab === "individual"
-                    ? "bg-blue-800 text-white hover:bg-blue-800"
-                    : "bg-white text-foreground hover:bg-white"
-                )}
-              >
-                Individual
-              </Button>
-              <Button
-                onClick={() => setActiveTab("business")}
-                role="tab"
-                aria-selected={activeTab === "business"}
-                aria-controls="pricing-content"
-                id="tab-business"
-                className={cn(
-                  "px-3 sm:px-4 md:px-5 py-2 sm:py-3 font-semibold text-sm sm:text-body transition-all duration-200 ease-out rounded-r-sm rounded-l-none border-0 min-h-[40px] sm:min-h-[44px] touch-manipulation focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-teal-600 active:scale-95",
-                  activeTab === "business"
-                    ? "bg-blue-800 text-white hover:bg-blue-800"
-                    : "bg-white text-foreground hover:bg-white"
-                )}
-              >
-                Business
-              </Button>
-            </ButtonGroup>
-
-            {/* Yearly Checkbox */}
-            <label
+        {/* Tab Buttons and Yearly Toggle */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+          <ButtonGroup
+            role="tablist"
+            orientation="horizontal"
+            className="rounded-md border-2 border-blue-800"
+          >
+            <Button
+              onClick={() => setActiveTab("individual")}
+              role="tab"
+              aria-selected={activeTab === "individual"}
+              aria-controls="pricing-content"
+              id="tab-individual"
               className={cn(
-                "px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-md font-semibold text-sm sm:text-body transition-all duration-200 ease-out border-2 border-blue-800 flex items-center gap-2 bg-white text-foreground cursor-pointer hover:bg-white hover:scale-105 active:scale-95 min-h-[40px] sm:min-h-[44px] touch-manipulation justify-center focus-within:outline-none focus-within:ring-1 focus-within:ring-offset-1 focus-within:ring-teal-600"
+                "px-3 sm:px-4 md:px-5 py-2 sm:py-3 font-semibold text-sm sm:text-body transition-all duration-200 ease-out rounded-l-sm rounded-r-none border-0 min-h-[40px] sm:min-h-[44px] touch-manipulation focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-teal-600 active:scale-95",
+                activeTab === "individual"
+                  ? "bg-blue-800 text-white hover:bg-blue-800"
+                  : "bg-white text-foreground hover:bg-white"
               )}
             >
-              <Checkbox
-                checked={isYearly}
-                onCheckedChange={(checked) => setIsYearly(checked === true)}
-                aria-label="Toggle yearly pricing"
-                className="border-blue-800 data-[state=checked]:bg-blue-800 data-[state=checked]:border-blue-800 text-white min-h-[20px] min-w-[20px]"
-              />
-              <span>Yearly</span>
-            </label>
-          </div>
-        </motion.div>
+              Individual
+            </Button>
+            <Button
+              onClick={() => setActiveTab("business")}
+              role="tab"
+              aria-selected={activeTab === "business"}
+              aria-controls="pricing-content"
+              id="tab-business"
+              className={cn(
+                "px-3 sm:px-4 md:px-5 py-2 sm:py-3 font-semibold text-sm sm:text-body transition-all duration-200 ease-out rounded-r-sm rounded-l-none border-0 min-h-[40px] sm:min-h-[44px] touch-manipulation focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-teal-600 active:scale-95",
+                activeTab === "business"
+                  ? "bg-blue-800 text-white hover:bg-blue-800"
+                  : "bg-white text-foreground hover:bg-white"
+              )}
+            >
+              Business
+            </Button>
+          </ButtonGroup>
 
-        {/* Render appropriate pricing component based on active tab */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            id="pricing-content"
-            role="tabpanel"
-            aria-labelledby={activeTab === "individual" ? "tab-individual" : "tab-business"}
-            aria-live="polite"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            {activeTab === "individual" ? (
-              <IndividualPricing isYearly={isYearly} />
-            ) : (
-              <BusinessPricing isYearly={isYearly} />
+          {/* Yearly Checkbox */}
+          <label
+            className={cn(
+              "px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-md font-semibold text-sm sm:text-body transition-all duration-200 ease-out border-2 border-blue-800 flex items-center gap-2 bg-white text-foreground cursor-pointer hover:bg-white hover:scale-105 active:scale-95 min-h-[40px] sm:min-h-[44px] touch-manipulation justify-center focus-within:outline-none focus-within:ring-1 focus-within:ring-offset-1 focus-within:ring-teal-600"
             )}
-          </motion.div>
-        </AnimatePresence>
+          >
+            <Checkbox
+              checked={isYearly}
+              onCheckedChange={(checked) => setIsYearly(checked === true)}
+              aria-label="Toggle yearly pricing"
+              className="border-blue-800 data-[state=checked]:bg-blue-800 data-[state=checked]:border-blue-800 text-white min-h-[20px] min-w-[20px]"
+            />
+            <span>Yearly</span>
+          </label>
+        </div>
+      </motion.div>
+
+      {/* Render appropriate pricing component based on active tab */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeTab}
+          id="pricing-content"
+          role="tabpanel"
+          aria-labelledby={activeTab === "individual" ? "tab-individual" : "tab-business"}
+          aria-live="polite"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+        >
+          {activeTab === "individual" ? (
+            <IndividualPricing isYearly={isYearly} />
+          ) : (
+            <BusinessPricing isYearly={isYearly} />
+          )}
+        </motion.div>
+      </AnimatePresence>
     </SectionContainer>
   );
 }

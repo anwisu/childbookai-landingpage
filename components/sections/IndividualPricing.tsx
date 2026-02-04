@@ -93,19 +93,18 @@ export function IndividualPricing({ isYearly }: IndividualPricingProps) {
         const hoverMotionProps = isTouchDevice
           ? {}
           : {
-              whileHover: {
-                y: plan.popular ? -8 : -6,
-                scale: plan.popular ? 1.02 : 1.01,
-              },
-              transition: transitions.quick,
-            };
+            whileHover: {
+              y: plan.popular ? -8 : -6,
+              scale: plan.popular ? 1.02 : 1.01,
+            },
+            transition: transitions.quick,
+          };
 
         return (
           <motion.div
             key={plan.id}
-            className={`flex justify-center items-start w-full ${
-              plan.popular ? "relative z-20" : "relative z-10"
-            }`}
+            className={`flex justify-center items-start w-full ${plan.popular ? "relative z-20" : "relative z-10"
+              }`}
             variants={scrollReveal}
             {...hoverMotionProps}
           >
@@ -140,7 +139,7 @@ export function IndividualPricing({ isYearly }: IndividualPricingProps) {
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <HeadingText
-                        as="h5"
+                        as="h3"
                         variant="h5"
                         title={plan.title}
                         className={cn(
@@ -209,7 +208,7 @@ export function IndividualPricing({ isYearly }: IndividualPricingProps) {
                     <ParagraphText
                       as="p"
                       variant="body-sm"
-                      className={cn( "mb-6",
+                      className={cn("mb-6",
                         isAlternate ? "text-white" : "text-foreground"
                       )}
                       defaultTextColor={

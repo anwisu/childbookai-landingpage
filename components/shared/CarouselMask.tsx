@@ -1,6 +1,6 @@
 export function CarouselMask({ id = "carouselMask" }) {
   return (
-    <svg viewBox="0 0 1264 629" width="0" height="0" aria-hidden>
+    <svg viewBox="0 0 1264 629" width="0" height="0" aria-hidden="true">
       <defs>
         <clipPath id={id} clipPathUnits="objectBoundingBox">
           <path

@@ -39,7 +39,7 @@ export function BusinessPricing({ isYearly }: BusinessPricingProps) {
     window.addEventListener("resize", updateHeaderHeight);
     return () => window.removeEventListener("resize", updateHeaderHeight);
   }, []);
-  
+
   return (
     <div className="flex justify-center items-start">
       {businessPlans.map((plan: PricingCard) => {
