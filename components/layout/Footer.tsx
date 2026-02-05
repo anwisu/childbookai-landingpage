@@ -9,7 +9,7 @@ import {
   DiscordIcon,
   EmailIcon,
   SocialIcon,
-} from "@/components/shared";
+} from "@/shared";
 
 const socialIconMap = {
   "Twitter/X": TwitterIcon,

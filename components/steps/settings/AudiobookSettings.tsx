@@ -3,16 +3,16 @@
 import React from "react";
 import Image from "next/image";
 import { VideoSquare } from "iconsax-react";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/ui/label";
+import { Checkbox } from "@/ui/checkbox";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
-import { SettingsCard } from "@/components/ui/settings-card";
+} from "@/ui/select";
+import { SettingsCard } from "@/ui/settings-card";
 
 type AudiobookSettingsProps = {
     isEnabled: boolean;

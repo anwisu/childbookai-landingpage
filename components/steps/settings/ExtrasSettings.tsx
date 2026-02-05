@@ -3,19 +3,19 @@
 import React from "react";
 import Image from "next/image";
 import { InfoCircle } from "iconsax-react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/ui/label";
+import { Input } from "@/ui/input";
+import { Checkbox } from "@/ui/checkbox";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { AppButton } from "@/components/ui/app-button";
-import { SettingsCard } from "@/components/ui/settings-card";
+} from "@/ui/select";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/ui/tooltip";
+import { AppButton } from "@/ui/app-button";
+import { SettingsCard } from "@/ui/settings-card";
 
 type ExtrasSettingsProps = {
     // We can group these or keep them flat. Flat is easier for now to match parent state.

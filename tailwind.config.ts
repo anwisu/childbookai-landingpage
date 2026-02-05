@@ -5,6 +5,9 @@ const config: Config = {
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
+    "./ui/**/*.{ts,tsx}",
+    "./sections/**/*.{ts,tsx}",
+    "./shared/**/*.{ts,tsx}",
   ],
   theme: {
     screens: {

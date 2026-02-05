@@ -4,13 +4,13 @@ import React from "react";
 import Image from "next/image";
 import { Crown, InfoCircle } from "iconsax-react";
 import { Maximize2 } from "lucide-react";
-import { SettingsCard } from "@/components/ui/settings-card";
-import { AppButton } from "@/components/ui/app-button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { cn } from "@/lib/utils";
-import { COVER_OPTIONS } from "@/lib/constants/book-settings";
-import type { CoverStyle } from "@/lib/types/story";
+import { SettingsCard } from "@/ui/settings-card";
+import { AppButton } from "@/ui/app-button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/ui/tooltip";
+import { Dialog, DialogContent, DialogTitle } from "@/ui/dialog";
+import { cn } from "@/utils";
+import { COVER_OPTIONS } from "@/constants/book-settings";
+import type { CoverStyle } from "@/types/story";
 
 type CoverStyleSettingsProps = {
     selectedStyle: CoverStyle;

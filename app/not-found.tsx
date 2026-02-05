@@ -1,4 +1,4 @@
-import { ErrorView } from "@/components/shared/ErrorView";
+import { ErrorView } from "@/shared/ErrorView";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

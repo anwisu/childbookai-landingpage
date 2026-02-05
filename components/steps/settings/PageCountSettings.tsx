@@ -3,10 +3,10 @@
 import React from "react";
 import Image from "next/image";
 import { Crown } from "iconsax-react";
-import { Label } from "@/components/ui/label";
-import { AppButton } from "@/components/ui/app-button";
-import { RadioButton } from "@/components/ui/radio-button";
-import { SettingsCard } from "@/components/ui/settings-card";
+import { Label } from "@/ui/label";
+import { AppButton } from "@/ui/app-button";
+import { RadioButton } from "@/ui/radio-button";
+import { SettingsCard } from "@/ui/settings-card";
 
 type PageCountSettingsProps = {
     selectedCount: number;

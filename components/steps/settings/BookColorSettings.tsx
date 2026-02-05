@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { SettingsCard } from "@/components/ui/settings-card";
-import { ColorPicker } from "@/components/ui/color-picker";
-import { BOOK_COLORS } from "@/lib/constants/book-settings";
+import { SettingsCard } from "@/ui/settings-card";
+import { ColorPicker } from "@/ui/color-picker";
+import { BOOK_COLORS } from "@/constants/book-settings";
 
 type BookColorSettingsProps = {
     selectedColor: string;

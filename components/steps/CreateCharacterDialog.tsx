@@ -7,22 +7,22 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "../ui/dialog";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
+} from "@/ui/dialog";
+import { Input } from "@/ui/input";
+import { Label } from "@/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
+} from "@/ui/select";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { DocumentUpload } from "iconsax-react";
-import { AppButton } from "../shared/AppButton";
-import { ColorPicker } from "../ui/color-picker";
-import type { CharacterFormData } from "@/lib/types/character";
+import { AppButton } from "@/shared/AppButton";
+import { ColorPicker } from "@/ui/color-picker";
+import type { CharacterFormData } from "@/types/character";
 import { TourGuide, type TourStep } from "./TourGuide";
 import {
   CHARACTER_TYPES,
@@ -32,9 +32,9 @@ import {
   EYE_COLORS,
   HAIR_LENGTHS,
   ATTRIBUTES,
-} from "@/lib/constants";
-import { MultiSelectAutocomplete } from "../ui/multi-select-autocomplete";
-import { cn } from "@/lib/utils";
+} from "@/constants";
+import { MultiSelectAutocomplete } from "@/ui/multi-select-autocomplete";
+import { cn } from "@/utils";
 import { toast } from "sonner";
 
 // ============================================================================

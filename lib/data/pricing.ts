@@ -1,4 +1,4 @@
-import type { PricingData } from "@/lib/types";
+import type { PricingData } from "@/types";
 
 export const pricingData: PricingData = {
   individual: [

@@ -3,9 +3,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { HeadingText } from "../typography";
-import ProgressBar from "@/components/ui/progress-bar";
-import ProgressBadge from "@/components/ui/progress-badge";
-import { Skeleton } from "@/components/ui/skeleton";
+import ProgressBar from "@/ui/progress-bar";
+import ProgressBadge from "@/ui/progress-badge";
+import { Skeleton } from "@/ui/skeleton";
 import { toast } from "sonner";
 
 const Step3Creating: React.FC = () => {

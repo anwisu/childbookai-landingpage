@@ -1,4 +1,4 @@
-import type { Service } from "@/lib/types";
+import type { Service } from "@/types";
 
 export const services: Service[] = [
   {

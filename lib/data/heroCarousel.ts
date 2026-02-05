@@ -1,4 +1,4 @@
-import type { Decoration } from "@/lib/types";
+import type { Decoration } from "@/types";
 
 // Decorative elements for HeroCarousel
 // Add your decorative elements here - they will be rendered automatically

@@ -2,12 +2,12 @@
 
 import React, { useCallback, useState, useEffect } from "react";
 import { HeadingText } from "../typography";
-import { RadioButton } from "@/components/ui/radio-button";
-import { RadioCard } from "@/components/ui/radio-card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { AppButton } from "@/components/ui/app-button";
-import { HighlightableInput } from "../shared/HighlightableInput";
+import { RadioButton } from "@/ui/radio-button";
+import { RadioCard } from "@/ui/radio-card";
+import { Input } from "@/ui/input";
+import { Label } from "@/ui/label";
+import { AppButton } from "@/ui/app-button";
+import { HighlightableInput } from "@/shared/HighlightableInput";
 
 const themes = [
   "Adventure",
@@ -74,7 +74,8 @@ const Step1Story: React.FC<Step1StoryProps> = ({ onNext, onStoryChange }) => {
   // Sync initial story data with parent
   useEffect(() => {
     onStoryChange?.({ title: defaultStory.title, description: defaultStory.description });
-  }, []); // Only run on mount
+    onStoryChange?.({ title: defaultStory.title, description: defaultStory.description });
+  }, [defaultStory.title, defaultStory.description, onStoryChange]); // Only run on mount-ish, but deps required
 
   const handleSelectStory = useCallback((story: StoryOption) => {
     setSelectedStory(story.id);

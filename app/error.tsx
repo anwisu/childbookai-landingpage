@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { ErrorView } from "@/components/shared/ErrorView";
+import { ErrorView } from "@/shared/ErrorView";
 
 export default function Error({
     error,

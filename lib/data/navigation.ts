@@ -1,4 +1,4 @@
-import type { NavItem } from "@/lib/types";
+import type { NavItem } from "@/types";
 
 export const navItems: NavItem[] = [
   "Illustrator",

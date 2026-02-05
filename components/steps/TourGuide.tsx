@@ -5,10 +5,10 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../ui/popover";
+} from "@/ui/popover";
 import Image from "next/image";
-import { AppButton } from "../shared/AppButton";
-import { cn } from "@/lib/utils";
+import { AppButton } from "@/shared/AppButton";
+import { cn } from "@/utils";
 import { CloseCircle } from "iconsax-react";
 
 // ============================================================================

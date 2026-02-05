@@ -1,5 +1,5 @@
 import React from "react";
-import { ErrorView } from "@/components/shared/ErrorView";
+import { ErrorView } from "@/shared/ErrorView";
 import type { Metadata } from "next";
 
 type Props = {

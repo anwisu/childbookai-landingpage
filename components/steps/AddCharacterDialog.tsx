@@ -10,16 +10,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../ui/dialog";
+} from "@/ui/dialog";
 import {
   MOCK_CHARACTER_NAMES,
   CHARACTER_AVATARS,
   CHARACTER_CREATION_TABS
-} from "@/lib/constants/character";
-import { Button } from "../ui/button";
+} from "@/constants/character";
+
 import { AddCircle, Edit2, Trash, MagicStar } from "iconsax-react";
 import CreateCharacterDialog from "./CreateCharacterDialog";
-import type { CharacterFormData } from "@/lib/types/character";
+import type { CharacterFormData } from "@/types/character";
 
 export type AddCharacterDialogProps = {
   trigger?: React.ReactNode;

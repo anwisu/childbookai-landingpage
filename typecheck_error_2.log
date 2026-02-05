@@ -1,0 +1,5 @@
+
+> childbookai-landingpage@0.1.0 typecheck
+> tsc --noEmit
+
+app/error/[code]/page.tsx(2,27): error TS2307: Cannot find module '@/components/shared/ErrorView' or its corresponding type declarations.

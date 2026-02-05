@@ -1,4 +1,4 @@
-import type { FooterSection } from "@/lib/types";
+import type { FooterSection } from "@/types";
 
 export const footerSections: FooterSection[] = [
   {

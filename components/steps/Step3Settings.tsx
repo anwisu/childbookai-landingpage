@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import { HeadingText } from "../typography";
-import { CharacterCard } from "../ui/character-card";
-import type { Character } from "@/lib/types/character";
-import { AppButton } from "@/components/ui/app-button";
-import type { StoryData, CoverStyle } from "@/lib/types/story";
+import { CharacterCard } from "@/ui/character-card";
+import type { Character } from "@/types/character";
+import { AppButton } from "@/ui/app-button";
+import type { StoryData, CoverStyle } from "@/types/story";
 import Step3Creating from "./Step3Creating";
 
 // Imported sub-components

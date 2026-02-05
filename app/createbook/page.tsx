@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ArrowCircleLeft2 } from "iconsax-react";
 import { Navbar } from "@/components/layout";
 import { Step1Story, Step2Character, Step3Settings } from "@/components/steps";
-import type { Character, CharacterFormData } from "@/lib/types/character";
+import type { Character, CharacterFormData } from "@/types/character";
 import stepperDashedLines from "@/public/illustrations/stepper-dashed-lines.svg";
 import stepperActiveIcon from "@/public/illustrations/stepper-active-icon.svg";
 import { toast } from "sonner";
@@ -19,7 +19,7 @@ const CHARACTER_IMAGES: Record<string, string> = {
   Amanda: "/images/Amanda.png",
 };
 
-import type { StoryData } from "@/lib/types/story";
+import type { StoryData } from "@/types/story";
 
 export default function CreateBook() {
   const [activeStep, setActiveStep] = useState(1);

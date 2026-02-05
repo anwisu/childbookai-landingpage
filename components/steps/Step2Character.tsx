@@ -2,10 +2,10 @@
 
 import { HeadingText } from "../typography";
 import { ParagraphText } from "../typography";
-import { AppButton } from "../shared/AppButton";
-import { CharacterCard } from "../ui/character-card";
-import type { Character } from "@/lib/types/character";
-import { cn } from "@/lib/utils";
+import { AppButton } from "@/shared/AppButton";
+import { CharacterCard } from "@/ui/character-card";
+import type { Character } from "@/types/character";
+import { cn } from "@/utils";
 import Image from "next/image";
 import bookFaceImg from "@/public/illustrations/book-face.svg";
 

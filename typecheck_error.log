@@ -1,0 +1,37 @@
+
+> childbookai-landingpage@0.1.0 typecheck
+> tsc --noEmit
+
+app/error/[code]/page.tsx(2,27): error TS2307: Cannot find module '@/components/shared/ErrorView' or its corresponding type declarations.
+app/page.tsx(4,45): error TS2307: Cannot find module '@/components/sections' or its corresponding type declarations.
+components/layout/Footer.tsx(12,8): error TS2307: Cannot find module '@/components/shared' or its corresponding type declarations.
+components/steps/AddCharacterDialog.tsx(13,8): error TS2307: Cannot find module '../ui/dialog' or its corresponding type declarations.
+components/steps/AddCharacterDialog.tsx(19,24): error TS2307: Cannot find module '../ui/button' or its corresponding type declarations.
+components/steps/CreateCharacterDialog.tsx(10,8): error TS2307: Cannot find module '../ui/dialog' or its corresponding type declarations.
+components/steps/CreateCharacterDialog.tsx(11,23): error TS2307: Cannot find module '../ui/input' or its corresponding type declarations.
+components/steps/CreateCharacterDialog.tsx(12,23): error TS2307: Cannot find module '../ui/label' or its corresponding type declarations.
+components/steps/CreateCharacterDialog.tsx(19,8): error TS2307: Cannot find module '../ui/select' or its corresponding type declarations.
+components/steps/CreateCharacterDialog.tsx(23,27): error TS2307: Cannot find module '../shared/AppButton' or its corresponding type declarations.
+components/steps/CreateCharacterDialog.tsx(24,29): error TS2307: Cannot find module '../ui/color-picker' or its corresponding type declarations.
+components/steps/CreateCharacterDialog.tsx(36,41): error TS2307: Cannot find module '../ui/multi-select-autocomplete' or its corresponding type declarations.
+components/steps/CreateCharacterDialog.tsx(453,30): error TS7006: Parameter 'e' implicitly has an 'any' type.
+components/steps/CreateCharacterDialog.tsx(461,35): error TS7006: Parameter 'value' implicitly has an 'any' type.
+components/steps/CreateCharacterDialog.tsx(485,30): error TS7006: Parameter 'e' implicitly has an 'any' type.
+components/steps/CreateCharacterDialog.tsx(505,35): error TS7006: Parameter 'value' implicitly has an 'any' type.
+components/steps/CreateCharacterDialog.tsx(526,30): error TS7006: Parameter 'color' implicitly has an 'any' type.
+components/steps/CreateCharacterDialog.tsx(538,30): error TS7006: Parameter 'color' implicitly has an 'any' type.
+components/steps/CreateCharacterDialog.tsx(605,28): error TS7006: Parameter 'attributes' implicitly has an 'any' type.
+components/steps/Step1Story.tsx(10,36): error TS2307: Cannot find module '../shared/HighlightableInput' or its corresponding type declarations.
+components/steps/Step1Story.tsx(191,24): error TS7006: Parameter 'html' implicitly has an 'any' type.
+components/steps/Step2Character.tsx(5,27): error TS2307: Cannot find module '../shared/AppButton' or its corresponding type declarations.
+components/steps/Step2Character.tsx(6,31): error TS2307: Cannot find module '../ui/character-card' or its corresponding type declarations.
+components/steps/Step3Settings.tsx(5,31): error TS2307: Cannot find module '../ui/character-card' or its corresponding type declarations.
+components/steps/TourGuide.tsx(8,8): error TS2307: Cannot find module '../ui/popover' or its corresponding type declarations.
+components/steps/TourGuide.tsx(10,27): error TS2307: Cannot find module '../shared/AppButton' or its corresponding type declarations.
+sections/BusinessPricing.tsx(6,28): error TS2307: Cannot find module '@/components/shared' or its corresponding type declarations.
+sections/CreateABook.tsx(10,34): error TS2307: Cannot find module '@/components/shared' or its corresponding type declarations.
+sections/Features.tsx(7,34): error TS2307: Cannot find module '@/components/shared' or its corresponding type declarations.
+sections/IndividualPricing.tsx(6,28): error TS2307: Cannot find module '@/components/shared' or its corresponding type declarations.
+sections/Pricing.tsx(12,34): error TS2307: Cannot find module '@/components/shared' or its corresponding type declarations.
+sections/Services.tsx(7,34): error TS2307: Cannot find module '@/components/shared' or its corresponding type declarations.
+sections/Steps.tsx(17,8): error TS2307: Cannot find module '@/components/shared' or its corresponding type declarations.
