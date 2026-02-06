@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import styles from "./Sections.module.css";
 import { steps } from "@/lib/data";
 import { IMAGE_DIMENSIONS, SPACING, STEP_IDS } from "@/constants";
@@ -16,10 +16,12 @@ import {
   AnimatedImageIconThird
 } from "@/shared";
 
-const DASHED_DURATION_SECONDS = 20;
+const DASHED_DURATION_SECONDS = 10;
 
 export function Steps() {
   const [cycleKey, setCycleKey] = useState(0);
+  const containerRef = React.useRef(null);
+  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
 
   useEffect(() => {
     const intervalId = setInterval(
@@ -30,7 +32,10 @@ export function Steps() {
     return () => clearInterval(intervalId);
   }, []);
   return (
-    <section className="relative w-full py-12 sm:py-16 md:py-20 lg:py-24 mt-12 sm:mt-20 md:mt-28 lg:mt-36 min-h-[400px] sm:min-h-[500px]">
+    <section
+      ref={containerRef}
+      className="relative w-full py-12 sm:py-16 md:py-20 lg:py-24 mt-12 sm:mt-20 md:mt-28 lg:mt-36 min-h-[400px] sm:min-h-[500px]"
+    >
       {/* Dashed lines background - full screen width */}
       <div
         className="absolute left-0 right-0 hidden lg:flex items-center justify-center pointer-events-none z-0"
@@ -40,14 +45,16 @@ export function Steps() {
         }}
         aria-hidden="true"
       >
-        <AnimatedDashedLine
-          key={cycleKey}
-          width={IMAGE_DIMENSIONS.COMBINED_STROKE.width}
-          height={IMAGE_DIMENSIONS.COMBINED_STROKE.height}
-          className="w-full h-auto object-contain"
-          duration={DASHED_DURATION_SECONDS}
-          fillColor="#54E6ED"
-        />
+        {isInView && (
+          <AnimatedDashedLine
+            key={cycleKey}
+            width={IMAGE_DIMENSIONS.COMBINED_STROKE.width}
+            height={IMAGE_DIMENSIONS.COMBINED_STROKE.height}
+            className="w-full h-auto object-contain"
+            duration={DASHED_DURATION_SECONDS}
+            fillColor="#54E6ED"
+          />
+        )}
       </div>
 
       {/* Content */}
@@ -95,94 +102,106 @@ export function Steps() {
             >
               {step.id === STEP_IDS.FIRST && (
                 <div className="absolute lg:-left-8 xl:-left-28 lg:top-[32%] xl:top-[30%] z-10 pointer-events-none hidden lg:block" aria-hidden="true">
-                  <AnimatedSparkleIcon
-                    key={cycleKey}
-                    width={60}
-                    height={60}
-                    className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
-                    duration={2}
-                    delay={2.5}
-                    fillColor="#54E6ED"
-                  />
+                  {isInView && (
+                    <AnimatedSparkleIcon
+                      key={cycleKey}
+                      width={60}
+                      height={60}
+                      className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
+                      duration={1.3}
+                      delay={1}
+                      fillColor="#54E6ED"
+                    />
+                  )}
                 </div>
               )}
               {step.id === STEP_IDS.FIRST && (
                 <div className="absolute lg:-right-18 xl:-right-16 lg:top-[40%] xl:top-[38%] z-10 pointer-events-none hidden lg:block" aria-hidden="true">
-                  <AnimatedSparkleIcon
-                    key={cycleKey}
-                    width={40}
-                    height={40}
-                    className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
-                    duration={1}
-                    delay={7.4}
-                    fillColor="#54E6ED"
-                  />
+                  {isInView && (
+                    <AnimatedSparkleIcon
+                      key={cycleKey}
+                      width={40}
+                      height={40}
+                      className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
+                      duration={0.5}
+                      delay={3.7}
+                      fillColor="#54E6ED"
+                    />
+                  )}
                 </div>
               )}
               {step.id === STEP_IDS.THIRD && (
                 <div className="absolute lg:-left-20 xl:-left-32 lg:top-[22%] xl:top-[20%] z-10 pointer-events-none hidden lg:block" aria-hidden="true">
-                  <AnimatedSparkleIconSecond
-                    key={cycleKey}
-                    width={60}
-                    height={60}
-                    className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
-                    duration={1}
-                    delay={11}
-                    fillColor="#54E6ED"
-                  />
+                  {isInView && (
+                    <AnimatedSparkleIconSecond
+                      key={cycleKey}
+                      width={60}
+                      height={60}
+                      className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
+                      duration={0.4}
+                      delay={6.5}
+                      fillColor="#54E6ED"
+                    />
+                  )}
                 </div>
               )}
               {step.id === STEP_IDS.THIRD && (
                 <div className="absolute lg:-right-4 xl:-right-22 lg:top-[32%] xl:top-[30%] z-10 pointer-events-none hidden lg:block" aria-hidden="true">
-                  <AnimatedSparkleIcon
-                    key={cycleKey}
-                    width={60}
-                    height={60}
-                    className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
-                    duration={1}
-                    delay={15}
-                    fillColor="#54E6ED"
-                  />
+                  {isInView && (
+                    <AnimatedSparkleIcon
+                      key={cycleKey}
+                      width={60}
+                      height={60}
+                      className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
+                      duration={1}
+                      delay={15}
+                      fillColor="#54E6ED"
+                    />
+                  )}
                 </div>
               )}
               <motion.div
                 className={`relative mb-4 sm:mb-6 transition-transform duration-200 ease-out ${step.id === STEP_IDS.SECOND
-                    ? "w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80"
-                    : "w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64"
+                  ? "w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80"
+                  : "w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64"
                   }`}
                 variants={scaleIn}
                 whileHover={{ scale: 1.05 }}
               >
-                {step.id === STEP_IDS.FIRST ? (
-                  <AnimatedImageIcon
-                    key={cycleKey}
-                    width="100%"
-                    height="100%"
-                    className="w-full h-full"
-                    duration={2.3}
-                    delay={5.3}
-                    fillColor="#54E6ED"
-                  />
-                ) : step.id === STEP_IDS.SECOND ? (
-                  <AnimatedImageIconSecond
-                    key={cycleKey}
-                    width="100%"
-                    height="100%"
-                    className="w-full h-full"
-                    duration={2.3}
-                    delay={8.5}
-                    fillColor="#54E6ED"
-                  />
-                ) : (
-                  <AnimatedImageIconThird
-                    key={cycleKey}
-                    width="100%"
-                    height="100%"
-                    className="w-full h-full"
-                    duration={2.3}
-                    delay={12}
-                    fillColor="#54E6ED"
-                  />
+                {isInView && (
+                  <>
+                    {step.id === STEP_IDS.FIRST ? (
+                      <AnimatedImageIcon
+                        key={cycleKey}
+                        width="100%"
+                        height="100%"
+                        className="w-full h-full"
+                        duration={1.4}
+                        delay={2.6}
+                        fillColor="#54E6ED"
+                      />
+                    ) : step.id === STEP_IDS.SECOND ? (
+                      <AnimatedImageIconSecond
+                        key={cycleKey}
+                        width="100%"
+                        height="100%"
+                        className="w-full h-full"
+                        duration={1.6}
+                        delay={4.3}
+                        fillColor="#54E6ED"
+                      />
+                    ) : (
+                      <AnimatedImageIconThird
+                        key={cycleKey}
+                        width="100%"
+                        height="100%"
+                        className="w-full h-full"
+                        duration={2.3}
+                        delay={10}
+                        fillColor="#54E6ED"
+                      />
+                    )}
+                  </>
                 )}
               </motion.div>
 
