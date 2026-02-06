@@ -29,7 +29,6 @@ export function NavigationDots({ count, active, onSelect, className, dotSize = "
                     style={{ transitionDuration: `${CAROUSEL_CONFIG.TRANSITION_DURATION}ms` }}
                     className={`
             transition-all rounded-full touch-manipulation flex items-center justify-center
-            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary
             ${index === active
                             ? dotSize === "normal" ? "w-5 h-2 md:w-6 md:h-3 lg:w-6 lg:h-3 bg-primary" : "w-4 h-2 bg-primary"
                             : dotSize === "normal" ? "w-2 h-2 md:w-3 md:h-3 lg:w-3 lg:h-3 bg-primary/50" : "w-2 h-2 bg-primary/50"
