@@ -37,7 +37,7 @@ export function Pricing() {
         {activeTab === "individual" ? (
           <>
             {/* Money Bag - Upper Right */}
-            <div className="absolute top-16 right-4 md:top-18 md:right-8 lg:top-2 lg:right-2" aria-hidden="true">
+            <div className="absolute top-8 right-4 md:top-12 md:right-8 lg:top-2 lg:right-2" aria-hidden="true">
               <Image
                 src="/illustrations/money-bag.svg"
                 alt=""
@@ -50,13 +50,13 @@ export function Pricing() {
             </div>
 
             {/* Coins - Bottom Left */}
-            <div className="absolute bottom-12 left-6 md:bottom-2 md:-left-6 lg:bottom-2 lg:left-0" aria-hidden="true">
+            <div className="absolute -bottom-16 left-6 md:-bottom-24 md:-left-20 lg:bottom-2 lg:left-0" aria-hidden="true">
               <Image
                 src="/illustrations/coins.svg"
                 alt=""
                 width={IMAGE_DIMENSIONS.COINS.width}
                 height={IMAGE_DIMENSIONS.COINS.height}
-                className="object-contain w-24 h-24 sm:w-40 sm:h-40 lg:w-auto lg:h-auto"
+                className="object-contain w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-auto lg:h-auto"
                 sizes="(max-width: 768px) 96px, (max-width: 1024px) 128px, 220px"
                 aria-hidden="true"
               />
@@ -65,26 +65,26 @@ export function Pricing() {
         ) : (
           <>
             {/* Money Bag - Different position for business */}
-            <div className="absolute top-8 right-8 md:top-18 lg:top-16 md:right-12 lg:right-[100px] xl:right-[150px]" aria-hidden="true">
+            <div className="absolute top-8 right-8 md:top-14 lg:top-12 md:right-12 lg:right-[154px] xl:right-[150px]" aria-hidden="true">
               <Image
                 src="/illustrations/money-bag.svg"
                 alt=""
                 width={IMAGE_DIMENSIONS.MONEY_BAG_BUSINESS.width}
                 height={IMAGE_DIMENSIONS.MONEY_BAG_BUSINESS.height}
-                className="object-contain w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-auto lg:h-auto"
+                className="object-contain w-32 h-32 sm:w-40 sm:h-40 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-52 xl:h-52"
                 sizes="(max-width: 768px) 128px, (max-width: 1024px) 160px, 250px"
                 aria-hidden="true"
               />
             </div>
 
             {/* Coins - Different position for business */}
-            <div className="absolute bottom-4 left-0 lg:bottom-6 lg:left-[100px] xl:bottom-6 xl:left-[200px]" aria-hidden="true">
+            <div className="absolute -bottom-14 left-0 lg:-bottom-10 lg:left-24 xl:-bottom-8 xl:left-32" aria-hidden="true">
               <Image
                 src="/illustrations/coins.svg"
                 alt=""
                 width={IMAGE_DIMENSIONS.COINS_BUSINESS.width}
                 height={IMAGE_DIMENSIONS.COINS_BUSINESS.height}
-                className="object-contain w-24 h-24 sm:w-48 sm:h-48 md:w-72 md:h-72 lg:w-auto lg:h-auto"
+                className="object-contain w-24 h-24 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-64 lg:h-64 xl:w-72 xl:h-72"
                 sizes="(max-width: 768px) 96px, (max-width: 1024px) 128px, 250px"
                 aria-hidden="true"
               />
@@ -94,7 +94,7 @@ export function Pricing() {
       </div>
 
       <motion.div
-        className="text-center mb-8 sm:mb-10 md:mb-12"
+        className="text-center mb-8 sm:mb-10 md:mb-12 relative z-10"
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
@@ -186,6 +186,7 @@ export function Pricing() {
           role="tabpanel"
           aria-labelledby={activeTab === "individual" ? "tab-individual" : "tab-business"}
           aria-live="polite"
+          className="relative z-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}

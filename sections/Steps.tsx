@@ -139,7 +139,7 @@ export function Steps() {
                       height={60}
                       className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
                       duration={0.4}
-                      delay={6.5}
+                      delay={5.6}
                       fillColor="#54E6ED"
                     />
                   )}
@@ -153,8 +153,8 @@ export function Steps() {
                       width={60}
                       height={60}
                       className="lg:w-12 lg:h-12 xl:w-14 xl:h-14"
-                      duration={1}
-                      delay={15}
+                      duration={0.5}
+                      delay={7.6}
                       fillColor="#54E6ED"
                     />
                   )}
@@ -196,8 +196,8 @@ export function Steps() {
                         width="100%"
                         height="100%"
                         className="w-full h-full"
-                        duration={2.3}
-                        delay={10}
+                        duration={1.6}
+                        delay={6.3}
                         fillColor="#54E6ED"
                       />
                     )}
