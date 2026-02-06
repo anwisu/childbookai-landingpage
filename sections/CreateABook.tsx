@@ -48,6 +48,21 @@ export function CreateABook() {
         </div>
       }
     >
+      <div
+        className="absolute shrink-0 -top-4 right-12 sm:-top-7 lg:-top-16 sm:right-[80px] md:-top-9 md:right-[100px] lg:right-[160px] hidden min-[421px]:block"
+        aria-hidden="true"
+      >
+        <Image
+          src="/illustrations/bookmark.svg"
+          alt=""
+          width={63}
+          height={171}
+          className="w-8 h-auto sm:w-10 md:w-12 lg:w-14 xl:w-16"
+          style={{ objectFit: "contain" }}
+          priority
+          aria-hidden="true"
+        />
+      </div>
       <motion.div
         className="mb-4 sm:mb-8"
         initial="hidden"
@@ -55,25 +70,6 @@ export function CreateABook() {
         viewport={viewportOnce}
         variants={scrollReveal}
       >
-        <motion.div
-          className="absolute shrink-0 -top-4 right-12 sm:-top-7 lg:-top-16 sm:right-[80px] md:-top-9 md:right-[100px] lg:right-[160px] hidden min-[421px]:block"
-          aria-hidden="true"
-          initial={{ opacity: 0, rotate: -10 }}
-          whileInView={{ opacity: 1, rotate: 0 }}
-          viewport={viewportOnce}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          <Image
-            src="/illustrations/bookmark.svg"
-            alt=""
-            width={63}
-            height={171}
-            className="w-8 h-auto sm:w-10 md:w-12 lg:w-14 xl:w-16"
-            style={{ objectFit: "contain" }}
-            priority
-            aria-hidden="true"
-          />
-        </motion.div>
         <div className="relative flex items-start justify-center gap-2 sm:gap-3 md:gap-4 mb-2">
           <div className="text-center flex-1">
             <HeadingText
