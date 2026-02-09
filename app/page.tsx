@@ -4,18 +4,19 @@ import { Navbar } from "@/components/layout";
 import { Hero, Services, CreateABook } from "@/sections";
 import dynamic from "next/dynamic";
 import { LoadingProvider, useLoading } from "@/components/providers/LoadingProvider";
+import { LoadingSpinner } from "@/ui/spinner";
 
 // Lazy load below-the-fold components
 const Steps = dynamic(() => import("@/sections/Steps").then((mod) => mod.Steps), {
-  loading: () => <div className="min-h-[400px]" />,
+  loading: () => <div className="flex items-center justify-center min-h-[400px]"><LoadingSpinner /></div>,
 });
 
 const Pricing = dynamic(() => import("@/sections/Pricing").then((mod) => mod.Pricing), {
-  loading: () => <div className="min-h-[500px]" />,
+  loading: () => <div className="flex items-center justify-center min-h-[500px]"><LoadingSpinner /></div>,
 });
 
 const Features = dynamic(() => import("@/sections/Features").then((mod) => mod.Features), {
-  loading: () => <div className="min-h-[600px]" />,
+  loading: () => <div className="flex items-center justify-center min-h-[600px]"><LoadingSpinner /></div>,
 });
 
 const Footer = dynamic(() => import("@/components/layout/Footer").then((mod) => mod.Footer));
