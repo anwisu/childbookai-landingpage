@@ -13,6 +13,13 @@ import { scrollReveal, scrollRevealLeft, scrollRevealRight, staggerContainer, sc
 
 export function CreateABook() {
   const [isBookMockupActive, setIsBookMockupActive] = useState(false);
+  const [selectedKidId, setSelectedKidId] = useState<number | null>(null);
+
+  const selectedKid = selectedKidId ? kids.find((k) => k.id === selectedKidId) : null;
+
+  const filteredSettings = selectedKid
+    ? settings.filter((s) => s.gender === selectedKid.gender)
+    : settings.slice(0, 4);
 
   const handleInnerIconClick = () => {
     setIsBookMockupActive((prev) => !prev);
@@ -122,7 +129,7 @@ export function CreateABook() {
             - Large+ (lg): three columns (first | preview | third)
         */}
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[auto_1fr_auto] gap-6 sm:gap-8 mb-6 sm:mb-8 overflow-visible"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[minmax(280px,auto)_1fr_minmax(280px,auto)] gap-6 sm:gap-8 mb-6 sm:mb-8 overflow-visible"
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
@@ -134,10 +141,10 @@ export function CreateABook() {
           variants={scrollRevealLeft}
         >
           <h2 className="text-heading-md text-foreground mb-4 sm:mb-6 text-center lg:text-left">
-            Setting
+            Themes
           </h2>
           <div className="flex flex-col gap-3 sm:gap-4 w-full overflow-visible">
-            {settings.map((setting) => (
+            {filteredSettings.map((setting) => (
               <motion.button
                 key={setting.id}
                 className="flex items-center gap-3 sm:gap-4 cursor-pointer hover:opacity-80 min-h-[44px] touch-manipulation w-full overflow-visible"
@@ -159,7 +166,7 @@ export function CreateABook() {
                 <ParagraphText
                   as="span"
                   variant="body-sm"
-                  className="text-foreground flex-1 text-left  wrap-break-word"
+                  className="text-foreground flex-1 text-left wrap-break-word whitespace-pre-line"
                   defaultTextColor="text-foreground"
                 >
                   {setting.label}
@@ -171,7 +178,7 @@ export function CreateABook() {
 
         {/* Second Column - Book Preview */}
         <motion.div
-          className="flex flex-col items-center justify-center order-1 sm:order-1 lg:order-2 pb-8 mb-4 sm:mb-0 sm:col-span-2 lg:col-span-1 relative z-0"
+          className="flex flex-col items-center justify-start order-1 sm:order-1 lg:order-2 pb-8 mb-4 sm:mb-0 sm:col-span-2 lg:col-span-1 relative z-0"
           variants={scaleIn}
         >
           <div className="relative w-full max-w-[300px] sm:max-w-md md:max-w-xl lg:max-w-md xl:max-w-xl aspect-4/3 overflow-visible z-0">
@@ -222,18 +229,19 @@ export function CreateABook() {
                 aria-label={`Select ${kid.name}`}
                 whileHover={{ x: -4 }}
                 whileTap={{ scale: 0.98 }}
+                onClick={() => setSelectedKidId(selectedKidId === kid.id ? null : kid.id)}
                 transition={{ duration: 0.2, ease: "easeOut" }}
                 style={{ willChange: "transform" }}
               >
                 <ParagraphText
                   as="span"
                   variant="body-sm"
-                  className="text-foreground flex-1 text-right wrap-break-word lg:order-1"
+                  className={`text-foreground flex-1 text-right wrap-break-word lg:order-1 ${selectedKidId === kid.id ? "font-bold text-primary" : ""}`}
                   defaultTextColor="text-foreground"
                 >
                   {kid.name}
                 </ParagraphText>
-                <div className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 shrink-0 lg:order-2">
+                <div className={`relative w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 shrink-0 lg:order-2 transition-all duration-200 ${selectedKidId === kid.id ? "scale-110 drop-shadow-md" : "opacity-70 grayscale-[0.5]"}`}>
                   <Image
                     src={kid.image}
                     alt={kid.name}
@@ -270,7 +278,7 @@ export function CreateABook() {
                   alt=""
                   width={180}
                   height={88}
-                  className="w-28 h-auto sm:w-32 md:w-34 lg:w-36 xl:w-64"
+                  className="w-28 h-auto sm:w-32 md:w-34 lg:w-36"
                   aria-hidden="true"
                 />
               </div>

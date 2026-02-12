@@ -1,8 +1,8 @@
 import type { Kid } from "@/types";
 
 export const kids: Kid[] = [
-  { id: 1, name: "Kid Name", image: "/illustrations/kid-1.svg", },
-  { id: 2, name: "Kid Name", image: "/illustrations/kid-2.svg" },
-  { id: 3, name: "Kid Name", image: "/illustrations/kid-3.svg" },
+  { id: 4, name: "Kid Name", image: "/illustrations/kid-4.svg", gender: "boy" },
+  { id: 6, name: "Kid Name", image: "/illustrations/kid-6.svg", gender: "girl" },
+  { id: 5, name: "Kid Name", image: "/illustrations/kid-5.svg", gender: "boy" },
 ];
 
